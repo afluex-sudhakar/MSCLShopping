@@ -1,0 +1,375 @@
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\ApplicationInsights.config
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\csc.exe
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\System.Collections.Immutable.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\System.Reflection.Metadata.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\vbc.exe
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\VBCSCompiler.exe
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\VBCSCompiler.exe.config
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.dll.config
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.pdb
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Agent.Intercept.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.DependencyCollector.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Web.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.WindowsServer.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.ApplicationInsights.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.Web.Infrastructure.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Newtonsoft.Json.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Net.Http.Formatting.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Helpers.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.WebHost.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Mvc.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Razor.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Deployment.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Razor.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.DependencyCollector.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Web.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.WindowsServer.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.ApplicationInsights.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Razor.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Deployment.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Razor.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Helpers.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Mvc.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Newtonsoft.Json.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Net.Http.Formatting.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.WebHost.xml
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.dll
+D:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.pdb
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\ApplicationInsights.config
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\csc.exe
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\System.Collections.Immutable.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\System.Reflection.Metadata.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\vbc.exe
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\VBCSCompiler.exe
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\VBCSCompiler.exe.config
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.dll.config
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.pdb
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Agent.Intercept.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.DependencyCollector.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.PerfCounterCollector.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.ServerTelemetryChannel.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Web.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.WindowsServer.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.ApplicationInsights.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.Web.Infrastructure.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Newtonsoft.Json.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Net.Http.Formatting.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Helpers.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.WebHost.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Mvc.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Razor.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Deployment.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Razor.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.DependencyCollector.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.ServerTelemetryChannel.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Web.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.WindowsServer.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.ApplicationInsights.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Razor.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Deployment.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Razor.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Helpers.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Mvc.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Newtonsoft.Json.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Net.Http.Formatting.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.WebHost.xml
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.dll
+E:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.pdb
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\ApplicationInsights.config
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\csc.exe
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CSharp.Core.targets
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.VisualBasic.Core.targets
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\System.Collections.Immutable.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\System.Reflection.Metadata.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\vbc.exe
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\VBCSCompiler.exe
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\roslyn\VBCSCompiler.exe.config
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.dll.config
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.pdb
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Agent.Intercept.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.DependencyCollector.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.PerfCounterCollector.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.ServerTelemetryChannel.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Web.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.WindowsServer.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.ApplicationInsights.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.Web.Infrastructure.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Newtonsoft.Json.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Net.Http.Formatting.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Helpers.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.WebHost.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Mvc.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Razor.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Deployment.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Razor.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.DependencyCollector.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.ServerTelemetryChannel.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Web.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.WindowsServer.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.ApplicationInsights.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Razor.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Deployment.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Razor.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Helpers.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Mvc.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\Newtonsoft.Json.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Net.Http.Formatting.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.WebHost.xml
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.dll
+F:\SachinMishraProject\repository\AfluexShopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.pdb
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\ApplicationInsights.config
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\csc.exe
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\System.Collections.Immutable.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\System.Reflection.Metadata.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\vbc.exe
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\VBCSCompiler.exe
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\VBCSCompiler.exe.config
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.dll.config
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.pdb
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Agent.Intercept.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.DependencyCollector.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.PerfCounterCollector.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.ServerTelemetryChannel.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Web.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.WindowsServer.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.ApplicationInsights.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.Web.Infrastructure.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Newtonsoft.Json.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Net.Http.Formatting.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Helpers.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.WebHost.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Mvc.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Razor.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Deployment.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Razor.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.DependencyCollector.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.ServerTelemetryChannel.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Web.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.WindowsServer.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.ApplicationInsights.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Razor.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Deployment.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Razor.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Helpers.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Mvc.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\Newtonsoft.Json.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Net.Http.Formatting.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.WebHost.xml
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.dll
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.pdb
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\ApplicationInsights.config
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\csc.exe
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\System.Collections.Immutable.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\System.Reflection.Metadata.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\vbc.exe
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\VBCSCompiler.exe
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\VBCSCompiler.exe.config
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.dll.config
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.pdb
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Agent.Intercept.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.DependencyCollector.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.PerfCounterCollector.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.ServerTelemetryChannel.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Web.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.WindowsServer.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.ApplicationInsights.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.Web.Infrastructure.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Newtonsoft.Json.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Net.Http.Formatting.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Helpers.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.WebHost.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Mvc.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Razor.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Deployment.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Razor.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.DependencyCollector.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.ServerTelemetryChannel.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Web.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.WindowsServer.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.ApplicationInsights.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Razor.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Deployment.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Razor.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Helpers.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Mvc.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Newtonsoft.Json.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Net.Http.Formatting.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.WebHost.xml
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.dll
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.pdb
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\ApplicationInsights.config
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\csc.exe
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CSharp.Core.targets
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.VisualBasic.Core.targets
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\System.Collections.Immutable.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\System.Reflection.Metadata.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\vbc.exe
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\VBCSCompiler.exe
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\VBCSCompiler.exe.config
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.dll.config
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.pdb
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Agent.Intercept.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.DependencyCollector.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.PerfCounterCollector.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.ServerTelemetryChannel.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Web.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.WindowsServer.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.ApplicationInsights.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.Web.Infrastructure.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Newtonsoft.Json.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Net.Http.Formatting.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Helpers.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.WebHost.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Mvc.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Razor.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Deployment.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Razor.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.DependencyCollector.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.ServerTelemetryChannel.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Web.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.WindowsServer.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.ApplicationInsights.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Razor.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Deployment.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Razor.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Helpers.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Mvc.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Newtonsoft.Json.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Net.Http.Formatting.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.WebHost.xml
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.dll
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.pdb
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\ApplicationInsights.config
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\csc.exe
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\System.Collections.Immutable.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\System.Reflection.Metadata.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\vbc.exe
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\VBCSCompiler.exe
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\roslyn\VBCSCompiler.exe.config
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.dll.config
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\AfluexShopping.pdb
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Agent.Intercept.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.DependencyCollector.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.PerfCounterCollector.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.ServerTelemetryChannel.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Web.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.WindowsServer.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.ApplicationInsights.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.Web.Infrastructure.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Newtonsoft.Json.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Net.Http.Formatting.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Helpers.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.WebHost.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Mvc.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Razor.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Deployment.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Razor.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.DependencyCollector.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.ServerTelemetryChannel.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.Web.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.AI.WindowsServer.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.ApplicationInsights.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Razor.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Deployment.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Webpages.Razor.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Helpers.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Mvc.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\Newtonsoft.Json.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Net.Http.Formatting.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\bin\System.Web.Http.WebHost.xml
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.dll
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.pdb
+D:\Devendra\Afluexshopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.csprojResolveAssemblyReference.cache
+E:\Tanishq\Repository\Afluexshopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.csprojResolveAssemblyReference.cache
+F:\Sarfraz Ahmad\repository\Afluexshopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.csprojResolveAssemblyReference.cache
+E:\Repository\Afluexshopping\AfluexShopping\AfluexShopping\obj\Debug\AfluexShopping.csprojResolveAssemblyReference.cache

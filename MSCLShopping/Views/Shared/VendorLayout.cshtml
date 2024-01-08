@@ -1,0 +1,413 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="../../img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title</title>
+    <!-- vendor css -->
+    <link href="../../VendorCss/lib/%40fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="../../VendorCss/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <!-- DashForge CSS -->
+    <link rel="stylesheet" href="../../VendorCss/assets/css/dashforge.css">
+    <link rel="stylesheet" href="../../VendorCss/assets/css/dashforge.dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <style>
+        .dataTables_wrapper {
+            padding-top: 10px;
+                width: 100%;
+        }
+
+        * {
+            outline: none;
+        }
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        user agent stylesheet div {
+            display: block;
+        }
+
+
+
+        .dt-buttons {
+            display: inline-block;
+            margin-bottom: 15px;
+            padding-top: 5px;
+        }
+
+        * {
+            outline: none;
+        }
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        user agent stylesheet div {
+            display: block;
+        }
+
+        .card {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgba(0,0,0,.125);
+            border-radius: .25rem;
+        }
+
+        .dt-buttons .dt-button {
+            background: #1976d2 none repeat scroll 0 0;
+            border-radius: 4px;
+            color: black;
+            margin-right: 3px;
+            padding: 5px 15px;
+        }
+
+        a {
+            color: #0c0c0c;
+            text-decoration: none;
+            background-color: transparent;
+            -webkit-text-decoration-skip: objects;
+        }
+
+        * {
+            outline: none;
+        }
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        user agent stylesheet a:-webkit-any-link {
+            color: -webkit-link;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .dataTables_filter {
+            float: right;
+        }
+
+        * {
+            outline: none;
+        }
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        user agent stylesheet div {
+            display: block;
+        }
+
+        .dataTables_info, .dataTables_length {
+            display: inline-block;
+        }
+
+        * {
+            outline: none;
+        }
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        user agent stylesheet div {
+            display: block;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+            background: transparent none repeat scroll 0 0;
+            border: 1px solid rgba(120,130,140,.13);
+            box-shadow: none;
+            color: #67757c;
+            cursor: default;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            border: 1px solid rgba(120,130,140,.13);
+            box-sizing: border-box;
+            color: #67757c;
+            cursor: pointer;
+            display: inline-block;
+            min-width: 1.5em;
+            padding: .5em 1em;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        a {
+            color: #0c0c0c;
+            text-decoration: none;
+            background-color: transparent;
+            -webkit-text-decoration-skip: objects;
+        }
+
+        * {
+            outline: none;
+        }
+
+        *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        .dataTables_wrapper .dataTables_paginate {
+            float: right;
+            padding-top: .25em;
+            text-align: right;
+        }
+
+        .dt-buttons {
+            margin-left: 0px !important;
+        }
+    </style>
+</head>
+
+<body class="page-profile">
+    <header class="navbar navbar-header navbar-header-fixed">
+        <a href="#" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
+        <div class="navbar-brand">
+            <a href="/Vendor/Dashboard" class="df-logo"><img src="~/newassets/img/logo/logo1.png" style="height:50px" /></a>
+        </div><!-- navbar-brand -->
+        <ul id="navbarMenu" class="navbar-menu-wrapper">
+            <div class="navbar-menu-header">
+                <a href="/Vendor/Dashboard" class="df-logo">MSCL<span>Shopping</span></a>
+                <a id="mainMenuClose" href="#"><i data-feather="x"></i></a>
+            </div><!-- navbar-menu-header -->
+            <ul class="nav navbar-menu">
+                <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Main Navigation</li>
+                <li class="nav-item"><a href="/Vendor/Dashboard" class="nav-link"><i data-feather="box"></i> Dashboard</a></li>
+                @if (Session["IsDocumentVerified"] != null)
+                {
+                    if (Session["IsDocumentVerified"].ToString() == "True")
+                    {
+                       
+                        <li class="nav-item with-sub">
+                            <a href="#" class="nav-link"><i data-feather="package"></i> Products</a>
+                            <ul class="navbar-menu-sub">
+                                <li class="nav-sub-item"><a href="/Vendor/ProductsNew" class="nav-sub-link">Product</a></li>
+                                <li class="nav-sub-item"><a href="/Vendor/ProductList" class="nav-sub-link">Product List</a></li>
+                                <li class="nav-sub-item"><a href="/Vendor/ManualStockEntry" class="nav-sub-link">Manual Stock Entry</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item with-sub">
+                            <a href="#" class="nav-link"><i data-feather="layers"></i> Orders</a>
+                            <ul class="navbar-menu-sub">
+                                <li class="nav-sub-item"><a href="/Vendor/CustomerOrders" class="nav-sub-link">Order Details</a></li>
+                                <li class="nav-sub-item"><a href="/Vendor/UpdateOrderStatus" class="nav-sub-link">Active Orders</a></li>
+                                <li class="nav-sub-item"><a href="/Vendor/CancelledOrderList" class="nav-sub-link">Cancellation Orders</a></li>
+
+                            </ul><!-- nav-sub -->
+                        </li>
+                        <li class="nav-item with-sub">
+                            <a href="#" class="nav-link"><i data-feather="layers"></i> Brand</a>
+                            <ul class="navbar-menu-sub">
+                                <li class="nav-sub-item"><a href="/Vendor/BrandRequest" class="nav-sub-link">New Request</a></li>
+                                <li class="nav-sub-item"><a href="/Vendor/TrackRequest" class="nav-sub-link">Request List</a></li>
+
+                            </ul><!-- nav-sub -->
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a href="/Vendor/VendorProfile"  class="nav-link"><i data-feather="box"></i> Upload Documents</a>
+                        </li>
+                    }
+                }
+                <li class="nav-item"><a href="/Seller" class="nav-link"><i data-feather="box"></i> Logout</a></li>
+            </ul>
+            </div><!-- navbar-menu-wrapper -->
+
+    </header><!-- navbar -->
+
+    @RenderBody();
+    <footer class="footer">
+        <div>
+            <span>&copy; 2023 MSCL Shopping </span>
+
+        </div>
+
+    </footer>
+    <script src="../../VendorCss/lib/jquery/jquery.min.js"></script>
+    <script src="../../VendorCss/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../VendorCss/lib/feather-icons/feather.min.js"></script>
+    <script src="../../VendorCss/lib/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="../../VendorCss/lib/jquery.flot/jquery.flot.js"></script>
+    <script src="../../VendorCss/lib/jquery.flot/jquery.flot.stack.js"></script>
+    <script src="../../VendorCss/lib/jquery.flot/jquery.flot.resize.js"></script>
+    <script src="../../VendorCss/lib/flot.curvedlines/curvedLines.js"></script>
+    <script src="../../VendorCss/lib/peity/jquery.peity.min.js"></script>
+    <script src="../../VendorCss/lib/chart.js/Chart.bundle.min.js"></script>
+    <script src="../../VendorCss/assets/js/dashforge.js"></script>
+    <script src="../../VendorCss/assets/js/dashforge.sampledata.js"></script>
+    <!-- append theme customizer -->
+    <script src="../../VendorCss/lib/js-cookie/js.cookie.js"></script>
+    <script src="../../VendorCss/assets/js/dashforge.settings.js"></script>
+
+    <script src="./../Datatablecss/datatables/datatables.min.js"></script>
+    <script src="./../Datatablecss/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="./../Datatablecss/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+    <script src="./../Datatablecss/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="./../Datatablecss/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="./../Datatablecss/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="./../Datatablecss/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script src="./../Datatablecss/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+    <script src="./../Datatablecss/datatables/datatables-init.js"></script>
+    <script>
+        $(function () {
+            'use strict'
+
+            $.plot('#flotChart1', [{
+                data: df2,
+                color: '#65e0e0'
+            }, {
+                data: df1,
+                color: '#69b2f8'
+            }, {
+                data: df3,
+                color: '#0168fa',
+                lines: {
+                    show: true,
+                    lineWidth: 1.5
+                },
+                bars: { show: false }
+            }], {
+                series: {
+                    shadowSize: 0,
+                    bars: {
+                        show: true,
+                        lineWidth: 0,
+                        barWidth: .5,
+                        fill: 1
+                    }
+                },
+                grid: {
+                    color: '#c0ccda',
+                    borderWidth: 0,
+                    labelMargin: 10
+                },
+                yaxis: {
+                    show: true,
+                    max: 90,
+                    tickSize: 15
+                },
+                xaxis: {
+                    color: 'transparent',
+                    show: true,
+                    max: 37,
+                    ticks: [[0, 'Mar 10'], [5, 'Mar 11'], [10, 'Mar 12'], [15, 'Mar 13'], [20, 'Mar 14'], [25, 'Mar 15'], [30, 'Mar 16'], [35, 'Mar 17']]
+                }
+            });
+
+            // Donut chart
+            $('.peity-donut').peity('donut');
+
+
+            $.plot('#flotChart2', [{
+                data: df3,
+                color: '#0168fa',
+                curvedLines: { apply: true }
+            }], {
+                series: {
+                    shadowSize: 0,
+                    lines: {
+                        show: true,
+                        lineWidth: 1.5,
+                        fill: .05
+                    }
+                },
+                grid: {
+                    borderWidth: 0,
+                    labelMargin: 0
+                },
+                yaxis: {
+                    show: false,
+                    max: 55
+                },
+                xaxis: {
+                    show: true,
+                    color: 'rgba(131,146,165,.08)',
+                    min: 48,
+                    max: 102,
+                    tickSize: 5
+                }
+            });
+        })
+
+        // Horizontal bar chart
+        var ctx2 = document.getElementById('chartBar2').getContext('2d');
+        new Chart(ctx2, {
+            type: 'horizontalBar',
+            data: {
+                labels: ['Modification', 'Code Request', 'Feature Request', 'Bug Fix', 'Integration', 'Production'],
+                datasets: [{
+                    data: [90, 60, 50, 95, 50, 60],
+                    backgroundColor: ['#65e0e0', '#69b2f8', '#6fd39b', '#f77eb9', '#fdb16d', '#c693f9']
+                }, {
+                    data: [60, 50, 70, 45, 70, 30],
+                    backgroundColor: '#e5e9f2'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                legend: {
+                    display: false,
+                    labels: {
+                        display: false
+                    }
+                },
+                layout: {
+                    padding: {
+                        left: 5
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        barPercentage: 0.5,
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 13,
+                            fontColor: '#182b49',
+                            fontFamily: 'IBM Plex Sans'
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            color: '#e5e9f2'
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 10,
+                            fontColor: '#182b49',
+                            max: 100
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

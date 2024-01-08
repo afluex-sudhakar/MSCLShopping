@@ -1,0 +1,82 @@
+﻿@model MSCLShopping.Models.Customer
+
+@if (Session["CustomerID"] == null)
+{
+
+
+    @*<li class="btn btn-primary btn-sm">
+            <a data-toggle="modal" style="color:white;font-size:15px" data-target="#login-signup" href="#" title="Login / Sign up">Login</a>
+        </li>*@
+
+}
+else
+{
+    if (ViewBag.ItemCount == null)
+    {
+
+    }
+    else
+    {
+
+   <div class="cartmini__wrapper d-flex justify-content-between flex-column">
+    <div class="cartmini__top-wrapper">
+        <div class="cartmini__top p-relative">
+            <div class="cartmini__top-title">
+                <h4>Shopping cart</h4>
+            </div>
+            <div class="cartmini__close">
+                <button type="button" class="cartmini__close-btn cartmini-close-btn"><i class="fal fa-times"></i></button>
+            </div>
+        </div>
+                    
+                                 <div class="cartmini__widget">
+@if (Model != null)
+{
+    if (Model.lstProducts != null)
+    {
+        foreach (var item in Model.lstProducts)
+        {
+                                     <div class="cartmini__widget-item">
+                                         <div class="cartmini__thumb">
+                                             <a href="/Customer/Cart">
+                                                 <img src="/@item.PrimaryImage" alt="">
+                                             </a>
+                                         </div>
+                                         <div class="cartmini__content">
+                                             <h5 class="cartmini__title"><a href="/Customer/Cart">@item.ProductName</a></h5>
+                                     <div class="cartmini__price-wrapper">
+                                         <span class="cartmini__price">₹@item.MRP</span>
+                                         <span class="cartmini__quantity">x @item.ProductQuantity</span>
+                                     </div>
+                                 </div>
+                                 <a href="#" class="cartmini__del"><i class="fa-regular fa-xmark"></i></a>
+                                     </div>
+        }
+    }
+}
+                                 </div>
+                              
+        <!-- for wp -->
+        <!-- if no item in cart -->
+        <div class="cartmini__empty text-center d-none">
+            <img src="assets/img/product/cartmini/empty-cart.png" alt="">
+            <p>Your Cart is empty</p>
+            <a href="shop.html" class="tp-btn">Go to Shop</a>
+        </div>
+    </div>
+                 <div class="cartmini__checkout">
+                     <div class="cartmini__checkout-title mb-30">
+                         @if (Model.lstProducts != null)
+                         {
+                                     <h4>Subtotal:</h4>
+                                     <span>₹@ViewBag.FinalAmount</span>
+                         }
+                     </div>
+                     <div class="cartmini__checkout-btn">
+                         <a href="/Customer/Cart" class="tp-btn mb-10 w-100"> view cart</a>
+                         <a href="/Customer/Cart" class="tp-btn tp-btn-border w-100"> checkout</a>
+                     </div>
+                 </div>
+    </div>
+    }
+}

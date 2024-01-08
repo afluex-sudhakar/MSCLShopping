@@ -1,0 +1,176 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    ViewBag.Title = "Size";
+
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("SaveSize", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Size</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Master</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Size</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+                <p style="color:red">
+                    @if (TempData["Size"] != null)
+                    {
+                    <div class="@TempData["Class"]">
+                        @TempData["Size"]
+                    </div>
+                    }
+                </p>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Select Unit <span style="color: red">*</span></label>
+                            @Html.DropDownListFor(m => m.UnitID, new SelectList(ViewBag.ddlUnit, "Value", "Text"), new { @class = "form-control form-select" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Size Name <span style="color: red">*</span></label>
+                            @Html.TextBoxFor(m => m.SizeName, new { @class = "form-control", @Placeholder = "Size Name" })
+                            @Html.HiddenFor(m => m.SizeID)
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label d-lg-block d-none">&nbsp;</label>
+                            <input class="btn btn-success" onclick="return validateform()" type="submit" value="Save" id="btnSave" />
+                            <a href="#" class="btn btn-success" onclick="return updatesize()" id="btnUpdate" style="display: none">Update</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">Unit List</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                        <thead class="border-top">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Unit Name</th>
+                                <th>Size Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lstSubCategory != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lstSubCategory)
+                                    {
+                                        <tr class="text-left">
+
+                                            <td>@i</td>
+                                            <td>@Item.UnitName</td>
+                                            <td>@Item.SizeName</td>
+                                            <td>
+                                                <a href="#" class="btn btn-primary btn-sm" onclick="editsize('@Item.UnitID','@Item.UnitName','@Item.SizeID','@Item.SizeName')">Edit</a>
+                                                <a href="/Master/DeleteSize/@Item.SizeID" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wish to delete this Size?');">Delete</a>
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+}
+
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+
+<script>
+
+
+
+    function editsize(unitid, unitname, sizeid, sizenm) {
+        debugger
+        $('#UnitID').val(unitid);
+        $('#UnitName').val(unitname);
+        $('#SizeID').val(sizeid);
+        $('#SizeName').val(sizenm);
+
+        $('#btnSave').hide();
+        $('#btnUpdate').show();
+    }
+
+    function updatesize() {
+        debugger
+        $(".errortext").removeClass("errortext");
+
+        if ($('#UnitID').val() == '0') {
+            $("#UnitID").addClass('errortext');
+            $('#UnitID').focus();
+            return false;
+        }
+        if ($('#SizeName').val() == '') {
+            $("#SizeName").addClass('errortext');
+            $('#SizeName').focus();
+            return false;
+        }
+
+        $.ajax({
+            url: "/Master/UpdateSize",
+            Type: "Get",
+            DataType: "JSON",
+            data: { UnitID: $("#UnitID").val(), SizeName: $("#SizeName").val(), SizeID: $("#SizeID").val() },
+            success: function (data) {
+                alert(data.Result);
+                window.location.href = '@Url.Action("Size", "Master")';
+            }
+
+        });
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#UnitID').val() == '0') {
+            $("#UnitID").addClass('errortext');
+            $('#UnitID').focus();
+            return false;
+        }
+        if ($('#SizeName').val() == '') {
+            $("#SizeName").addClass('errortext');
+            $('#SizeName').focus();
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
+

@@ -1,0 +1,205 @@
+﻿@model MSCLShopping.Models.CustomerManagement
+
+@{
+    ViewBag.Title = "ShipOrder";
+    Layout = "~/Views/Shared/VendorLayout.cshtml";
+}
+
+@using (Html.BeginForm("ShipOrder", "Vendor", FormMethod.Post, new { @id = "form1" }))
+{
+
+
+    <div class="content content-fixed">
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-30">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item"><a href="#">Orders</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Active Orders</li>
+                        </ol>
+                    </nav>
+
+                </div>
+                <div class="d-none d-md-block">
+                    @Html.HiddenFor(m => m.OrderDetailsID)
+                    @if (TempData["ShipOrder"] != null)
+                    {
+                    <div class="@TempData["Class"]">
+                        @TempData["ShipOrder"]
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="row row-xs">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-footer pd-y-15 pd-x-20">
+                            <div class="row row-xs">
+
+                                <div class="col-md-12">
+
+                                    <ul class="nav nav-pills nav-pills-success" id="pills-tab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Vendor/UpdateOrderStatus">Order Packed</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#">Ship Order</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Vendor/DeliverOrder">Deliver Order</a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row row-xs">
+                                <div class="col-md-3">
+
+                                    Order No
+                                    @Html.TextBoxFor(m => m.OrderNO, new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    Customer Name
+                                    @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control" })
+
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    Product Name
+                                    @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control" })
+
+                                </div>
+                                <div class="col-md-3">
+
+                                    From Date
+                                    @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "From Date", @readonly = "readonle" })
+
+
+                                </div>
+
+                            </div>
+                            <div class="row row-xs">
+                                <div class="col-md-3">
+
+                                    To Date
+                                    @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "To Date", @readonly = "readonle" })
+
+                                </div>
+                                <div class="col-md-3">
+
+                                    <br />
+                                    <input class="btn btn-info btn-sm" type="submit" value="Search" id="btnSearch" name="Search" />
+
+                                </div>
+                            </div>
+                            <br />
+                            @if (Model.CustomerName != null)
+                            {
+                                <div class="row row-xs">
+                                    <table class="display nowrap table table-hover table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+
+                                                <th></th>
+                                                <th>S No.</th>
+                                                <th> Customer Name</th>
+                                                <th> Contact</th>
+                                                <th>Address</th>
+                                                <th>Payment Mode</th>
+                                                <th>Product</th>
+                                                <th>Size</th>
+                                                <th>Unit</th>
+                                                <th>Quantity</th>
+                                                <th>Rate</th>
+                                                <th>Amount</th>
+                                                <th>OrderStatus</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model != null)
+                                            {
+                                                if (Model.List != null)
+                                                {
+                                                    int i = 1;
+                                                    foreach (var Item in Model.List)
+                                                    {
+                                                        <tr class="text-left">
+                                                            <td hidden>@Item.OrderDetailsID</td>
+                                                            <td>
+                                                                <input type="checkbox" id="Chk_ @i" name="Chk_ @i" />
+
+                                                                <input type='hidden' value='@Item.OrderDetailsID' id='orderdetailid_ @i' name='orderdetailid_ @i'>
+                                                                <input type='hidden' value='@Item.OrderStatus' id='orderstatus_ @i' name='orderstatus_ @i'>
+                                                            </td>
+
+                                                            <td>@i</td>
+                                                            <td>@Item.CustomerName</td>
+                                                            <td>@Item.Mobile</td>
+                                                            <td>@Item.Address</td>
+                                                            <td>@Item.PaymentMode</td>
+                                                            <td>@Item.ProductName</td>
+                                                            <td>@Item.SizeName</td>
+                                                            <td>@Item.UnitName</td>
+                                                            <td>@Item.Quantity</td>
+                                                            <td>@Item.Rate</td>
+                                                            <td>@Item.TotalAmount</td>
+                                                            <td>@Item.OrderStatus</td>
+                                                        </tr>
+                                                        i++;
+                                                    }
+                                                    <input type='hidden' value='@i' id='hdrows' name='hdrows' />
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br />
+                                <div class="row row-xs">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <br />
+                                            <input class="btn btn-success pull-left" type="submit" value="Update Status" id="btnGet" name="Update" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+}
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        maxDate: 0,
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+        minDate: new Date(new Date().setMonth(new Date().getMonth() - 2))
+    });
+
+</script>

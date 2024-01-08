@@ -1,0 +1,170 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    ViewBag.Title = "FeatureType";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("FeatureType", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Feature Type</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Master</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Feature Type</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <div>
+                <p style="color:red">
+                    @if (TempData["FeatureType"] != null)
+                    {
+                    <div class="@TempData["Class"]">
+                        @TempData["FeatureType"]
+                    </div>
+                    }
+                </p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Feature Type Name <span style="color:red;">*</span></label>
+                            @Html.TextBoxFor(m => m.FeatureTypeName, new { @class = "form-control", @Placeholder = "Feature Type Name" })
+                            @Html.HiddenFor(m => m.FeatureTypeId)
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Feature Type Image <span style="color:red;">*</span></label>
+                            <input type="file" name="postedFile" id="Image" onchange="readURL(this)" />
+                            <img src="@Model.Images" id="ContentPlaceHolder1_imgProductImage" class="fileinput-preview thumbnail" style="width: 150px; height: 100px;" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <input class="btn btn-success" onclick="return validateform()" type="submit" value="Save" id="btnSave" name="btnSave" />
+                            <input class="btn btn-success" onclick="return updatesubCategory()" type="submit" name="btnUpdate" id="btnUpdate" value="Update" style="display: none" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">FeatureType List</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                        <thead class="border-top">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Feature Type Name</th>
+                                <th>Images</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lstSubCategory != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lstSubCategory)
+                                    {
+                                        <tr class="text-left">
+
+                                            <td>@i</td>
+
+                                            <td>@Item.FeatureTypeName</td>
+                                            <td><img src="@Item.Images" id="img" height="100" width="100" /></td>
+                                            <td>
+                                                <a href="#" class="btn btn-primary btn-sm" onclick="editSubCategory('@Item.FeatureTypeId','@Item.FeatureTypeName','@Item.Images')">Edit</a>
+                                                <a href="/Master/DeleteFeatureType?id=@Item.FeatureTypeId" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wish to delete this ?');">Delete</a>
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+}
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script>
+
+    function editSubCategory(id,mname, img) {
+        debugger
+
+        $('#FeatureTypeName').val(mname);
+        $('#FeatureTypeId').val(id);
+        //$('#Images').val(img);
+        $('#ContentPlaceHolder1_imgProductImage').attr("src", img);
+        $('#btnSave').hide();
+        $('#btnUpdate').show();
+    }
+
+    function updatesubCategory() {
+
+        $(".errortext").removeClass("errortext");
+
+
+        if ($('#FeatureTypeName').val() == '') {
+            $("#FeatureTypeName").addClass('errortext');
+            $('#FeatureTypeName').focus();
+            return false;
+        }
+
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+
+        if ($('#FeatureTypeName').val() == '') {
+            $("#FeatureTypeName").addClass('errortext');
+            $('#FeatureTypeName').focus();
+            return false;
+        }
+        if ($('#Image').val() == '') {
+            $("#Image").addClass('errortext');
+            $('#Image').focus();
+            alert("Please select  image..!");
+            return false;
+        }
+        return true;
+    }
+
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#ContentPlaceHolder1_imgProductImage')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+

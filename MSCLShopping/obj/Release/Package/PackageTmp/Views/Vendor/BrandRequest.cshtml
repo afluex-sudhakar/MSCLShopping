@@ -1,0 +1,141 @@
+﻿@model AfluexShopping.Models.Vendor
+
+@{
+    ViewBag.Title = "BrandRequest";
+    Layout = "~/Views/Shared/VendorLayout.cshtml";
+}
+
+@using (Html.BeginForm("BrandRequest", "Vendor", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="content content-fixed">
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-30">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item"><a href="#">Brand</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Brand Request</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="d-none d-md-block">
+                    @if (TempData["BrandRequestOrder"] != null)
+                    {
+                        <div class="@TempData["Class"]">
+                            @TempData["BrandRequestOrder"]
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row row-xs">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="divBrandName">
+                                Brand Name <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.BrandName, new { @class = "form-control" })
+                            </div>
+                            <div id="divRequest">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Brand Logo</label><span style="color: red">*</span>
+                                            <input type="file" name="postedFile" class="form-control" id="blogo" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Website Link</label>
+                                            @Html.TextBoxFor(m => m.WebsiteLink, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Are you Brand Owner?</label><span style="color: red">*</span>
+                                            @Html.DropDownListFor(m => m.BrandOwner, new SelectList(ViewBag.BrandOwner, "Value", "Text"), new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <br />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Document Type</label><span style="color: red">*</span>
+                                            @Html.TextBoxFor(m => m.DocumentType, new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Upload Document</label><span style="color: red">*</span>
+                                            <input type="file" name="postedFile" class="form-control" id="doctype" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="submit" class="btn btn-sm btn-success pull-right" name="btnSaverequest" value="Submit Request" onclick="return validateForm();" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function validateForm() {
+        $(".errortext").removeClass("errortext");
+        if ($('#BrandName').val() == '') {
+            $("#BrandName").addClass('errortext');
+            $('#BrandName').focus();
+            return false;
+        }
+        if ($('#blogo').val() == '') {
+            $("#blogo").addClass('errortext');
+            $('#blogo').focus();
+            return false;
+        }
+        if ($('#DocumentType').val() == '') {
+            $("#DocumentType").addClass('errortext');
+            $('#DocumentType').focus();
+            return false;
+        }
+        if ($('#doctype').val() == '') {
+            $("#doctype").addClass('errortext');
+            $('#doctype').focus();
+            return false;
+        }
+    }
+
+    function checkBrandName(i) {
+        var brandname = i.value;
+        $.ajax({
+            url: "/Vendor/CheckBrandName",
+            Type: "Get",
+            DataType: "JSON",
+            data: { bname: brandname },
+            success: function (data) {
+                if (data.Result != "0") {
+                    $('#divRequest').hide();
+                    alert(data.Result);
+                } else {
+                    $('#divRequest').show();
+                }
+            }
+
+        });
+    }
+</script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>

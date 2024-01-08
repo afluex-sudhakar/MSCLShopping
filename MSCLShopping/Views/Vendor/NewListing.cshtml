@@ -1,0 +1,58 @@
+﻿@model MSCLShopping.Models.Vendor
+
+@{
+    ViewBag.Title = "NewListing";
+    Layout = "~/Views/Shared/VendorLayout.cshtml";
+}
+
+@using (Html.BeginForm("Profile", "Vendor", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="content content-fixed">
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-30">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item"><a href="#">Brand</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Brand Request</li>
+                        </ol>
+                    </nav>
+
+                </div>
+                <div class="d-none d-md-block">
+                    @if (TempData["BrandRequestOrder"] != null)
+                    {
+                        <div class="@TempData["Class"]">
+                            @TempData["BrandRequestOrder"]
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row row-xs">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            Check Brand Name <span style="color: red">*</span>
+                            @Html.TextBoxFor(m => m.BrandName, new { @class = "form-control", @onchange = "getbrandname();" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="display:none" id="brand">
+                    <div class="card">
+                        <div class="card-body">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function getbrandname() {
+        $('#brand').show();
+    }
+</script>
+
+
+

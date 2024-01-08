@@ -1,0 +1,84 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    ViewBag.Title = "VariantItemList";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("VariantItemList", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Variant Item List</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label> Variant <span style="color: red">*</span></label>
+                        @Html.DropDownListFor(m => m.VariantID, new SelectList(ViewBag.ddlVariant, "Value", "Text"), new { @class = "form-control", @onchange = "return unit();" })
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <br/>
+                    <input class="btn btn-success btn-sm" type="submit"   value="Search" id="Search" name="Search" />
+                </div>
+                
+            </div>
+
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table id="order-listing" class="table">
+                            <thead>
+                                <tr>
+                                    <th>S No.</th>
+                                    <th>Variant</th>
+                                    <th>Item</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    if (Model.lstProduct != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lstProduct)
+                                        {
+                                            <tr class="text-left">
+                                                <td>@i</td>
+                                                <td hidden>@Item.VariantID</td>
+                                                <td hidden>@Item.VariantItemID</td>
+                                                <td>@Item.VariantName</td>
+                                                <td>@Item.VariantItemName</td>
+                                                <td hidden>@Item.ColorCode</td>
+                                                <td hidden>@Item.UnitID</td>
+                                                <td hidden>@Item.UnitName</td>
+                                                <td>
+                                                    <a href="/Master/VariantItemMaster?VariantItemID=@Item.VariantItemID" class="btn btn-info btn-sm">Edit</a>
+                                                    <a href="/Master/DeleteVariantItem/@Item.VariantItemID" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wish to delete this Variant item?');">Delete</a>
+                                                </td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+

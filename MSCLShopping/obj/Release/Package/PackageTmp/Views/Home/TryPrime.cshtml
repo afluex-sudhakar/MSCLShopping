@@ -1,0 +1,225 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../PrimeCss/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../PrimeCss/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/blue.css">
+    <link rel="stylesheet" href="../../assets/css/font-awesome.css">
+    <link href="../../Autofill/jquery-ui.css" rel="stylesheet" />
+
+    <style>
+        .carousel-caption {
+            position: absolute;
+            /* right: 58%; */
+            bottom: 81px;
+            left: 2%;
+            z-index: 10;
+            padding-top: 0px;
+            padding-bottom: 20px;
+            color: #fff;
+            text-align: left;
+        }
+    </style>
+    <title>Try Prime!</title>
+</head>
+
+<body>
+    <header class="header-style-1">
+
+        <!-- ============================================== TOP MENU ============================================== -->
+        <div class="top-bar animate-dropdown">
+            <div class="container">
+                <div class="header-top-inner">
+                    <div class="cnt-account">
+                        <ul class="list-unstyled">
+                            @if (Session["CustomerID"] != null)
+                            {
+
+                            <li><a href="/Customer/MyAccount"><i class="icon fa fa-user"></i>My Account</a></li>
+
+                            <li><a href="/Customer/Cart"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+                            <li id="logoutTab"><a href="#" title="Logout" onclick="return logout();"><i class="icon fa fa-lock"></i>Logout</a></li>
+                            }
+                            else
+                            {
+                            <li><a href="#" data-toggle="modal" data-target="#login-signup"><i class="icon fa fa-user"></i>My Account</a></li>
+
+                            <li><a href="#" data-toggle="modal" data-target="#login-signup"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+
+                            <li><a href="#" data-toggle="modal" data-target="#login-signup"><i class="icon fa fa-lock"></i>Login</a></li>
+                            }
+                        </ul>
+                    </div>
+                    <!-- /.cnt-account -->
+                    <!-- /.cnt-cart -->
+                    <div class="clearfix"></div>
+                </div>
+                <!-- /.header-top-inner -->
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /.header-top -->
+        <!-- ============================================== TOP MENU : END ============================================== -->
+        <div class="main-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
+                        <!-- ============================================================= LOGO ============================================================= -->
+                        <div class="logo"> <a href="/Home/Index"> <img src="/Websitecss/img/logo.png" style="height: 70px;width: 150px;margin-top: -15px;" alt="logo"> </a> </div>
+                        <!-- /.logo -->
+                        <!-- ============================================================= LOGO : END ============================================================= -->
+                    </div>
+                    <!-- /.logo-holder -->
+
+                    <div class="col-xs-12 col-sm-12 col-md-7 top-search-holder">
+                        <!-- /.contact-row -->
+                        <!-- ============================================================= SEARCH AREA ============================================================= -->
+                        <div class="search-area">
+                            <form>
+                                <div class="control-group">
+                                    <input type="search" style="width:90%" class="search-field" name="q" id="txtsearch" placeholder="Search..">
+
+
+                                    <a class="search-button" href="#" onclick="return Search();"></a>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.search-area -->
+                        <!-- ============================================================= SEARCH AREA : END ============================================================= -->
+                    </div>
+                    <!-- /.top-search-holder -->
+
+                    <div class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row">
+
+                        @if (Session["CustomerID"] != null)
+                        {
+                            { Html.RenderAction("CustomerCart", "Customer", new { area = "" }); }
+
+                        }
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- /.header-nav -->
+        <!-- ============================================== NAVBAR : END ============================================== -->
+
+    </header>
+    <div class="main-section">
+        <div class="">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="sliderdwpe">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="../../PrimeCss/images/slider2.jpg" alt="Second slide">
+                                    <div class="carousel-caption d-md-block">
+                                        <h1 style="color:white;width:401px" class="btn btn-warning">Fast Delivery</h1>
+                                        <h5>One simple membership, many benefits.</h5>
+                                        <h5>Check out what’s included below</h5>
+                                        <a style="margin-bottom: 13.5rem;" href="#" class="btn btn-primary">
+                                            JOIN PRIME AT Rs 1000
+                                            <br />
+                                            ----------------------------OR----------------------------
+                                            <br />
+                                            JOIN PRIME AT Rs 1500
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container spacedw">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12 scrolling">
+                    <div class="list-group list-group-horizontal" id="list-tab" role="tablist">
+                        @if (Model != null)
+                        {
+                            if (Model.lstCategory != null)
+                            {
+                                int i = 0;
+                                foreach (var item in Model.lstCategory)
+                                {
+                                    if (i == 0)
+                                    {
+                                        <a class="list-group-item list-group-item-action backvideo active zoom" id="list_@i"
+                                           data-toggle="list" href="#list_@i" role="tab" aria-controls="@item.CategoryName">
+                                            <div class="card-category video-card">
+                                                <div class="card-clickable"></div>
+                                                <img src="/@item.Images" class="img-fluid" alt="" style="height:200px;width: 217px;">
+                                                <div class="card-title text-center text-white">@item.CategoryName</div>
+                                            </div>
+                                        </a>
+                                    }
+                                    else
+                                    { 
+                                        <a class="list-group-item list-group-item-action backmusic zoom" id="list_@i"
+                                           data-toggle="list" href="#list_@i" role="tab" aria-controls="@item.CategoryName">
+                                            <div class="card-category video-card">
+                                                <div class="card-clickable"></div>
+                                                <img src="/@item.Images" class="img-fluid" alt="" style="height:200px;width: 217px;">
+                                                <div class="card-title text-center text-white">@item.CategoryName</div>
+                                            </div>
+                                        </a>
+
+
+                                    }
+                                    i++;
+                                }
+                            }
+                        }
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="../../PrimeCss/js/bootstrap.min.js"></script>
+</body>
+
+</html>

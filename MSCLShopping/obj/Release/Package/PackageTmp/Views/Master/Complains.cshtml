@@ -1,0 +1,150 @@
+﻿@model AfluexShopping.Models.Customer
+
+@{
+    ViewBag.Title = "Complains";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("Complains", "Master", FormMethod.Post, new { @id = "form1",@autocomplete="off" }))
+{
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Complain List</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Customer Complains</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Complain List</li>
+            </ol>
+        </div>
+        @*<div class="ms-auto pageheader-btn">
+                <a href="#" class="btn btn-primary btn-icon text-white me-2">
+                    <span>
+                        <i class="fe fe-plus"></i>
+                    </span> Add Account
+                </a>
+                <a href="#" class="btn btn-success btn-icon text-white">
+                    <span>
+                        <i class="fe fe-log-in"></i>
+                    </span> Export
+                </a>
+            </div>*@
+    </div>
+
+    <div class="row">
+        <div class="card">
+            <div>
+                <p style="color:red;">
+                    @TempData["BlockAssociate"]
+                </p>
+            </div>
+            @*<div class="card-header">
+                    <h3 class="card-title">Products Added By Vendor</h3>
+                </div>*@
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Contact</label>
+                            @Html.TextBoxFor(m => m.Contact, new { @class = "form-control", @placeholder = "Contact" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Customer Name</label>
+                            @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control", @placeholder = "Customer Name" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Status</label>
+                            @Html.TextBoxFor(m => m.ComplainStatus1, new { @class = "form-control", @placeholder = "Status" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">From Date</label>
+                            @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @placeholder = "From Date" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">To Date</label>
+                            @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @placeholder = "To Date" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label d-flex">&nbsp;</label>
+                            <input type="submit" name="GetDetails" class="btn btn-info d-block" value="Get Details" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive mt-3">
+                    <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                        <thead class="border-top">
+                            <tr>
+                                <th>Sr No.</th>
+                                <th>Date</th>
+                                <th>Complains Number</th>
+                                <th>Name</th>
+                                <th>Issue</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lstComplains != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lstComplains)
+                                    {
+                                        <tr class="text-left">
+                                            <td>@i</td>
+                                            <td>@Item.ComplainDate</td>
+                                            <td>@Item.ComplainID</td>
+                                            <td>@Item.DisplayName</td>
+                                            <td>@Item.Issue</td>
+                                            <td>@Item.ComplainStatus1</td>
+                                            <td>
+                                                <a href="/Master/ComplainReply?id=@Item.EncrptNo" class="btn btn-sm btn-info">View</a>
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+
+                                }
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+ 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        //changeYear: true,
+        //changeMonth: true,
+
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        //changeYear: true,
+        //changeMonth: true
+    });
+</script>
+
+

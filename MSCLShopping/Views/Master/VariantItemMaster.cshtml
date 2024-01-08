@@ -1,0 +1,147 @@
+﻿@model MSCLShopping.Models.Master
+
+@{
+    ViewBag.Title = "VariantItemMaster";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("VariantItemMaster", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <p  style="color: red">
+        @TempData["VariantItem"]
+        <br />
+    </p>
+
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Variant Item</h4>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label> Variant <span style="color: red">*</span></label>
+                        @Html.DropDownListFor(m => m.VariantID, new SelectList(ViewBag.ddlVariant, "Value", "Text"), new { @class = "form-control" ,@onchange="return unit();"})
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Item Name <span style="color: red">*</span></label>
+                        @Html.TextBoxFor(m => m.VariantItemName, new { @class = "form-control", @Placeholder = " Item Name", maxlength = "50" })
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="variant" >
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Unit </label>
+                        @Html.DropDownListFor(m => m.UnitID, new SelectList(ViewBag.ddlUnit, "Value", "Text"), new { @class = "form-control"  ,@Enabled="false" , @Disabled = "Disabled" })
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Color Code  </label>
+                        @Html.TextBoxFor(m => m.ColorCode, new { @class = "form-control", @Placeholder = "Color Code", maxlength = "50", @Disabled= "Disabled" })
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @if (Model.VariantItemID == null)
+                        {
+                            <input class="btn btn-success btn-sm" type="submit" onclick="return validateform();" value="Save" id="btnSave" name="btnSave" />
+                        }
+                        else
+                        {
+                            @Html.HiddenFor(m => m.VariantItemID, new { @Value = @Model.VariantItemID })
+                            <input class="btn btn-success btn-sm" type="submit" value="Update" id="btnUpdate" name="btnUpdate" />
+                        }
+                        <a class="btn btn-primary btn-sm" href="/Master/VariantItemList">Back To List</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+}
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        if ($("#VariantID").val() == "2") {
+
+            $("#UnitID").removeAttr('disabled');
+            $("#ColorCode").attr('disabled', 'disabled');
+        }
+        else if ($("#VariantID").val() == "1") {
+            $("#ColorCode").removeAttr('disabled');
+            $("#UnitID").attr('disabled', 'disabled');
+        }
+        else {
+            $("#ColorCode").attr('disabled', 'disabled');
+            $("#UnitID").attr('disabled', 'disabled');
+        }
+
+    });
+
+
+
+
+
+    function unit()
+    {
+       
+        if($("#VariantID").val()=="2")
+        {
+            
+            $("#UnitID").removeAttr('disabled');
+            $("#ColorCode").attr('disabled', 'disabled');
+        }
+        else if ($("#VariantID").val() == "1")
+        {
+            $("#ColorCode").removeAttr('disabled');
+            $("#UnitID").attr('disabled', 'disabled');
+        }
+        else {
+            $("#ColorCode").attr('disabled', 'disabled');
+            $("#UnitID").attr('disabled', 'disabled');
+        }
+    }
+
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+
+        if ($('#VariantName').val() == '') {
+            $("#VariantName").addClass('errortext');
+            $('#VariantName').focus();
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
+
+
+

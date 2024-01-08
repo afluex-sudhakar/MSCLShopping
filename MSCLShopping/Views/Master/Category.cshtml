@@ -1,0 +1,127 @@
+﻿@model MSCLShopping.Models.Master
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("Category", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.VariantID)
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Category</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Master</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Category</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <div>
+                <p style="color:red">
+                    @if (TempData["Category"] != null)
+                    {
+                    <div class="@TempData["Class"]">
+                        @TempData["Category"]
+                    </div>
+                    }
+                </p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Select Main Category <span style="color:red;">*</span></label>
+                           @Html.DropDownListFor(m => m.MainCategoryID, new SelectList(ViewBag.ddlMainCategory, "Value", "Text"), new { @class = "form-control form-select" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Category Name <span style="color:red;">*</span></label>
+                            @Html.TextBoxFor(m => m.CategoryName, new { @class = "form-control", @Placeholder = "Category Name", maxlength = "50" })
+                            @Html.HiddenFor(m => m.CategoryID, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-8">
+                        <div class="form-group">
+                            <label class="form-label">Select Variants</label>
+                            <div class="row" style="margin-left: 10px;">
+                                @if (Model != null)
+                                {
+                                    if (Model.lstVariant != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var item in Model.lstVariant)
+                                        {
+
+                                            if (item.Status == "Checked")
+                                            {
+                                                <input type="checkbox" id="Chk_ @i" name="Chk_ @i" checked />
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" id="Chk_ @i" name="Chk_ @i" />
+                                            }
+                                            <input type='hidden' value='@item.VariantID' id='variantid_ @i' name='variantid_ @i' />
+                                            <p>&nbsp; @item.VariantName &nbsp;&nbsp;</p>
+                                            i++;
+
+
+                                        }
+                                        <input type='hidden' value='@i' id='hdrows' name='hdrows' />
+
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            @if (Model.CategoryID == null)
+                            {
+                                <input class="btn btn-success" type="submit" onclick="return validateform();" value="Save" id="btnSave" name="btnSave" />
+                            }
+                            else
+                            {
+                                @Html.HiddenFor(m => m.CategoryID, new { @Value = @Model.CategoryID })
+                                <input class="btn btn-success" type="submit" value="Update" id="btnUpdate" name="btnUpdate" />
+                            }
+                            <a class="btn btn-primary" href="/Master/CategoryList">Back To List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+}
+
+<script>
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#MainCategoryID').val() == '0') {
+            $("#MainCategoryID").addClass('errortext');
+            $('#MainCategoryID').focus();
+            return false;
+        }
+        if ($('#CategoryName').val() == '') {
+            $("#CategoryName").addClass('errortext');
+            $('#CategoryName').focus();
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>

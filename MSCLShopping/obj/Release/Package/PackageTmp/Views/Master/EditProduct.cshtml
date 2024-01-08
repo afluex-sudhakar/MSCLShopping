@@ -1,0 +1,1067 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    ViewBag.Title = "EditProduct";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<style>
+    #divload {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 9999;
+        background: url("../../images/cart-loading.gif") no-repeat center center rgba(0,0,0,0.25);
+    }
+
+    .errortext {
+        border: 1px solid red !important;
+    }
+</style>
+
+
+
+<div class="loader" id="divload"></div>
+
+@using (Html.BeginForm("EditProduct", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+
+    @Html.HiddenFor(m => m.ProductOtherInfoID)
+    @Html.HiddenFor(m => m.ProductInfoCode)
+
+    if (TempData["EditProduct"] != null)
+    {
+        <div class="@TempData["Class"]">
+            @TempData["EditProduct"]
+        </div>
+    }
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Product Details</h4> 
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @if (Model.IsTimeProduct1 == true)
+                        { <label>IsTimeProduct </label>
+                            <input type="checkbox" checked value="@Model.IsTimeProduct1" id="IsTimeProduct1" />
+                        }
+                        else
+                        { <label>IsTimeProduct </label>
+                            <input type="checkbox" value="@Model.IsTimeProduct1" id="IsTimeProduct1" />
+                        }
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        Main Category  :
+                        <span style="color:darkblue;"><b>@Model.MainCategoryName</b> </span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        Category :
+                        <span style="color:darkblue;"><b>@Model.CategoryName</b> </span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        Sub Category :
+                        <span style="color:darkblue;"><b>@Model.SubCategoryName</b> </span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        HSN No.:
+                        <span style="color:darkblue;"><b>@Model.HSNNo</b> </span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        Brand
+                        <span style="color:darkblue;"><b>@Model.BrandName</b> </span>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Product Name <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", @placeholder = "Product Name" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Delivery Charge <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.DeliveryCharge, new { @class = "form-control", @placeholder = "  Delivery Charge" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Shopping Redeem Perc <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.ShoppingPerc, new { @class = "form-control", @placeholder = "Shopping Redeem Perc" })
+                    </div>
+                </div>
+                <div class="col-md-8" style="display:none">
+                    <div class="form-group">
+                        Tags  <span style="color: red">*</span>
+                        @Html.TextAreaFor(m => m.Tags, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        Short Description   <span style="color: red">*</span>
+                        @Html.TextAreaFor(m => m.ShortDescription, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        Description   <span style="color: red">*</span>
+                       
+                        <div id="summernoteInclusions" class="click2edit"><p></p></div>
+                        @Html.HiddenFor(m => m.Description)
+                        @Html.HiddenFor(m => m.ProductID)
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>*@
+            <!-- Row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header border-bottom-0">
+                            <h3 class="card-title">Description   <span style="color: red">*</span></h3>
+                        </div>
+                        <div class="card-body">
+                            <textarea class="content" name="example" id="summernoteInclusions"></textarea>
+                            @Html.HiddenFor(m => m.Description)
+                            @Html.HiddenFor(m => m.ProductID)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Row-->
+
+        </div>
+    </div>
+    <br />
+    <div class="card">
+      
+
+        <div class="card-body">
+            <h4 class="card-title">Edit Product Quantity</h4>
+            <br />
+
+@if (Model != null)
+{
+    if (Model.lstProductData != null)
+    {
+        int i1 = 1;
+        foreach (var Item in Model.lstProductData)
+        {
+            <div class="row">
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        Unit  <span style="color: red">*</span>
+                        @Html.DropDownListFor(m => m.UnitID, new SelectList(ViewBag.ddlUnit, "Value", "Text"), new { @class = "form-control", @onchange = "return onUnitChange();" })
+                        <input type="hidden" id="hdUnitName" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group" id="divsize">
+                        Size
+                        @Html.DropDownListFor(m => m.SizeID, new SelectList(ViewBag.ddlSize, "Value", "Text"), new { @class = "form-control", @onchange = "sizeChange()" })          
+                        @*@Html.DisplayFor(m => m.SizeName)*@
+                    </div>
+                </div>
+
+                @if (Session["FK_FlavorID"].ToString() != "0")
+                {
+                    <div class="col-md-2">
+                        <div class="form-group" id="divflavor" @*style="display: none;"*@>
+                            Flavor
+                            @Html.DropDownListFor(m => m.FlavorID, new SelectList(ViewBag.ddlFlavor, "Value", "Text"), new { @class = "form-control" })
+                        </div>
+                    </div>
+                }
+
+                @if (Session["FK_MaterialID"].ToString() != "0")
+                {
+                    <div class="col-md-2">
+                        <div class="form-group" id="divmaterial" @*style="display: none;"*@>
+                            Material
+                            @Html.DropDownListFor(m => m.MaterialID, new SelectList(ViewBag.ddlMaterial, "Value", "Text"), new { @class = "form-control" })
+                        </div>
+                    </div>
+                }
+                @if (Session["FK_ColorID"].ToString() != "0")
+                {
+                    <div class="col-md-2">
+
+                        <div class="form-group" id="divcolor" @*style="display: none;"*@>
+                            Color
+                            @Html.DropDownListFor(m => m.ColorID, new SelectList(ViewBag.ddlColor, "Value", "Text"), new { @class = "form-control", @onchange = "colorChange()" })
+                            <input type="hidden" id="hdColorName" />
+                        </div>
+
+                    </div>
+                }
+
+                @if (Session["FK_RAM_ID"].ToString() != "0")
+                {
+                    <div class="col-md-2">
+
+                        <div class="form-group" id="divram">
+                            RAM
+                            @Html.DropDownListFor(m => m.RamID, new SelectList(ViewBag.ddlRAM, "Value", "Text"), new { @class = "form-control" })
+                            <input type="hidden" id="hdColorName" />
+                        </div>
+
+                    </div>
+                }
+
+                @if (Session["FK_StorageID"].ToString() != "0")
+                {
+                    <div class="col-md-2">
+
+                        <div class="form-group" id="divstorage">
+                            Storage
+                            @Html.DropDownListFor(m => m.StorageID, new SelectList(ViewBag.ddlStorage, "Value", "Text"), new { @class = "form-control" })
+                            <input type="hidden" id="hdColorName" />
+                        </div>
+
+                    </div>
+                }
+
+                @if (Session["FK_StarRatingID"].ToString() != "0")
+                {
+                    <div class="col-md-2">
+
+                        <div class="form-group" id="divstarrating">
+                            Star Rating
+                            @Html.DropDownListFor(m => m.StarRatingID, new SelectList(ViewBag.ddlStarRating, "Value", "Text"), new { @class = "form-control" })
+                            <input type="hidden" id="hdColorName" />
+                        </div>
+
+                    </div>
+                }
+                <div class="col-md-2" style="display:none">
+                    <div class="form-group">
+                        Quantity   <span style="color: red">*</span>
+                        @Html.HiddenFor(m => m.ProductQuantity, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)",Value=@Item.ProductQuantity})
+                        
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        BV   <span style="color: red">*</span>
+                        @*<input type="text" name="BV" value="@Item.BV"/>*@
+                        
+                       @Html.TextBoxFor(m => m.BV, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)",Value=@Item.BV })
+                     
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        MRP  <span style="color: red">*</span>
+                       @Html.TextBoxFor(m => m.MRP, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)",Value=@Item.MRP })
+                        @*<input type="text" name="MRP" value="@Item.MRP" />*@
+                      </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        Offered Price  <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.OfferedPrice, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)", @onchange = "return CheckPrice();",Value=@Item.OfferedPrice })
+                        @*<input type="text" name="OfferedPrice" value="@Item.OfferedPrice" />*@
+                     </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        Dealer Price   <span style="color: red">*</span>
+                        @*<input type="text" name="DealerPrice" value="@Item.DealerPrice" />*@
+                        @Html.TextBoxFor(m => m.DealerPrice, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)",Value= @Item.DealerPrice})
+                   
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        CGST (%) <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.CGST, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)",Value= @Item.CGST})
+                        @*<input type="text" name="CGST" value="@Item.CGST"/>*@
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        SGST  (%) <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.SGST, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)",Value= @Item.SGST })
+                        @*<input type="text" name="SGST" value="@Item.SGST" />*@
+                        </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        IGST  (%) <span style="color: red">*</span>
+                      @Html.TextBoxFor(m => m.IGST, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)",Value= @Item.IGST })
+                        @*<input type="text" name="IGST" value="@Item.IGST" />*@
+                         </div>
+                </div>
+
+                @*<div class="col-md-2">
+                        <div class="form-group">
+                            Upload Primary Image
+                                    <input type="file" name="postedFile" id="Image" onchange="readURL(this)" />
+                            <img id="ContentPlaceHolder1_imgProductImage" runat="server" class="fileinput-preview thumbnail" style="width: 150px; height: 100px;" />
+                        </div>
+                    </div>*@
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        @*<img src="@Model.ProfilePicture" height="190" width="250" />*@
+                        Upload Secondary Images
+                        <input type="file" name="postedFile" id="ImageM" onchange="readURL1(this)" multiple="multiple" />
+                        @*<img src="../../images/no-profile.png" alt="..." class="img-square profile_img"*@
+                        <img id="ContentPlaceHolder1_imgProductImage1" class="fileinput-preview thumbnail" style="width: 150px; height: 100px;" />
+                    </div>
+                </div>
+            </div>
+
+        }
+    }
+}
+
+
+
+            <div class="x_content">
+                <h4 class="card-title">Product Images</h4>
+                <br />
+                <table id="datatable-buttons" class="table table-striped table-bordered" width="50%">
+                    <thead>
+                        <tr>
+                            
+                            <th>S No.</th>
+                            <th>Image</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            if (Model.lstProduct != null)
+                            {
+                                int i = 1;
+                                foreach (var Item in Model.lstProduct)
+                                {
+                                    <tr class="text-left">
+                                        
+                                        <td>@i</td>
+                                        
+                                        <td>
+                                            <img src="@Item.Images" id="img"  height="50" width="50" />
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-danger btn-sm" onclick="return DeleteImage(@Item.ProductImageID);">Delete</a>
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+                <br />
+               
+            </div>
+
+        </div>
+
+        <div class="card-body">
+            <h4 class="card-title">Add Product Quantity</h4>
+            <br />
+            <div class="row">
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        Unit  <span style="color: red">*</span>
+                        @Html.DropDownListFor(m => m.UnitIDD, new SelectList(ViewBag.ddlUnit, "Value", "Text"), new { @class = "form-control", @onchange = "return onUnitChange1();" })
+                        <input type="hidden" id="hdUnitName" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group" id="divsize">
+                        Size
+                        @Html.DropDownListFor(m => m.SizeIDD, new SelectList(ViewBag.ddlSizee, "Value", "Text"), new { @class = "form-control", @onchange = "sizeChange()" })
+                        <input type="hidden" id="hdSizeName" />
+                        @*@Html.DisplayFor(m => m.SizeName)*@
+                    </div>
+                </div>
+
+                @if (Session["FK_FlavorID"].ToString() != "0")
+                {
+                    <div class="col-md-2">
+                        <div class="form-group" id="divflavor" @*style="display: none;"*@>
+                            Flavor
+                            @Html.DropDownListFor(m => m.FlavorIDD, new SelectList(ViewBag.ddlFlavor, "Value", "Text"), new { @class = "form-control" })
+                        </div>
+                    </div>
+                }
+
+                @if (Session["FK_MaterialID"].ToString() != "0")
+                {
+                    <div class="col-md-2">
+                        <div class="form-group" id="divmaterial" @*style="display: none;"*@>
+                            Material
+                            @Html.DropDownListFor(m => m.MaterialIDD, new SelectList(ViewBag.ddlMaterial, "Value", "Text"), new { @class = "form-control" })
+                        </div>
+                    </div>
+                }
+                @if (Session["FK_ColorID"].ToString() != "0")
+                {
+                    <div class="col-md-2">
+
+                        <div class="form-group" id="divcolor" @*style="display: none;"*@>
+                            Color
+                            @Html.DropDownListFor(m => m.ColorIDD, new SelectList(ViewBag.ddlColor, "Value", "Text"), new { @class = "form-control", @onchange = "colorChange()" })
+                            <input type="hidden" id="hdColorName" />
+                        </div>
+
+                    </div>
+                }
+
+                @if (Session["FK_RAM_ID"].ToString() != "0")
+                {
+                    <div class="col-md-2">
+
+                        <div class="form-group" id="divram">
+                            RAM
+                            @Html.DropDownListFor(m => m.RamIDD, new SelectList(ViewBag.ddlRAM, "Value", "Text"), new { @class = "form-control" })
+                            <input type="hidden" id="hdColorName" />
+                        </div>
+
+                    </div>
+                }
+
+                @if (Session["FK_StorageID"].ToString() != "0")
+                {
+                    <div class="col-md-2">
+
+                        <div class="form-group" id="divstorage">
+                            Storage
+                            @Html.DropDownListFor(m => m.StorageIDD, new SelectList(ViewBag.ddlStorage, "Value", "Text"), new { @class = "form-control" })
+                            <input type="hidden" id="hdColorName" />
+                        </div>
+
+                    </div>
+                }
+
+                @if (Session["FK_StarRatingID"].ToString() != "0")
+                {
+                    <div class="col-md-2">
+
+                        <div class="form-group" id="divstarrating">
+                            Star Rating
+                            @Html.DropDownListFor(m => m.StarRatingIDD, new SelectList(ViewBag.ddlStarRating, "Value", "Text"), new { @class = "form-control" })
+                            <input type="hidden" id="hdColorName" />
+                        </div>
+
+                    </div>
+                }
+                <div class="col-md-2" style="display:none">
+                    <div class="form-group">
+                        Quantity   <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.ProductQuantity1, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)" })
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        BV   <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.BV1, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        MRP  <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.MRP1, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)",@id="MRP" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        Offered Price  <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.OfferedPrice1, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)",@id="OfferedPrice", @onchange = "return CheckPrice();" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        Dealer Price   <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.DealerPrice1, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        CGST (%) <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.CGST1, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        SGST  (%) <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.SGST1, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)" })
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        IGST  (%) <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.IGST1, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)" })
+                    </div>
+                </div>
+
+                @*<div class="col-md-2">
+                    <div class="form-group">
+                        Upload Primary Image
+                                <input type="file" name="postedFile" id="Image" onchange="readURL(this)" />
+                        <img id="ContentPlaceHolder1_imgProductImage" runat="server" class="fileinput-preview thumbnail" style="width: 150px; height: 100px;" />
+                    </div>
+                </div>*@
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        @*<img src="@Model.ProfilePicture" height="190" width="250" />*@
+                        Upload Secondary Images
+                        <input type="file" name="postedFile1" id="ImageMM" onchange="readURL2(this)" multiple="multiple" />
+                        @*<img src="../../images/no-profile.png" alt="..." class="img-square profile_img"*@
+                        <img id="ContentPlaceHolder2_imgProductImage2" class="fileinput-preview thumbnail" style="width: 150px; height: 100px;" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        @Html.HiddenFor(m => m.ProductID, new { @Value = @Model.ProductID })
+                        <input class="btn btn-success pull-right" type="submit" value="Add Variant" id="btnVariant" name="btnVariant" onclick="return validateform();" />
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="x_content">
+                <h4 class="card-title">Product Images</h4>
+                <br />
+                <table id="datatable-buttons" class="table table-striped table-bordered" width="50%">
+                    <thead>
+                        <tr>
+
+                            <th>S No.</th>
+                            <th>SGST1</th>
+                            <th>Image</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            if (Model.lstProductVariant != null)
+                            {
+                                int i = 1;
+                                foreach (var Item in Model.lstProductVariant)
+                                {
+                                    <tr class="text-left">
+
+                                        <td>@i</td>
+                                        <td hidden="hidden">@Item.dtProductVariant</td>
+                                        <td>@Item.SGST1</td>
+                                        <td>
+
+                                            <img src="@Item.ImagePathPrimary" id="img" height="50" width="50" />
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-danger btn-sm" onclick="return DeleteImage(@Item.ProductImageID);">Delete</a>
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+                <br />
+
+            </div>
+
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+
+                @Html.HiddenFor(m => m.ProductID, new { @Value = @Model.ProductID })
+                <input class="btn btn-success pull-right" type="submit" value="Update" id="btnUpdate" name="Update" onclick="return validateform();" />
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    @Html.HiddenFor(m=>m.ProductInfoCode)
+   
+
+}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+@*<script src="../../vendor/jquery/jquery.min.js"></script>*@
+@*<script src="~/VendorCss/lib/jquery/jquery.min.js"></script>*@
+
+
+@*<script src="../../VendorCss/lib/jquery/jquery.min.js"></script>*@
+@*<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">*@
+
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js" defer></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">*@
+
+@*<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>*@ 
+
+
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+     
+        var dd = $("#Description").val();
+            document.getElementById('summernoteInclusions').innerHTML = dd;
+
+            //$("#divload").css({ 'display': 'none' });
+            $('#summernoteInclusions').summernote(
+                {
+                    height: 150,
+                    toolbar: [
+                      // [groupName, [list of button]]
+                      ['style', ['bold', 'italic', 'underline', 'clear']],
+                      ['font', ['strikethrough', 'superscript', 'subscript']],
+                      ['fontsize', ['fontsize']],
+                      ['para', ['ul', 'ol', 'paragraph']],
+                      ['height', ['height']]
+                    ]
+                });
+            $('#summernoteExclusions').summernote(
+                {
+                    height: 150,
+                    toolbar: [
+                      // [groupName, [list of button]]
+                      ['style', ['bold', 'italic', 'underline', 'clear']],
+                      ['font', ['strikethrough', 'superscript', 'subscript']],
+                      ['fontsize', ['fontsize']],
+                      ['para', ['ul', 'ol', 'paragraph']],
+                      ['height', ['height']]
+                    ]
+                });
+
+
+        });
+    
+    function CheckPrice() {
+        debugger;
+        var mrp = parseFloat($('#MRP').val());
+        var offeedprice = parseFloat($('#OfferedPrice').val());
+
+        if (offeedprice > mrp)
+        {
+            alert("Offered Price cannot be greater than MRP !");
+            $('#OfferedPrice').val('');
+        }
+        else
+        {
+
+        }
+    }
+
+    function saveDataTemporary() {
+      
+        if ($('#UnitID').val() == '0') {
+            $("#UnitID").addClass('errortext');
+            $('#UnitID').focus();
+            return false;
+        }
+
+        if ($("#divsize").is(':visible') && $('#SizeID').val() == '0') {
+            // alert("dsd");
+            $("#SizeID").addClass('errortext');
+            $('#SizeID').focus();
+            return false;
+
+        }
+        if ($("#divflavor").is(':visible') && $('#FlavorID').val() == '0') {
+            //   alert("dsd");
+            $("#FlavorID").addClass('errortext');
+            $('#FlavorID').focus();
+            return false;
+
+        }
+        if ($("#divmaterial").is(':visible') && $('#MaterialID').val() == '0') {
+            //alert("dsd");
+            $("#MaterialID").addClass('errortext');
+            $('#MaterialID').focus();
+            return false;
+
+        }
+        if ($("#divcolor").is(':visible') && $('#ColorID').val() == '0') {
+            $("#ColorID").addClass('errortext');
+            $('#ColorID').focus();
+            return false;
+        }
+        if ($('#ProductQuantity').val() == '') {
+            $("#ProductQuantity").addClass('errortext');
+            $('#ProductQuantity').focus();
+            return false;
+        }
+
+        if ($('#BV').val() == '') {
+            $("#BV").addClass('errortext');
+            $('#BV').focus();
+            return false;
+        }
+        if ($('#MRP').val() == '') {
+            $("#MRP").addClass('errortext');
+            $('#MRP').focus();
+            return false;
+        }
+        if ($('#OfferedPrice').val() == '') {
+            $("#OfferedPrice").addClass('errortext');
+            $('#OfferedPrice').focus();
+            return false;
+        }
+        if ($('#DealerPrice').val() == '') {
+            $("#DealerPrice").addClass('errortext');
+            $('#DealerPrice').focus();
+            return false;
+        }
+        if ($('#CGST ').val() == '') {
+            $("#CGST").addClass('errortext');
+            $('#CGST').focus();
+            return false;
+        }
+        if ($('#SGST ').val() == '') {
+            $("#SGST").addClass('errortext');
+            $('#SGST').focus();
+            return false;
+        }
+        if ($('#IGST ').val() == '') {
+            $("#IGST").addClass('errortext');
+            $('#IGST').focus();
+            return false;
+        }
+        if ($('#ImageM').val() == '') {
+            $("#ImageM").addClass('errortext');
+            alert("Select images !");
+            $('#ImageM').focus();
+            return false;
+
+        }
+
+
+
+        else {
+            $("#divload").css({ 'display': '' });
+            var unitname = $('#UnitID').find(":selected").text();
+            var sizename = $('#SizeID').find(":selected").text();
+            var colorname1 = $('#ColorID').find(":selected").text();
+            var sizeID = $('#SizeID').val();
+            var qty = $('#ProductQuantity').val();
+            var sizenm = $('#SizeName').val();
+            var unit = $('#UnitID').val();
+            var colorid = $('#ColorID').val();
+            var colorname = $('#ColorName').val();
+            var bv = $('#BV').val();
+            var mrp = $('#MRP').val();
+            var offerprice = $('#OfferedPrice').val();
+            var dealerprice = $('#DealerPrice').val();
+            var cgst = $('#CGST').val();
+            var sgst = $('#SGST').val();
+            var igst = $('#IGST').val();
+            var flavorid = $('#FlavorID').val();
+            var materialid = $('#MaterialID').val();
+            var flavorname = $('#FlavorID').find(":selected").text();
+            var materialname = $('#MaterialID').find(":selected").text();
+            //    var prodinfocode = $("#prodctinfocode").val();
+            var files = $("#ImageM").get(0).files;
+            var fileData = new FormData();
+
+            for (var i = 0; i < files.length; i++) {
+                fileData.append("ImageM", files[i]);
+            }
+
+            var tr = [];
+            var j = 1;
+            $.ajax({
+                url: '/Master/saveDataTemporary', type: 'post', dataType: 'json',
+                data: { 'sizeID': sizeID, 'colorID': colorid, 'qty': qty, 'bv': bv, 'mrp': mrp, 'offeredprice': offerprice, 'dealerprice': dealerprice, 'cgst': cgst, 'sgst': sgst, 'igst': igst, 'unitID': unit, 'unitname': unitname, 'sizename': sizename, 'colorname': colorname1, 'flavorid': flavorid, 'flavorname': flavorname, 'materialid': materialid, 'materialname': materialname },
+                success: function (data) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Master/UploadFiles",
+                        //data : {'sizeID' : sizeID, 'unitID' : unit, 'colorID' : colorid},
+                        dataType: "json",
+                        contentType: false, // Not to set any content header
+                        processData: false, // Not to process data
+                        data: fileData,
+                        success: function (result, status, xhr) {
+                            // alert(result);
+                            //$("#divload").css({ 'display': 'none' });
+                        },
+                        error: function (xhr, status, error) {
+                            // alert(status);
+                        }
+                    });
+
+                    $("#divload").css({ 'display': 'none' });
+                    $('#plccharge').empty();
+                    for (var i = 0; i < data.lstSizeTemp.length; i++) {
+                        tr.push('<tr>');
+                        tr.push("<td>" + j + "</td>");
+                        tr.push("<td><label id='txtUnitName_ " + i + "' name='txtUnitName_ " + i + "' >" + unitname + " </label></td>");
+                        tr.push("<td><label id='txtSizeName_ " + i + "' name='txtSizeName_ " + i + "'>" + data.lstSizeTemp[i].SizeName + "  </label></td>");
+                        tr.push("<td><label id='txtFlavorName_ " + i + "' name='txtFlavorName_ " + i + "' >" + data.lstSizeTemp[i].FlavorName + " </label></td>");
+                        tr.push("<td><label id='txtMaterialName_ " + i + "' name='txtMaterialName_ " + i + "'>" + data.lstSizeTemp[i].MaterialName + "  </label></td>");
+                        tr.push("<td><label id='stxtQuantity_ " + i + "' name='stxtQuantity_ " + i + "'> " + data.lstSizeTemp[i].Quantity + " </label></td>");
+                        tr.push("<td><label id='stxtColorName_ " + i + "' name='stxtColorName_ " + i + "'> " + data.lstSizeTemp[i].ColorName + "</label></td>");
+                        tr.push("<td><label id='stxtBV_ " + i + "' name='stxtBV_ " + i + "'>" + data.lstSizeTemp[i].BV + "</label></td>");
+                        tr.push("<td><label id='stxtMRP_ " + i + "' name='stxtMRP_ " + i + "' >" + data.lstSizeTemp[i].MRP + "</label></td>");
+                        tr.push("<td><label id='stxtOfferedPrice_ " + i + "' name='stxtOfferedPrice_ " + i + "' >" + data.lstSizeTemp[i].OfferedPrice + "</label></td>");
+                        tr.push("<td><label id='stxtDealerPrice_ " + i + "' name='stxtDealerPrice_ " + i + "' >" + data.lstSizeTemp[i].DealerPrice + "</label></td>");
+                        tr.push("<td><label id='stxtCGST_ " + i + "' name='stxtCGST_ " + i + "'>" + data.lstSizeTemp[i].CGST + "</label></td>");
+                        tr.push("<td><label id='stxtSGST_ " + i + "' name='stxtSGST_ " + i + "' >" + data.lstSizeTemp[i].SGST + "</label></td>");
+                        tr.push("<td><label id='stxtIGST_ " + i + "' name='stxtIGST_ " + i + "' >" + data.lstSizeTemp[i].IGST + "</label></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].UnitID + "' id='unitid_ " + i + "' name='unitid_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].SizeID + "' id='sizeid_ " + i + "' name='sizeid_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].ColorID + "' id='colorid_ " + i + "' name='colorid_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].Quantity + "' id='txtQuantity_ " + i + "' name='txtQuantity_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].UnitName + "' id='unitname_ " + i + "' name='unitname_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].SizeName + "' id='sizename_ " + i + "' name='sizename_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].ColorName + "' id='colorname_ " + i + "' name='colorname_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].BV + "' id='txtBV_ " + i + "' name='txtBV_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].MRP + "' id='txtMRP_ " + i + "' name='txtMRP_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].OfferedPrice + "' id='txtOfferedPrice_ " + i + "' name='txtOfferedPrice_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].DealerPrice + "' id='txtDealerPrice_ " + i + "' name='txtDealerPrice_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].CGST + "' id='txtCGST_ " + i + "' name='txtCGST_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].SGST + "' id='txtSGST_ " + i + "' name='txtSGST_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].IGST + "' id='txtIGST_ " + i + "' name='txtIGST_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].FlavorID + "' id='flavorid_ " + i + "' name='flavorid_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].MaterialID + "' id='materialid_ " + i + "' name='materialid_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].FlavorName + "' id='flavorname_ " + i + "' name='flavorname_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].MaterialName + "' id='materialname_ " + i + "' name='materialname_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].ProductInfoCode + "' id='productinfocode_ " + i + "' name='productinfocode_ " + i + "'></td>");
+                        tr.push('</tr>');
+                        j++;
+
+                    }
+                    tr.push('<tr style="display:none">');
+                    tr.push("<td><input type='hidden' value='" + j + "' id='hdrows' name='hdrows'></td>");
+                    tr.push('</tr>');
+                    $('#plccharge').append($(tr.join('')));
+
+                }
+
+            });
+
+
+        }
+    }
+
+    function validateform() {
+        $("#divload").css({ 'display': '' });
+        $(".errortext").removeClass("errortext");
+     
+        if ($('#ProductName').val() == '') {
+            $("#ProductName").addClass('errortext');
+            $('#ProductName').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#DeliveryCharge').val() == '') {
+            $("#DeliveryCharge").addClass('errortext');
+            $('#DeliveryCharge').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        
+        if ($('#ShoppingPerc').val() == '') {
+            $("#ShoppingPerc").addClass('errortext');
+            $('#ShoppingPerc').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+
+
+        if ($('#ShortDescription').val() == '') {
+            $("#ShortDescription").addClass('errortext');
+            $('#ShortDescription').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+
+        }
+        var desc = $('#summernoteInclusions').summernote('code');
+        $('#Description').val(desc);
+        if ($('#Description').val() == '') {
+            $("#Description").addClass('errortext');
+            $('#Description').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+
+        }
+
+        var rows = document.getElementById("dataTables-example").getElementsByTagName("tr").length;
+        if ((Number)(rows) <= 1) {
+            alert("Add values in table ");
+            $('#UnitID').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        $("#divload").css({ 'display': '' });
+        return true;
+    }
+
+
+    function onUnitChange1() {
+        debugger
+        $("#divload").css({ 'display': '' });
+        var value = $('#UnitIDD').val();
+        var values = $('#SizeIDD').val();
+
+        $.ajax({
+            url: "/Master/GetSizeeByUnit",
+            Type: "Get",
+            DataType: "JSON",
+            data: { UnitID: value },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                $("#SizeIDD").html(""); // clear before appending new list
+                $("#SizeIDD").empty();
+                $("#SizeIDD").append(
+                      $('<option></option>').val(0).html('Select Size'));
+                $.each(data.ddlSizee, function (index, count) {
+                    $("#SizeIDD").append(
+                          $('<option></option>').val(count.Value).html(count.Text));
+
+                });
+            }
+        });
+
+        var unitName = $('#UnitIDD').find(":selected").text();
+        //     alert(unitName);
+        $('#hdUnitName').val() = unitName;
+
+    }
+    function onUnitChange() {
+        debugger
+        $("#divload").css({ 'display': '' });
+        var value = $('#UnitID').val();
+        var values = $('#SizeID').val();
+
+        $.ajax({
+            url: "/Master/GetSizeByUnit",
+            Type: "Get",
+            DataType: "JSON",
+            data: { UnitID: value },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                $("#SizeID").html(""); // clear before appending new list
+                $("#SizeID").empty();
+                $("#SizeID").append(
+                      $('<option></option>').val(0).html('Select Size'));
+                $.each(data.ddlSize, function (index, count) {
+                    $("#SizeID").append(
+                          $('<option></option>').val(count.Value).html(count.Text));
+
+                });
+            }
+        });
+
+        var unitName = $('#UnitID').find(":selected").text();
+        //     alert(unitName);
+        $('#hdUnitName').val() = unitName;
+
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#ContentPlaceHolder1_imgProductImage')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#ContentPlaceHolder1_imgProductImage1')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL2(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#ContentPlaceHolder2_imgProductImage2')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $("#SizeID").on("change", function () {
+        $("#SizeName").val($(this).find("option:selected").text());
+        //  alert($("#SizeName").val());
+    });
+
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+
+    function DeleteImage(id) {
+        $("#divload").css({ 'display': '' });
+        $.ajax({
+            url: "/Master/DeleteProductImage",
+            Type: "Get",
+            DataType: "JSON",
+            data: { ImageID: id },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                //  alert("deleted")
+                window.location.reload();
+            }
+        });
+    }
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>

@@ -1,0 +1,999 @@
+﻿@model AfluexShopping.Models.Customer
+@{
+    ViewBag.Title = "QuickViewNewNew";
+    Layout = "~/Views/Shared/CustomerLayout.cshtml";
+}
+
+
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
+<style>
+    .topright {
+        position: absolute;
+        top: 8px;
+        right: 16px;
+        font-size: 18px;
+    }
+
+    .span {
+        content: "\2713";
+        color: white;
+    }
+
+    .span1 {
+        content: "\2713";
+        color: black;
+    }
+
+    .firsttime {
+        color: black;
+        background-color: white;
+        padding-left: 5px;
+        padding-top: 5px;
+        border: solid;
+        border-color: blue;
+        border-width: 2px;
+        background-color: deepskyblue;
+    }
+     #divload {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top:0px;
+        z-index: 9999;
+        background: url("../../images/cart-loading.gif") no-repeat center center rgba(0,0,0,0.25);
+    }
+</style>
+
+<div id="divProductDetails">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="product-single-container product-single-default">
+                    <div class="row">
+                        <div class="col-lg-7 product-single-gallery">
+                            <div class="sticky-slider">
+                                <div class="product-slider-container product-item">
+                                    <div class="product-single-carousel owl-carousel owl-theme">
+                                        @if (Model != null)
+                                        {
+                                            if (Model.lstproductimages != null)
+                                            {
+                                                foreach (var item in Model.lstproductimages)
+                                                {
+                                                    <div class="product-item">
+                                                        <img class="product-single-image" src="@item.SecondaryImage" data-zoom-image="@item.SecondaryImage" />
+                                                    </div>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                    <span class="prod-full-screen">
+                                        <i class="icon-plus"></i>
+                                    </span>
+                                </div>
+
+                                <div class="prod-thumbnail row owl-dots transparent-dots" id='carousel-custom-dots'>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstproductimages != null)
+                                        {
+                                            foreach (var item in Model.lstproductimages)
+                                            {
+                                                <div class="owl-dot">
+                                                    <img src="@item.SecondaryImage" />
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="product-single-details">
+                                <h1 class="product-title"><span id="productName">@Model.ProductName</span></h1>
+                                <div class="price-box">
+                                    <span class="old-price" id="mrp1">&#8377 </span><span class="old-price" id="mrp"> @Model.MRP </span>
+                                    <span class="product-price">&#8377 </span><span class="product-price" id="offeredPrice"> @Model.OfferedPrice</span>
+                                    <div class="product-price" id="discount" style="color: #1cb8e6;">Discount %(@Model.OfferDiscountPerc)</div>
+                                </div>
+                                <div class="product-desc">
+                                    <p id="shortDescription">@Model.ShortDescription</p>
+                                </div>
+
+                                <div class="product-filters-container">
+                                    @if (Model != null)
+                                    {
+                                        @Html.HiddenFor(m => m.ColorID)
+                                        if (Model.lstColorMapped != null)
+                                        {
+                                            var i = 0;
+                                            int colrcount = 0;
+                                            <input type="hidden" id="hdValidateColor" value="1" />
+                                            <div class="product-single-filter">
+                                                <label>Colors</label>
+                                                <ul class="config-swatch-list1" id="ulColor">
+
+                                                    @foreach (var item in Model.lstColorMapped)
+                                                    {
+                                                        if (item.Status == "selectedColor")
+                                                        {
+                                                            //href="/Customer/QuickView?pid=@Model.EncryptKey&colorid=@item.ColorID"
+                                                            <li title="@item.ColorName" class="@item.CssClass" id="lstColor_@i">
+                                                                <a class="@item.Status" onclick="return colorChange(@i,@item.ColorID)" style="border: 1px solid black;height:35px;width:35px;background-color: @item.ColorCode" @*onclick="return colorChange(@item.ColorID);"*@>
+
+                                                                    <p style="padding-left: 6px;padding-top: 5px;color: #541a24;font-size: 14px;font-style: italic">
+                                                                        <b> &nbsp;✓&nbsp;</b>
+                                                                    </p>
+
+                                                                </a>
+                                                            </li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li title="@item.ColorName" class="@item.CssClass" id="lstColor_@i">
+                                                                <a class="@item.Status" onclick="return colorChange(@i,@item.ColorID)" style="border: 1px solid black;height:35px;top:12px;padding-top: 5px;;width:35px;background-color: @item.ColorCode" @*onclick="return colorChange(@item.ColorID);"*@>
+
+
+
+                                                                </a>
+                                                            </li>
+                                                        }
+                                                        i++;
+                                                        colrcount++;
+                                                    }
+                                                </ul>
+
+                                            </div>
+                                        }
+                                    }
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstSizeMapped != null)
+                                        {
+                                            var i = 0;
+                                            <input type="hidden" id="hdValidateSize" value="1" />
+                                            <div class="product-single-filter" id="divSize">
+                                                <label>Size</label>
+                                                <ul class="config-swatch-list" id="ddlSize">
+                                                    @foreach (var item in Model.lstSizeMapped)
+                                                    {
+                                                        <li id="lstsize_@i" class="@item.CssClass" style="margin-top:15px;height: 40px;">
+                                                            <h5>
+                                                                <a id="asize_@i" class="@item.Status" onclick="return sizeChange(@i,@item.SizeID,@item.UnitID);">&nbsp;@item.SizeName &nbsp;</a>
+                                                            </h5>
+                                                        </li>
+
+                                                        i++;
+                                                    }
+                                                </ul>
+                                            </div>
+                                        }
+                                    }
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstMaterialMapped != null)
+                                        {
+                                            var i = 0;
+                                            <input type="hidden" id="hdValidateMaterial" value="1" />
+                                            <div class="product-single-filter" id="divMaterial">
+                                                <label>Material</label>
+                                                <ul class="config-swatch-list" id="ulMaterial">
+                                                    @foreach (var item in Model.lstMaterialMapped)
+                                                    {
+                                                        <li id="lstMaterial_@i" style="margin-top:15px;height:22px">
+                                                            <h5>
+                                                                <a id="amaterial_@i" class="@item.Status" onclick="return materialChange(@i,@item.MaterialID);">&nbsp; @item.MaterialName &nbsp;</a>
+                                                            </h5>
+                                                        </li>
+                                                        i++;
+                                                    }
+                                                </ul>
+                                            </div>
+                                        }
+                                    }
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstFlavorMapped != null)
+                                        {
+                                            var i = 0;
+                                            <input type="hidden" id="hdValidateFlavor" value="1" />
+                                            <div class="product-single-filter" id="divFlavor">
+                                                <label>FLAVOUR</label>
+                                                <ul class="config-swatch-list" id="ulFlavor">
+                                                    @foreach (var item in Model.lstFlavorMapped)
+                                                    {
+                                                        <li id="lstFlavour_@i" style="margin-top:15px;height:22px">
+                                                            <h5>
+                                                                <a id="aflavour_@i" onclick="return flavorChange(@i,@item.FlavorID);" class="@item.Status">&nbsp; @item.FlavorName &nbsp;</a> @*onclick="return ramChange(@i,@item.RamID);"*@
+                                                            </h5>
+                                                        </li>
+                                                        i++;
+                                                    }
+                                                </ul>
+                                            </div>
+                                        }
+                                    }
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstRam != null)
+                                        {
+                                            var i = 0;
+                                            <input type="hidden" id="hdValidateRam" value="1" />
+                                            <div class="product-single-filter" id="divRam">
+                                                <label>RAM</label>
+                                                <ul class="config-swatch-list" id="ulRam">
+                                                    @foreach (var item in Model.lstRam)
+                                                    {
+                                                        <li id="lstRam_@i" style="margin-top:15px;height:22px">
+                                                            <h5>
+                                                                <a id="aram_@i" onclick="return ramChange(@i,@item.RamID);" class="@item.Status">&nbsp; @item.RamName &nbsp;</a> @*onclick="return ramChange(@i,@item.RamID);"*@
+                                                            </h5>
+                                                        </li>
+                                                        i++;
+                                                    }
+                                                </ul>
+                                            </div>
+                                        }
+                                    }
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstStorage != null)
+                                        {
+                                            var i = 0;
+                                            <input type="hidden" id="hdValidateStorage" value="1" />
+                                            <div class="product-singl
+                                                 e-filter" id="divStorage">
+                                                <label>Storage</label>
+                                                <ul class="config-swatch-list" id="ulStorage">
+                                                    @foreach (var item in Model.lstStorage)
+                                                    {
+                                                        <li id="lstStorage_@i" style="margin-top:15px;height:22px">
+                                                            <h5>
+                                                                <a id="astorage_@i" onclick="return storageChange(@i,@item.StorageID);" class="@item.Status">&nbsp; @item.StorageName &nbsp;</a> @* onclick="return storageChange(@i,@item.StorageID);"*@
+                                                            </h5>
+                                                        </li>
+                                                        i++;
+                                                    }
+                                                </ul>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+
+                                <div class="product-action">
+                                    <div class="product-single-qty">
+                                        <input class="horizontal-quantity form-control" type="text" id="txtQty">
+                                    </div>
+                                    <input type="button" value="Add to Cart" class="btn btn-sm btn-primary" id="addtocrt" onclick="return addToCart();" />
+                                    @*<button class="btn btn-sm btn-primary" onclick="return testMethod();">Test</button>*@
+                                </div>
+                                <div class="product-single-share mb-4" style="display:none">
+                                    <a href="#" style="color:blue">More</a>
+                                    <button class="btn btn-sm btn-info" onclick="return moreVendors();" style="color:blue">More Vendors</button>
+
+                                    <label style="color:blue">Vendor</label>
+                                    <div class="product-single-share" id="divSingleVendor">
+                                        <label style="color: green;font-size: 15px;font-family: cursive;">@Model.VendorName</label>
+                                        <input type="hidden" id="hdFk_VendorId" value="@Model.Fk_vendorId" />
+                                    </div>
+                                    <div class="product-single-share" id="divVendorList" style="display:none">
+                                        @*@Html.DropDownListFor(m => m.Fk_vendorId, new SelectList(ViewBag.ddlVendors, "Value", "Text"), new { @onchange = "return vendorChange();", @class = "form-control" })*@
+                                        <label style="color: green;font-size: 15px;font-family: cursive;">@Model.VendorName</label>
+                                        <input type="hidden" id="hdFk_VendorId" value="@Model.Fk_vendorId" />
+                                    </div>
+                                    
+                                </div>
+                                <br />
+                                <div class="product-single-share mb-4">
+                                    <label>Share:</label>
+                                    <!-- www.addthis.com share plugin-->
+                                    <div class="product-single-share">
+                                        <div class="addthis_inline_share_toolbox"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-single-tabs">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="product-tab-desc" data-toggle="tab" href="#product-desc-content" role="tab" aria-controls="product-desc-content" aria-selected="true">Description</a>
+                                    </li>
+
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="product-desc-content" role="tabpanel" aria-labelledby="product-tab-desc">
+                                        <div class="product-desc-content">
+                                            <p>@Model.Description</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-signup1" class="modal fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content p-sm-3">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span> </button>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"><a id="login-tab" class="nav-link active text-4" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a> </li>
+                        @*<li class="nav-item"><a id="signup-tab" class="nav-link text-4" data-toggle="tab" href="#signup" role="tab" aria-controls="signup" aria-selected="false">Sign Up</a> </li>*@
+                    </ul>
+                    <div class="tab-content pt-4">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>Login Id</label>
+                                    @Html.TextBoxFor(m => m.LoginID, new { @class = "form-control", @placeholder = "Login Id" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>Password</label>
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+
+                                    <input type="submit" value="Login" class="btn btn-sm btn-primary float-right" onclick="return flogin();" />
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <input type="button" data-toggle="modal" data-target="#ForgotPwd" value="Forgot Password" class="btn btn-sm btn-success" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>Customer Name</label>
+                                    @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control", @placeholder = "Customer Name" })
+                                </div>
+                                <div class="col-md-6 form-group" id="divOTP" style="display: none">
+                                    <label>OTP</label>
+                                    <input type="hidden" id="hdOTP" />
+                                    @Html.TextBoxFor(m => m.OTP, new { @class = "form-control", @placeholder = "OTP", @maxlength = "6", @onkeypress = "return isNumberKey(event);" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>Contact</label>
+                                    @Html.TextBoxFor(m => m.Contact, new { @class = "form-control", @placeholder = "Contact", @maxlength = "10", @onkeypress = "return isNumberKey(event);" })
+                                </div>
+                                <div class="col-md-6 form-group" id="divSubmit" style="display: none">
+                                    <input type="button" value="Resend OTP" class="btn btn-sm btn-success float-right" onclick="return sendOTP();" />
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="button" value="Verify & Register" class="btn btn-sm btn-primary float-right" onclick="return validateOTP();" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <input type="button" value="Continue" class="btn btn-sm btn-primary float-right" onclick="return sendOTP();" />
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="social-login-wrapper">
+                                <p>Access your account through  your social networks.</p>
+
+                                <div class="btn-group">
+                                    <a class="btn btn-social-login btn-md btn-gplus mb-1"><i class="icon-gplus"></i><span>Google</span></a>
+
+                                    <div class="fb-login-button" data-size="small" data-button-type="login_with" data-auto-logout-link="false" data-use-continue-as="false"></div>
+                                    <a class="btn btn-social-login btn-md btn-twitter mb-1"><i class="icon-twitter"></i><span>Twitter</span></a>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d737a91b405b660"></script>
+
+    <!---LoginPopup--->
+    <div id="ForgotPwd" class="modal fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content p-sm-3">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span> </button>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item"><a id="login-tab" class="nav-link active text-4" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Get Password</a> </li>
+                    </ul>
+                    <div class="tab-content pt-4">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>Mobile</label>
+                                    @*@Html.TextBoxFor(m => m.Contact, new { @class = "form-control", @placeholder = "Mobile" })*@
+                                    <input type="text" id="cont" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <input type="button" value="GetPassword" class="btn btn-sm btn-primary float-right" onclick="return GetPassword();" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model != null)
+    {
+        <input type="hidden" value="@Model.EncryptKey" id="EncryptedProductID" />
+        <input type="hidden" value="@Model.ProductID" id="ProductID" />
+        <input type="hidden" value="@Model.UnitID" id="UnitID" />
+        <input type="hidden" value="@Model.OfferedPrice" id="OfferedPrice" />
+        <input type="hidden" value="@Model.ProductCode" id="ProductCode" />
+
+        @*Store Currently Selected Variant Values*@
+        <input type="hidden" id="hdColorID" value="@Model.ColorID" />
+
+        <input type="hidden" id="hdSizeID" value="@Model.SizeID" />
+        <input type="hidden" id="hdUnitID" value="@Model.UnitID" />
+        <input type="hidden" id="hdMaterialID" value="@Model.MaterialID" />
+        <input type="hidden" id="hdFlavorID" value="@Model.FlavorID" />
+        <input type="hidden" id="hdRamID" value="@Model.RamID" />
+        <input type="hidden" id="hdStorageID" value="@Model.StorageID" />
+        <input type="hidden" id="hdStarRatingID" value="@Model.StarRatingID" />
+        @*Store Currently Selected Variant Values*@
+    }
+</div>
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script src="../../scripts/jquery-1.10.2.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $('#discount').hide();
+    });
+
+    function moreVendors() {
+        $('#divSingleVendor').hide();
+        $('#divVendorList').show();
+    }
+
+    function vendorChange() {
+        $('#divSingleVendor').show();
+        $('#divVendorList').hide();
+
+        var vname = $("#Fk_vendorId option:selected").text();
+        $('#VendorName').val(vname);
+        document.getElementById('hdFk_VendorId').value = $('#Fk_vendorId').val();
+
+    }
+
+    function testMethod() {
+        //var color = $("#ulColor").find(".selectedColor").attr('id');
+        //var size = $("#ddlSize").find(".selectedSize").attr('id');
+        //var ram = $("#ulRam").find(".selectedRam").attr('id');
+        //var storage = $("#ulStorage").find(".selectedStorage").attr('id');
+
+        alert("Color : " + document.getElementById("hdColorID").value + "\nSize : " + document.getElementById("hdSizeID").value + "\nRAM : " + document.getElementById("hdRamID").value + "\n Storage : " + document.getElementById("hdStorageID").value);
+    }
+
+    function variantChange(lastSelected) {
+        $("#divload").css({ 'display': '' });
+        var productID, colorID, sizeID, unitID, materialID, flavorID, ramID, storageID, starID = null;
+
+        if (document.getElementById("EncryptedProductID") != null) {
+            productID = document.getElementById("EncryptedProductID").value;
+        }
+        if (document.getElementById("hdColorID") != null && document.getElementById("hdColorID").value != "") {
+            colorID = document.getElementById("hdColorID").value;
+        }
+        else { colorID = ""; }
+        if (document.getElementById("hdSizeID") != null && document.getElementById("hdSizeID").value != "") {
+            sizeID = document.getElementById("hdSizeID").value;
+        }
+        else { sizeID = ""; }
+        if (document.getElementById("hdUnitID") != null && document.getElementById("hdUnitID").value != "") {
+            unitID = document.getElementById("hdUnitID").value;
+        }
+        else { unitID = ""; }
+        if (document.getElementById("hdMaterialID") != null && document.getElementById("hdMaterialID").value != "") {
+            materialID = document.getElementById("hdMaterialID").value;
+        }
+        else { materialID = ""; }
+        if (document.getElementById("hdFlavorID") != null && document.getElementById("hdFlavorID").value != "") {
+            flavorID = document.getElementById("hdFlavorID").value;
+        }
+        else { flavorID = ""; }
+        if (document.getElementById("hdRamID") != null && document.getElementById("hdRamID").value != "") {
+            ramID = document.getElementById("hdRamID").value;
+        }
+        else { ramID = ""; }
+        if (document.getElementById("hdStorageID") != null && document.getElementById("hdStorageID").value != "") {
+            storageID = document.getElementById("hdStorageID").value;
+        }
+        else { storageID = ""; }
+        if (document.getElementById("hdStarID") != null && document.getElementById("hdStarID").value != "") {
+            starID = document.getElementById("hdStarID").value;
+        }
+        else { starID = ""; }
+
+        window.location.href = "/Customer/QuickViewNew?pid=" + productID + "&colorid=" + colorID + "&sizeid=" + sizeID + "&flavorid=" + flavorID + "&materialid=" + materialID + "&ramid=" + ramID + "&storageid=" + storageID + "&starid=" + starID + "&last=" + lastSelected;
+    }
+
+    function rateChange() {
+        var productID, colorID, sizeID, unitID, materialID, flavorID, ramID, storageID = null;
+
+        if (document.getElementById("ProductID") != null) {
+            productID = document.getElementById("ProductID").value;
+        }
+        if (document.getElementById("ColorID") != null) {
+            colorID = document.getElementById("ColorID").value;
+        }
+        if (document.getElementById("hdSizeID") != null) {
+            sizeID = document.getElementById("hdSizeID").value;
+        }
+        if (document.getElementById("hdUnitID") != null) {
+            unitID = document.getElementById("hdUnitID").value;
+        }
+        if (document.getElementById("hdMaterialID") != null) {
+            materialID = document.getElementById("hdMaterialID").value;
+        }
+        if (document.getElementById("hdFlavorID") != null) {
+            flavorID = document.getElementById("hdFlavorID").value;
+        }
+        if (document.getElementById("hdRamID") != null) {
+            ramID = document.getElementById("hdRamID").value;
+        }
+        if (document.getElementById("hdStorageID") != null) {
+            storageID = document.getElementById("hdStorageID").value;
+        }
+
+        $.ajax({
+            url: "/Customer/RateChangeQuickViewNew",
+            Type: "Get",
+            DataType: "JSON",
+            data: { productID: productID, colorid: colorID, sizeid: sizeID, unitid: unitID, materialid: materialID, flavorid: flavorID, ramid: ramID, storageid: storageID },
+            success: function (data) {
+                if (data.Result == "1") {
+                    document.getElementById('offeredPrice').innerText = data.OfferedPrice;
+                    document.getElementById('mrp').innerText = data.MRP;
+                }
+                else {
+                    //  alert(data.Result);
+                }
+            }
+        });
+    }
+
+    function colorChange(i, colorID) {
+        //$("li").removeClass("selectedFlavor");
+        //$("#lstColor_" + i).addClass('selectedFlavor');
+        document.getElementById('hdColorID').value = colorID;
+
+        //rateChange();
+        variantChange('Color');
+    }
+
+    function sizeChange(i, sizeID, unitID) {
+        $("li").removeClass("selectedSize");
+        $("#asize_" + i).removeClass("mappedvariant");
+        $("#asize_" + i).addClass("mappedvariant1");
+        $("#lstsize_" + i).addClass('selectedSize');
+        document.getElementById('hdSizeID').value = sizeID;
+        document.getElementById('hdUnitID').value = unitID;
+
+        variantChange('Size');
+    }
+
+    function materialChange(i, materialID) {
+        $("li").removeClass("selectedMaterial");
+        $("#amaterial_" + i).removeClass("mappedvariant");
+        $("#amaterial_" + i).addClass("mappedvariant1");
+        $("#lstMaterial_" + i).addClass('selectedMaterial');
+        document.getElementById('hdMaterialID').value = materialID;
+
+        variantChange();
+    }
+
+    function flavorChange(i, flavourId) {
+        $("li").removeClass("selectedRam");
+        $("#aflavour_" + i).removeClass("mappedvariant");
+        $("#aflavour_" + i).removeClass("unmappedvariant");
+        $("#aflavour_" + i).addClass("mappedvariant1");
+
+        $("#lstFlavour_" + i).addClass('selectedRam');
+
+        document.getElementById('hdFlavorID').value = flavourId;
+
+        variantChange('Flavor');
+    }
+
+    function ramChange(i, ramID) {
+        $("li").removeClass("selectedRam");
+        $("#aram_" + i).removeClass("mappedvariant");
+        $("#aram_" + i).removeClass("unmappedvariant");
+        $("#aram_" + i).addClass("mappedvariant1");
+
+        $("#lstRam_" + i).addClass('selectedRam');
+        document.getElementById('hdRamID').value = ramID;
+
+        variantChange('Ram');
+    }
+
+    function storageChange(i, storageID) {
+        $("li").removeClass("selectedStorage");
+        $("#astorage_" + i).removeClass("mappedvariant");
+        $("#astorage_" + i).addClass("mappedvariant1");
+        $("#lstStorage_" + i).addClass('selectedStorage');
+        document.getElementById('hdStorageID').value = storageID;
+
+        //rateChange();
+        variantChange('Storage');
+    }
+
+    function changeSizeColor() {
+        var productID = document.getElementById("ProductID").value;
+        var sizeID = $("#SizeID").val();
+        var colorid = $("#ColorID").val();
+        //alert("Product ID: " + productID + "\nColor ID : " + colorid + "\nSize ID : " + sizeID);
+        //window.location.href = "/Customer/QuickViewNew?pid=" + productID + "&colorid=" + colorid + "&sizeid=" + sizeID;
+        variantChange();
+    }
+
+    function GetPassword() {
+
+        var Contact = document.getElementById('cont').value;
+        $(".errortext").removeClass("errortext");
+        if (Contact == '') {
+            document.getElementById('cont').addClass('errortext');
+            document.getElementById('cont').focus();
+            return false;
+        }
+        $.ajax({
+            url: "/Home/ValidateData",
+            Type: "Get",
+            DataType: "JSON",
+            data: { Contact: Contact },
+            success: function (data) {
+
+                alert(data.Result);
+                $('#ForgotPwd').modal('hide');
+
+            }
+        })
+    }
+
+    function addToCart() {
+        $("#divSize").removeClass('errortext');
+        $("#divColor").removeClass('errortext');
+        $("#divMaterial").removeClass('errortext');
+        $("#divFlavor").removeClass('errortext');
+        $("#divStorage").removeClass('errortext');
+
+        if (document.getElementById("hdValidateColor") != null && document.getElementById("hdValidateColor").value == "1" && document.getElementById("hdColorID").value == '') {
+            alert("Select Color");
+            $("#divColor").addClass('errortext');
+            $('#divColor').focus();
+            return false;
+        }
+        if (document.getElementById("hdValidateSize") != null && document.getElementById("hdValidateSize").value == "1" && document.getElementById('hdSizeID').value == '') {
+            alert("Select Size");
+            $("#divSize").addClass('errortext');
+            $('#divSize').focus();
+            return false;
+        }
+        if (document.getElementById("hdValidateRam") != null && document.getElementById("hdValidateRam").value == "1" && $('#hdRamID').val() == '') {
+            alert("Select RAM");
+            $("#divRAM").addClass('errortext');
+            $('#divRAM').focus();
+            return false;
+        }
+        if (document.getElementById("hdValidateStorage") != null && document.getElementById("hdValidateStorage").value == "1" && $('#hdStorageID').val() == '') {
+            alert("Select Storage");
+            $("#divStorage").addClass('errortext');
+            $('#divStorage').focus();
+            return false;
+        }
+        if (document.getElementById("hdValidateMaterial") != null && document.getElementById("hdValidateMaterial").value == "1" && document.getElementById('hdMaterialID').value == '') {
+            alert("Select Material");
+            $("#divMaterial").addClass('errortext');
+            $('#divMaterial').focus();
+            return false;
+        }
+        if (document.getElementById("hdValidateFlavor") != null) {
+            if (document.getElementById("hdValidateFlavor").value == "1" && $('#FlavorID').val() == '0') {
+                alert("Select Flavor");
+                $("#divFlavor").addClass('errortext');
+                $('#divFlavor').focus();
+                return false;
+            }
+        }
+
+        var productID = document.getElementById("ProductID").value;
+        var qty = document.getElementById("txtQty").value;
+        var sizeID = document.getElementById('hdSizeID').value;
+        //var sizeID =  $('#ddlSize li a').text();
+        //   var unitID = $("#UnitID").val();
+        var unitID = document.getElementById("hdUnitID").value;
+        var colorid = document.getElementById('hdColorID').value;
+        //var materialid = document.getElementById('hdMaterialID').value;
+        var flavorid = document.getElementById('hdFlavorID').value;
+        var ramid = document.getElementById('hdRamID').value;
+        var storageid = document.getElementById('hdStorageID').value;
+        var rate = document.getElementById('offeredPrice').innerText;
+        //var rate = $("#OfferedPrice").val();
+        var productCode = document.getElementById("ProductCode").value;
+        var starratingid = document.getElementById("hdStarRatingID").value;
+
+        //alert("RAM ID : " + document.getElementById('hdRamID').value + "\Storage ID : " + document.getElementById('hdStorageID').value);
+        //alert("Color ID : " + document.getElementById('hdColorID').value + "\nSize ID : " + document.getElementById('hdSizeID').value + "\nMaterial ID : " + document.getElementById('hdMaterialID').value + "\nProduct Code : " + document.getElementById('ProductCode').value);
+        $.ajax({
+            url: "/Customer/AddToCart",
+            Type: "Get",
+            DataType: "JSON",
+            data: { productInfoCode: productCode, productID: productID, sizeID: sizeID, unitID: unitID, colorID: colorid, FlavorID: flavorid, ramid: ramid, storageid: storageid, starratingid: starratingid, rate: rate, qty: qty },
+            success: function (data) {
+                if (data.Result == "1") {
+                    window.location.href = "/Customer/Cart";
+                    //alert("Added to cart !");
+                }
+                else if (data.Result == "2") {
+                    //alert('Please Login to continue..');
+                    document.getElementById("hdSizeID").value = data.SizeID;
+                    document.getElementById("hdColorID").value = data.ColorID;
+                    document.getElementById("hdMaterialID").value = data.MaterialID;
+                    document.getElementById("hdFlavorID").value = data.FlavorID;
+
+                    $("#login-signup1").modal('show');
+                }
+                else {
+                    alert(data.Status);
+                }
+            }
+        });
+    }
+
+    function flogin() {
+        $(".errortext").removeClass("errortext");
+        if ($('#LoginID').val() == '') {
+            $("#LoginID").addClass('errortext');
+            $('#LoginID').focus();
+            return false;
+        }
+        if ($('#Password').val() == '') {
+            $("#Password").addClass('errortext');
+            $('#Password').focus();
+            return false;
+        }
+        debugger;
+        var productID = document.getElementById("ProductID").value;
+        var qty = document.getElementById("txtQty").value;
+        var sizeID = document.getElementById('hdSizeID').value;
+        //var sizeID =  $('#ddlSize li a').text();
+        //  var unitID = $("#UnitID").val();
+        var unitID = document.getElementById("hdUnitID").value;
+        var colorid = document.getElementById('ColorID').value;
+        var flavorid = document.getElementById('hdFlavorID').value;
+        var ramid = document.getElementById('hdRamID').value;
+        var storageid = document.getElementById('hdStorageID').value;
+        var rate = document.getElementById('offeredPrice').innerText;
+        var productCode = document.getElementById("ProductCode").value;
+
+        $.ajax({
+            url: "/Customer/LoginCustomer",
+            Type: "Get",
+            DataType: "JSON",
+            data: { LoginID: $("#LoginID").val(), Password: $("#Password").val(), productInfoCode: productCode, productID: productID, sizeID: sizeID, unitID: unitID, colorid: colorid, flavorid: flavorid, ramid: ramid, storageid: storageid, rate: rate, qty: qty },
+            success: function (data) {
+                if (data.Result == "1") {
+                    alert("Added to cart !");
+                    window.location.href = "/Customer/Cart";
+                    //window.location.reload();
+                }
+                else {
+                    alert(data.Result);
+                    window.location.reload();
+                }
+            }
+        });
+    }
+
+    function logout() {
+        $.ajax({
+            url: "/Home/Logout",
+            Type: "Get",
+            DataType: "JSON",
+            data: {},
+            success: function (data) {
+                if (data.Result == "1") {
+                    window.location.reload();
+                }
+            }
+        });
+    }
+
+    function sendOTP() {
+        $(".errortext").removeClass("errortext");
+        if ($('#CustomerName').val() == '') {
+            $("#CustomerName").addClass('errortext');
+            $('#CustomerName').focus();
+            return false;
+        }
+        if ($('#Contact').val() == '') {
+            $("#Contact").addClass('errortext');
+            $('#Contact').focus();
+            return false;
+        }
+
+        $.ajax({
+            url: "/Home/SendOTP",
+            Type: "Get",
+            DataType: "JSON",
+            data: { MemberName: $("#CustomerName").val(), Contact: $("#Contact").val() },
+            success: function (data) {
+                if (data.Result == "1") {
+                    alert(data.OTP);
+                    $("#CustomerName").val(data.CustomerName);
+                    $("#Contact").val(data.Contact);
+                    $("#hdOTP").val(data.OTP);
+                    $("#divOTP").show();
+                    $("#divSubmit").show();
+                }
+                else {
+                    $("#divOTP").hide();
+                    $("#divSubmit").hide();
+                }
+            }
+        });
+    }
+
+    function validateOTP() {
+        $(".errortext").removeClass("errortext");
+        if ($('#OTP').val() == '') {
+            $("#OTP").addClass('errortext');
+            $('#OTP').focus();
+            return false;
+        }
+
+        if ($("#OTP").val() == $("#hdOTP").val()) {
+            $.ajax({
+                url: "/Home/CustomerRegistration",
+                Type: "Get",
+                DataType: "JSON",
+                data: { CustomerName: $("#CustomerName").val(), Contact: $("#Contact").val() },
+                success: function (data) {
+                    if (data.Result == "1") {
+                        alert(data.Description);
+                        $("#divOTP").hide();
+                        $("#divSubmit").hide();
+                        $("#CustomerName").val('');
+                        $("#Contact").val('');
+                    }
+                    else {
+                        alert(data.Result);
+                    }
+                }
+            });
+        }
+        else {
+            alert("Invalid OTP..");
+            $("#OTP").focus();
+        }
+    }
+
+    function isNumberKey(evt) {
+
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+</script>
+
+<style>
+    .config-swatch-list a {
+        height: 4.2rem !important;
+    }
+
+    .mappedvariant {
+        color: black;
+        background-color: white;
+        padding-top: 3px;
+        border: solid;
+        border-color: black;
+        border-width: 2px;
+    }
+
+    .mappedvariant1 {
+        color: black;
+        padding-top: 3px;
+        border: solid;
+        border-color: black;
+        border-width: 2px;
+    }
+
+    .unmappedvariant {
+        color: red;
+        background-color: white;
+        padding-top: 3px;
+        border: solid;
+        border-color: red;
+        border-width: 2px;
+    }
+
+    .disableclick {
+        pointer-events: none;
+    }
+
+    .enableclick {
+        pointer-events: all;
+    }
+
+    .errortext {
+        border: 1px solid red !important;
+    }
+
+    .selectedSize {
+        background-color: deepskyblue;
+        border: 2px solid #1f6182;
+    }
+
+    .selectedColor {
+        background-color: deepskyblue;
+        border: 2px solid #1f6182;
+        width: 34px;
+        height: 34px;
+    }
+
+    .selectedMaterial {
+        background-color: deepskyblue;
+        border: 2px solid #1f6182;
+    }
+
+    .selectedFlavor {
+        background-color: deepskyblue;
+        border: 2px solid #1f6182;
+    }
+
+    .selectedRam {
+        background-color: deepskyblue;
+    }
+
+    .selectedStorage {
+        background-color: deepskyblue;
+        border: 2px solid #1f6182;
+    }
+
+    .ulclass {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333333;
+    }
+
+    .liclass {
+        float: left;
+    }
+
+        .liclass a {
+            width: 2.2rem;
+            height: 2.2rem;
+            display: block;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+            .liclass a:hover {
+                background-color: #111111;
+            }
+</style>

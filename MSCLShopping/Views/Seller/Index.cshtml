@@ -1,0 +1,222 @@
+﻿@model MSCLShopping.Models.Vendor
+@{
+    ViewBag.Title = "Seller";
+    Layout = "~/Views/Shared/SellerLandingPage.cshtml";
+}
+
+<div class="banner">
+    <img src="/newassets/img/breadcrumb/breadcrumb-bg-1.jpg" class="img-responsive" alt="banner" />
+</div>
+<hr />
+<div class="section-inner">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Tabs -->
+                <section id="tabs">
+                    <nav>
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"><h1>WHY SELL ONLINE</h1></a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false"><h1>WHY SELL WITH MSCL SHOPPING</h1></a>
+                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"><h1>HOW TO REGISTER</h1></a>
+                        </div>
+                    </nav>
+                    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="contant1">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h1 class="text-center contentbg">1</h1>
+                                        <div class="space1"></div>
+                                        <h2 class="text-center">Growth in the online retail market</h2>
+                                        <div class="space1"></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h1 class="text-center contentbg">2</h1>
+                                        <div class="space1"></div>
+                                        <h2 class="text-center">Get orders across India</h2>
+                                        <div class="space1"></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h1 class="text-center contentbg">3</h1>
+                                        <div class="space1"></div>
+                                        <h2 class="text-center">Ship with ease</h2>
+                                        <div class="space1"></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h1 class="text-center contentbg">4</h1>
+                                        <div class="space1"></div>
+                                        <h2 class="text-center">Earn big</h2>
+                                        <div class="space1"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="contant1">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h1 class="text-center contentbg">A</h1>
+                                        <div class="space1"></div>
+                                        <h2 class="text-center">Growth</h2>
+                                        <div class="space1"></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h1 class="text-center contentbg">B</h1>
+                                        <div class="space1"></div>
+                                        <h2 class="text-center">Lowest cost of doing business</h2>
+                                        <div class="space1"></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h1 class="text-center contentbg">C</h1>
+                                        <div class="space1"></div>
+                                        <h2 class="text-center">Ease</h2>
+                                        <div class="space1"></div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h1 class="text-center contentbg">D</h1>
+                                        <div class="space1"></div>
+                                        <h2 class="text-center">Transparency</h2>
+                                        <div class="space1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <div class="contant1">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h1 class="text-center contentbg">1</h1>
+                                        <div class="space1"></div>
+                                        <h2 class="text-center">At least 1 product to sell</h2>
+                                        <div class="space1"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h1 class="text-center contentbg">2</h1>
+                                        <div class="space1"></div>
+                                        <h2 class="text-center">GSTIN details</h2>
+                                        <div class="space1"></div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h1 class="text-center contentbg">3</h1>
+                                        <div class="space1"></div>
+                                        <h2 class="text-center">Cancelled cheque</h2>
+                                        <div class="space1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- ./Tabs -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grow-faster">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">GROW FASTER WITH MSCL SHOPPING</h1>
+                <div class="space1"></div><div class="space1"></div>
+                <img src="~/BannerImage/shopping-Banner.jpg" class="img-responsive" alt="banner">
+                @*<img src="~/BannerImage/shopping-Banner.jpg" />*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="loader" id="divload"></div>
+<div class="container-fluid">
+    <div class="row" id="testimonial">
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            @if (Model != null)
+            {
+                if (Model.lstRequests != null)
+                {
+                    foreach (var item in Model.lstRequests)
+                    {
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" class="">
+                            <!------inner div------>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" class="">
+                                    <img src="@item.ProfilePic" class="img-responisve profile-img" alt="profile" />
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" class="">
+                                    <p class="testimonal-text">"@item.Review"</p>
+                                    <strong class="profile-name"> @item.AddedBy</strong>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+
+        </div>
+    </div>
+</div>
+
+@*<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            Login Id
+                            @Html.TextBoxFor(m => m.LoginId, new { @class = "form-control", @placeholder = "Login Id" })
+                        </div>
+                        <div class="col-md-6">
+                            Password
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Login" class="btn btn-sm btn-primary float-right" onclick="return login();" />
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+    });
+    function login() {
+        $(".errortext").removeClass("errortext");
+        if ($('#LoginId').val() == '') {
+            $("#LoginId").addClass('errortext');
+            $('#LoginId').focus();
+            return false;
+        }
+        if ($('#Password').val() == '') {
+            $("#Password").addClass('errortext');
+            $('#Password').focus();
+            return false;
+        }
+        $("#divload").css({ 'display': '' });
+        $.ajax({
+            url: "/Home/LoginVendor",
+            Type: "Get",
+            DataType: "JSON",
+            data: { LoginID: $("#LoginId").val(), Password: $("#Password").val() },
+            success: function (data) {
+                if (data.Response == "1") {
+                    window.location = "/Vendor/DashBoard";
+                }
+                else {
+                    alert(data.Response);
+                    $("#divload").css({ 'display': 'none' });
+                }
+            }
+        });
+    }
+</script>

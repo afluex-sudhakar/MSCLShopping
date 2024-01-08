@@ -1,0 +1,245 @@
+﻿@model MSCLShopping.Models.Master
+@{
+    ViewBag.Title = "SubCategory";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("SubCategory", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Sub Category</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Master</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Sub Category</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <div>
+                <p style="color:red">
+                    @if (TempData["SubCategory"] != null)
+                    {
+                    <div class="@TempData["Class"]">
+                        @TempData["SubCategory"]
+                    </div>
+                    }
+                </p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Select Main Category <spna style="color:red;">*</spna></label>
+                            @Html.DropDownListFor(m => m.MainCategoryID, new SelectList(ViewBag.ddlMainCategory, "Value", "Text"), new { @class = "form-control form-select", @onchange = "return onMainCategoryChange();" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Select Category <span style="color:red;">*</span></label>
+                            @Html.DropDownListFor(m => m.CategoryID, new SelectList(ViewBag.ddlCategory, "Value", "Text"), new { @class = "form-control form-select" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Sub Category Name <span style="color:red;">*</span></label>
+                            @Html.TextBoxFor(m => m.SubCategoryName, new { @class = "form-control", @Placeholder = "SubCategory Name" })
+                            @Html.HiddenFor(m => m.SubCategoryID)
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-8">
+                        <div class="form-group">
+                            <label class="form-label">Sub Category Image <span style="color:red;">*</span></label>
+                            <input type="file" name="postedFile" id="Image" onchange="readURL(this)" />
+                            <img src="@Model.Images" id="ContentPlaceHolder1_imgProductImage" class="fileinput-preview thumbnail" style="width: 150px; height: 100px;" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input class="btn btn-success" onclick="return validateform()" type="submit" value="Save" id="btnSave" name="btnSave" />
+                            <input class="btn btn-success" onclick="return updatesubCategory()" type="submit" name="btnUpdate" id="btnUpdate" value="Update" style="display: none" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">Sub Category List</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive mt-3">
+                    <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                        <thead class="border-top">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Main Category </th>
+                                <th>Category Name</th>
+                                <th>Sub Category Name</th>
+                                <th>Images</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lstSubCategory != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lstSubCategory)
+                                    {
+                                        <tr class="text-left">
+
+                                            <td>@i</td>
+                                            <td>@Item.MainCategoryName</td>
+                                            <td>@Item.CategoryName</td>
+                                            <td>@Item.SubCategoryName</td>
+                                            <td><img src="@Item.Images" id="img" height="100" width="100" /></td>
+                                            <td>
+                                                <a href="#" class="btn btn-primary btn-sm" onclick="editSubCategory('@Item.CategoryName','@Item.SubCategoryName','@Item.CategoryID','@Item.SubCategoryID','@Item.MainCategoryID','@Item.MainCategoryName','@Item.Images')">Edit</a>
+                                                <a href="/Master/DeleteSubCategory/@Item.SubCategoryID" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wish to delete this SubCategory?');">Delete</a>
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script>
+
+    function editSubCategory(categoryname, subcatname, catid, subid, mid, mname, img) {
+        debugger
+
+        $.ajax({
+            url: "/Master/GetCategoryByMainCategory",
+            Type: "Get",
+            DataType: "JSON",
+            data: { MainCategoryID: mid },
+            success: function (data) {
+
+                // alert(data.Result);
+                $("#CategoryID").html(""); // clear before appending new list
+                $("#CategoryID").empty();
+
+                $("#CategoryID").append(
+                      $('<option></option>').val(0).html('Select Category'));
+                $.each(data.ddlCategory, function (index, count) {
+                    $("#CategoryID").append(
+                          $('<option></option>').val(count.Value).html(count.Text));
+
+                });
+                $('#CategoryID').val(catid);
+            }
+
+        });
+        //alert(img);
+
+
+        $('#SubCategoryName').val(subcatname);
+        $('#SubCategoryID').val(subid);
+        $('#MainCategoryID').val(mid);
+        $('#MainCategoryName').val(mname);
+        //$('#Images').val(img);
+        $('#ContentPlaceHolder1_imgProductImage').attr("src", img);
+        $('#btnSave').hide();
+        $('#btnUpdate').show();
+    }
+
+    function updatesubCategory() {
+        
+        $(".errortext").removeClass("errortext");
+
+        if ($('#CategoryID').val() == '0') {
+            $("#CategoryID").addClass('errortext');
+            $('#CategoryID').focus();
+            return false;
+        }
+        if ($('#SubCategoryName').val() == '') {
+            $("#SubCategoryName").addClass('errortext');
+            $('#SubCategoryName').focus();
+            return false;
+        }
+
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#MainCategoryID').val() == '0') {
+            $("#MainCategoryID").addClass('errortext');
+            $('#MainCategoryID').focus();
+            return false;
+        }
+        if ($('#CategoryID').val() == '0') {
+            $("#CategoryID").addClass('errortext');
+            $('#CategoryID').focus();
+            return false;
+        }
+        if ($('#SubCategoryName').val() == '') {
+            $("#SubCategoryName").addClass('errortext');
+            $('#SubCategoryName').focus();
+            return false;
+        }
+        if ($('#Image').val() == '') {
+            $("#Image").addClass('errortext');
+            $('#Image').focus();
+            alert("Please select  image..!");
+            return false;
+        }
+        return true;
+    }
+
+    function onMainCategoryChange() {
+
+        var value = $('#MainCategoryID').val();
+        var values = $('#CategoryID').val();
+        
+        $.ajax({
+            url: "/Master/GetCategoryByMainCategory",
+            Type: "Get",
+            DataType: "JSON",
+            data: { MainCategoryID: value },
+            success: function (data) {
+                $("#CategoryID").html("");
+                $("#CategoryID").empty();
+                $("#CategoryID").append(
+                    $('<option></option>').val(0).html('Select Category'));
+                    $.each(data.ddlCategory, function (index, count) {
+                    $("#CategoryID").append($('<option></option>').val(count.Value).html(count.Text));
+
+                });
+            }
+        });
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#ContentPlaceHolder1_imgProductImage')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+

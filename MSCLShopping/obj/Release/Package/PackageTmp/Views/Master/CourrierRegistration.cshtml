@@ -1,0 +1,204 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    ViewBag.Title = "CourrierRegistration";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+ 
+
+@using (Html.BeginForm("CourrierRegistration", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Add Courrier</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Courrier Name <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @Placeholder = "Courrier Name" })
+                    </div>
+                </div>
+               
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Mobile No <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.Contact, new { @class = "form-control", @Placeholder = " Mobile No", @onkeypress = "return isNumberOrDecimal(event);" ,@maxlength="10"})
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Email  
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @Placeholder = "Email" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        Address<span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @Placeholder = "Address" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+              
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Pincode <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control", @Placeholder = "Pincode", @onkeypress = "return isNumberOrDecimal(event);", @onchange = "return getStateCity();" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        State <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.State, new { @class = "form-control", @Placeholder = "State",@readonly="read" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        City <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.City, new { @class = "form-control", @Placeholder = "City", @readonly = "read" })
+
+                    </div>
+                </div>
+                </div>
+           
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @if (Model.CourrierID == null)
+                        {
+                            <input class="btn btn-success btn-sm" type="submit" onclick="return validateform();" value="Save" id="btnSave" name="Save" />
+                        }
+                        else
+                        {
+                            @Html.HiddenFor(m => m.CourrierID, new { @Value = @Model.CourrierID })
+                            <input class="btn btn-success btn-sm" type="submit" value="Update" id="btnUpdate" name="Update" onclick="return validateform();" />
+                        }
+                        <a href="/Master/CourrierList" class="btn btn-primary btn-sm">Back To List</a>
+                    </div>
+
+                </div>
+                <p style="color: red">
+                    @TempData["CourrierRegistration"]
+                    <br />
+                </p>
+            </div>
+        
+        </div>
+    </div>
+
+}
+
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script>
+    function getStateCity() {
+
+        var pincode = $('#Pincode').val();
+        $.ajax({
+            url: '/Vendor/GetStateCity', type: 'post', dataType: 'json',
+            data: { 'Pincode': pincode },
+            success: function (data) {
+                if (data.Result == "yes") {
+                    $("#State").val(data.State);
+                    $("#City").val(data.City);
+                    $("#State").removeClass('errortext');
+                    $("#City").removeClass('errortext');
+                    $("#Pincode").removeClass('errortext');
+                }
+                else if (data.Result == "no") {
+                    alert("Invalid Pincode");
+                    $("#State").val('');
+                    $("#City").val('');
+                    $("#State").addClass('errortext');
+                    $("#City").addClass('errortext');
+                    $("#Pincode").addClass('errortext');
+                    $('#Pincode').focus();
+                    $('#Pincode').val('');
+
+                }
+            }
+
+        });
+    }
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#Name').val() == '') {
+            $("#Name").addClass('errortext');
+            $('#Name').focus();
+            return false;
+        }
+      
+        if ($('#Contact').val() == '') {
+            $("#Contact").addClass('errortext');
+            $('#Contact').focus();
+            return false;
+        }
+        if ($('#Address').val() == '') {
+            $("#Address").addClass('errortext');
+            $('#Address').focus();
+            return false;
+        }
+        if ($('#Pincode').val() == '') {
+            $("#Pincode").addClass('errortext');
+            $('#Pincode').focus();
+            return false;
+        }
+
+      
+        return true;
+    }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#ContentPlaceHolder1_imgProductImage')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+@*<script>
+        $(document).ready(function () {
+            $('#dataTables-example').DataTable({
+                responsive: true,
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ]
+            });
+        });
+    </script>*@
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
+
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+ 

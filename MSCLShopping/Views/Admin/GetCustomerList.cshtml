@@ -1,0 +1,143 @@
+﻿@model MSCLShopping.Models.Customer
+
+@{
+    ViewBag.Title = "GetCustomerList";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("GetCustomerList", "Admin", FormMethod.Post, new { @id = "form1" }))
+{
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Customer List</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Customer</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Customer List</li>
+            </ol>
+        </div>
+        @*<div class="ms-auto pageheader-btn">
+                <a href="#" class="btn btn-primary btn-icon text-white me-2">
+                    <span>
+                        <i class="fe fe-plus"></i>
+                    </span> Add Account
+                </a>
+                <a href="#" class="btn btn-success btn-icon text-white">
+                    <span>
+                        <i class="fe fe-log-in"></i>
+                    </span> Export
+                </a>
+            </div>*@
+    </div>
+    <div class="row">
+        <div class="card">
+            <div>
+                <p style="color: red">
+                    @TempData["CustomerD"]
+                </p>
+            </div>
+            @*<div class="card-header">
+                    <h3 class="card-title">Products Added By Vendor</h3>
+                </div>*@
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Customer Name</label>
+                            @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control", @Placeholder = " Customer Name" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Mobile No.</label>
+                            @Html.TextBoxFor(m => m.Contact, new { @class = "form-control", @Placeholder = "Mobile No" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">From Date</label>
+                            @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "From Date", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">To Date</label>
+                           @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "To Date", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="Search" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive mt-3">
+                    <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                        <thead class="border-top">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Mobile</th>
+                                <th>Password</th>
+                                <th>Customer Name </th>
+                                <th>Email</th>
+                                <th>Action </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lstcustomer != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lstcustomer)
+                                    {
+                                        <tr class="text-left">
+
+                                            <td>@i</td>
+                                            <td>@Item.Contact</td>
+                                            <td>@Item.Password</td>
+                                            <td>@Item.CustomerName</td>
+                                            <td>@Item.Email</td>
+                                            <td>
+                                                <a href="/Admin/DeleteCustomer?id=@Item.CustomerID" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wish to delete this ?');">Delete</a>
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+}
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+
+    }); 
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        maxDate: 0,
+        //changeYear: true,
+        //changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        //changeYear: true,
+        //changeMonth: true,
+        minDate: new Date(new Date().setMonth(new Date().getMonth() - 2))
+    });
+
+</script>

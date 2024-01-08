@@ -1,0 +1,119 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    ViewBag.Title = "CourrierList";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+ 
+
+@using (Html.BeginForm("CourrierList", "Master", FormMethod.Post, new { @id = "form1" }))
+{
+
+   
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Courrier List</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Courrier Name
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @Placeholder = "Search by Courrier Name" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <br />
+                        <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="Search" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                       <p style="color:red">
+                           @TempData["CourrierDel"]
+                       </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table id="example23" class="display nowrap table table-hover table-striped table-bordered dataTable no-footer">
+
+                            <thead>
+                                <tr>
+                                    <th>SNo.</th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Email</th>
+                                    <th>Address</th>
+                                    <th>Pin</th>
+                                    <th>State</th>
+                                    <th>City</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    if (Model.lstProduct != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lstProduct)
+                                        {
+                                            <tr class="text-left">
+                                                <td>@i</td>
+
+
+                                                <td>@Item.Name</td>
+                                                <td>@Item.Contact</td>
+                                                <td>@Item.Email</td>
+                                                <td>@Item.Address</td>
+                                                <td>@Item.Pincode</td>
+                                                <td>@Item.State</td>
+                                                <td>@Item.City</td>
+                                                <td>
+                                                    <a href="/Master/CourrierRegistration?CourrierID=@Item.CourrierID" class="btn btn-info btn-sm">Edit</a>
+                                                    <a href="/Master/DeleteCourrier?CourrierID=@Item.CourrierID" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wish to delete this?');">Delete</a>
+                                                </td>
+
+                                            </tr>
+
+                                            i++;
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<script>
+
+
+
+
+            $(document).ready(function () {
+                $('#dataTables-example').DataTable({
+                    responsive: true,
+
+                });
+            });
+</script>
+
+
+

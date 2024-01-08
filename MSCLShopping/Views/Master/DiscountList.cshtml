@@ -1,0 +1,133 @@
+﻿@model MSCLShopping.Models.Master
+
+@{
+    ViewBag.Title = "DiscountList";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("DiscountList", "Master", FormMethod.Post, new { @id = "form1" }))
+{
+
+    <p style="color: red">
+        @TempData["Discount"]
+    </p>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Discount List</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        CouponCode  
+                        @Html.TextBoxFor(m => m.CouponCode, new { @class = "form-control", @Placeholder = "Coupon Code" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        FromDate 
+                        @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "Enter Offer From Date", @readonly = "readonle" })
+                        @Html.HiddenFor(m => m.DiscountID)
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        ToDate  
+                        @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "Enter Offer To Date", @readonly = "readonle" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <br />
+                        <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="Search" />
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Discount List</h4>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table id="order-listing" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th hidden>PK_GalleryID</th>
+                                            <th>S No.</th>
+                                            <th>CouponCode</th>
+                                            <th>Discount Amount</th>
+                                            <th>Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model != null)
+                                        {
+                                            if (Model.lstProduct != null)
+                                            {
+                                                int i = 1;
+                                                foreach (var Item in Model.lstProduct)
+                                                {
+                                                    <tr class="text-left">
+                                                        <td hidden>@Item.DiscountID</td>
+                                                        <td>@i</td>
+                                                        <td>@Item.CouponCode</td>
+                                                        <td>@Item.DiscountAmount</td>
+                                                        <td>@Item.FromDate - @Item.ToDate</td>
+
+                                                        <td>
+                                                            <a href="/Master/Discount?DiscountID=@Item.DiscountID" class="btn btn-info btn-sm">Edit</a>
+                                                            <a href="/Master/DeleteDiscount?id=@Item.DiscountID" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                    i++;
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            </div>
+        </div>
+            }
+
+            <script src="../vendor/jquery/jquery.min.js"></script>
+
+            @*<script>
+                    $(document).ready(function () {
+                        $('#dataTables-example').DataTable({
+                            responsive: true,
+
+                        });
+                    });
+
+                </script>*@
+
+         <script src="../../AdminCSS/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+            <script>
+
+                $('#FromDate').datepicker({
+                    dateFormat: 'dd/mm/yy',
+                 
+                    changeYear: true,
+                    changeMonth: true
+                });
+                $('#ToDate').datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    changeYear: true,
+                    changeMonth: true,
+                  
+                });
+
+            </script>
+

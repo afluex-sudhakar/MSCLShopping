@@ -1,0 +1,133 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    ViewBag.Title = "Product Ledger";
+    Layout = "~/Views/Shared/VendorLayout.cshtml";
+}
+
+@using (Html.BeginForm("ProductLedger", "Vendor", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Product Ledger</h4>
+            <div class="row">
+                <div class="col-md-3">
+
+                    Product Name
+                    @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", @Placeholder = "Product Name" })
+
+                </div>
+                <div class="col-md-3">
+
+                    From Date
+                    @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "From Date" })
+
+                </div>
+                <div class="col-md-3">
+
+                   To Date
+                    @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "To Date" })
+
+                </div>
+                <div class="col-md-3">
+
+                    <br />
+                    <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="Search" />
+
+                </div>
+
+
+            </div>
+            <br/>
+            <div class="x_content">
+                <div class="table-responsive">
+                    <table id="example23" class="display nowrap table table-hover table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>S No.</th>
+                                <th>Transaction Date</th>
+                                <th>Product Name </th>
+                                <th>Brand</th>
+
+                                <th>Size </th>
+                                <th>Color</th>
+                                <th>Flavor</th>
+                                
+                                <th>RAM</th>
+                                <th>Storage </th>
+                                <th>Cr Qty</th>
+                                <th>Dr Qty</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lstProduct != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lstProduct)
+                                    {
+                                        <tr class="text-left">
+
+                                            <td>@i</td>
+                                            <td>@Item.ToDate</td>
+                                            <td>@Item.ProductName</td>
+                                            <td>@Item.BrandName </td>
+
+                                            <td>@Item.SizeName @Item.UnitName</td>
+                                            <td>@Item.ColorName</td>
+                                            <td>@Item.FlavorName</td>
+                                         
+                                            <td>@Item.RAM</td>
+                                            <td>@Item.Storage</td>
+                                            <td>@Item.Quantity</td>
+                                            <td>@Item.DebQuantity</td>
+
+                                            <td>@Item.BalanceQuantity</td>
+                                          
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+
+
+
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+
+    });
+
+</script>
+
+
+
+
+

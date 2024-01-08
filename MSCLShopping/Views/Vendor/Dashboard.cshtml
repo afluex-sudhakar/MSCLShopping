@@ -1,0 +1,403 @@
+﻿@model MSCLShopping.Models.Vendor
+
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/VendorLayout.cshtml";
+}
+<style>
+  
+</style>
+@using (Html.BeginForm("Dashboard", "Vendor", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="content content-fixed">
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-30">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Helpdesk Management</li>
+                        </ol>
+                    </nav>
+                    <h4 class="mg-b-0 tx-spacing--1">
+                        You are almost ready to start selling!
+                        <br />
+                        Please complete all the steps below
+                    </h4>
+                </div>
+                <div class="d-none d-md-block">
+
+                </div>
+            </div>
+            <div class="row row-xs">
+                <div class="col-lg-8">
+                    <div class="card">
+
+                        <div class="card-footer pd-y-15 pd-x-20">
+                            <div class="row row-xs">
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="card card-body">
+                                        <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Aadhar Status</h6>
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+
+                                            @if (ViewBag.isAdharVerified == "Pending")
+                                            {
+                                            <h5 class="tx-11 tx-color-03 mg-b-0">
+                                                <span class="tx-medium tx-danger">@ViewBag.isAdharVerified</span>
+                                            </h5>
+                                            }
+                                            else
+                                            {
+                                            <h5 class="tx-11 tx-color-03 mg-b-0">
+                                                <span class="tx-medium tx-success">@ViewBag.isAdharVerified</span>
+                                            </h5>
+                                            }
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="card card-body">
+                                        <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Pan Status</h6>
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+
+                                            @if (ViewBag.isPANVerified == "Pending")
+                                            {
+                                            <h5 class="tx-11 tx-color-03 mg-b-0">
+                                                <span class="tx-medium tx-danger">@ViewBag.isPANVerified</span>
+                                            </h5>
+                                            }
+                                            else
+                                            {
+                                            <h5 class="tx-11 tx-color-03 mg-b-0">
+                                                <span class="tx-medium tx-success">@ViewBag.isPANVerified</span>
+                                            </h5>
+                                            }
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="card card-body">
+                                        <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">GST Status</h6>
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+
+                                            @if (ViewBag.isGSTINVerified == "Pending")
+                                            {
+                                            <h5 class="tx-11 tx-color-03 mg-b-0">
+                                                <span class="tx-medium tx-danger">@ViewBag.isGSTINVerified</span>
+                                            </h5>
+                                            }
+                                            else
+                                            {
+                                            <h5 class="tx-11 tx-color-03 mg-b-0">
+                                                <span class="tx-medium tx-success">@ViewBag.isGSTINVerified</span>
+                                            </h5>
+                                            }
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <br />
+                            <div class="row row-xs">
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="card card-body">
+                                        <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Bank Status</h6>
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+
+                                            @if (ViewBag.isAccountVerified == "Pending")
+                                            {
+                                            <h5 class="tx-11 tx-color-03 mg-b-0">
+                                                <span class="tx-medium tx-danger">@ViewBag.isAccountVerified</span>
+                                            </h5>
+                                            }
+                                            else
+                                            {
+                                            <h5 class="tx-11 tx-color-03 mg-b-0">
+                                                <span class="tx-medium tx-success">@ViewBag.isAccountVerified</span>
+                                            </h5>
+                                            }
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="card card-body">
+                                        <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Signature Status</h6>
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+
+                                            @if (ViewBag.isSignatureVerified == "Pending")
+                                            {
+                                            <h5 class="tx-11 tx-color-03 mg-b-0">
+                                                <span class="tx-medium tx-danger">@ViewBag.isSignatureVerified</span>
+                                            </h5>
+                                            }
+                                            else
+                                            {
+                                            <h5 class="tx-11 tx-color-03 mg-b-0">
+                                                <span class="tx-medium tx-success">@ViewBag.isSignatureVerified</span>
+                                            </h5>
+                                            }
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="card card-body">
+                                        <h6 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">Email Status</h6>
+                                        <div class="d-flex d-lg-block d-xl-flex align-items-end">
+
+                                            @if (ViewBag.isEmailVerified == "Pending")
+                                            {
+                                            <h5 class="tx-11 tx-color-03 mg-b-0">
+                                                <span class="tx-medium tx-danger">@ViewBag.isEmailVerified</span>
+                                            </h5>
+                                            }
+                                            else
+                                            {
+                                            <h5 class="tx-11 tx-color-03 mg-b-0">
+                                                <span class="tx-medium tx-success">@ViewBag.isEmailVerified</span>
+                                            </h5>
+                                            }
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                            <br />
+                            @if (ViewBag.isEmailVerified == "Pending")
+                            {
+                                <div class="row row-xs">
+                                    <div class="col-sm-12 col-lg-12">
+                                        <div class="card card-body">
+                                            <h4 class="tx-uppercase tx-11 tx-spacing-1 tx-color-02 tx-semibold mg-b-8">
+                                                The verification link expires in 24 hrs. If it is exprired, <a href="/Vendor/SendVerificationLink?MobileNo=@ViewBag.MobileNo&EmailId=@ViewBag.Emaild"><b style="color:blue">Click Here</b></a> to resend the verification link.
+                                            </h4>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <br />
+                            <div class="row row-xs">
+                                <div class="col-sm-12 col-lg-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h6 class="mg-b-0" style="color: white !important;">Write a Review</h6>
+                                        </div><!-- card-header -->
+                                        <div class="card-body tx-center">
+
+                                            @Html.TextAreaFor(m => m.Review, new { @class = "form-control"})
+
+
+                                        </div>
+                                        <div class="card-footer bd-t-0 pd-t-0">
+                                            <button class="btn btn-sm btn-outline-primary btn-uppercase tx-spacing-1" onclick="return saveReview();">Review Us</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- card-footer -->
+                    </div><!-- card -->
+                    <!-- row -->
+                </div><!-- col -->
+                <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                    <div class="row row-xs">
+                        <div class="col-12 col-md-6 col-lg-12">
+                            <div class="card card-body">
+                                <div class="media d-block d-sm-flex align-items-center">
+                                    <div class="d-inline-block pos-relative">
+                                        <span class="peity-donut" data-peity='{ "fill": ["#65e0e0","#e5e9f2"], "height": 110, "width": 110, "innerRadius": 46 }'>@ViewBag.Finalcount,@ViewBag.RemainingCount</span>
+                                        <div class="pos-absolute a-0 d-flex flex-column align-items-center justify-content-center">
+                                            <h3 class="tx-rubik tx-spacing--1 mg-b-0">@ViewBag.Finalcount%</h3>
+
+                                        </div>
+                                    </div>
+                                    <div class="media-body mg-t-20 mg-sm-t-0 mg-sm-l-20">
+                                        <h6 class="mg-b-5">Your Account is @ViewBag.Finalcount% complete</h6>
+
+                                    </div><!-- media-body -->
+                                </div><!-- media -->
+                            </div>
+                        </div><!-- col -->
+                        <div class="col-12 col-md-6 col-lg-12">
+
+                            <br />
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mg-b-0" style="color: white !important;">Upload Profile Pic</h6>
+                                </div><!-- card-header -->
+                                <div class="card-body">
+
+                                    <input type="file" value="Upload" name="file-5[]" id="file-5" class="inputfile inputfile-2" accept="image/*" />
+
+
+                                </div>
+                                <div class="card-footer bd-t-0 pd-t-0">
+                                    <button class="btn btn-sm btn-block btn-outline-primary btn-uppercase tx-spacing-1" onclick="return uplaodprofilepic('file-5');">Upload</button>
+                                </div>
+                            </div><!-- card -->
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-12">
+
+                            <br />
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mg-b-0" style="color: white !important;">Store Details</h6>
+                                </div><!-- card-header -->
+                                <div class="card-body tx-center">
+                                    <p class="tx-12 tx-color-03 mg-b-0">Your store details will be displayed to the buyers when they browse your products:</p>
+                                    @Html.TextBoxFor(m => m.StoreName, new { @class = "form-control", @onchange = "return checkStoreName();" })
+                                    @*<input placeholder="Enter your Display Name" type="text" class="form-control" id="displayname" />*@
+
+                                </div>
+                                <div class="card-footer bd-t-0 pd-t-0">
+                                    <button class="btn btn-sm btn-block btn-outline-primary btn-uppercase tx-spacing-1" onclick="return saveStoreName();">Save</button>
+                                </div>
+                            </div><!-- card -->
+                        </div>
+
+                    </div><!-- row -->
+                </div><!-- col -->
+            </div><!-- row -->
+        </div><!-- container -->
+    </div>
+
+
+
+}
+<script>
+
+    function checkStoreName() {
+        $.ajax({
+            url: "/Vendor/CheckStoreName",
+            Type: "Get",
+            DataType: "JSON",
+            data: { sname: $("#StoreName").val() },
+            success: function (data) {
+                if (data.Result == "0") {
+                    alert(data.Status);
+                    $('#StoreName').val('');
+                    return;
+                }
+            }
+
+        });
+    }
+    function saveReview() {
+        $(".errortext").removeClass("errortext");
+        if ($('#Review').val() == '') {
+            $("#Review").addClass('errortext');
+            $('#Review').focus();
+            return false;
+        }
+
+        $.ajax({
+            url: "/Vendor/SaveReview",
+            Type: "Get",
+            DataType: "JSON",
+            data: { Review: $("#Review").val() },
+            success: function (data) {
+
+                alert(data.Status);
+
+            }
+
+        });
+    }
+    function saveStoreName() {
+        $(".errortext").removeClass("errortext");
+        if ($('#StoreName').val() == '') {
+            $("#StoreName").addClass('errortext');
+            $('#StoreName').focus();
+            return false;
+        }
+
+        $.ajax({
+            url: "/Vendor/SaveStoreName",
+            Type: "Get",
+            DataType: "JSON",
+            data: { sname: $("#StoreName").val() },
+            success: function (data) {
+
+                alert(data.Status);
+
+            }
+
+        });
+    }
+    function uplaodprofilepic(fileid)
+    {
+        var formData = new FormData();
+        var input = document.getElementById(fileid);
+        file = input.files[0];
+        if (file != undefined) {
+            if (!!file.type.match(/image.*/)) {
+                formData.append("image", file);
+            } else {
+                alert('Not a valid image!');
+                return false;
+            }
+        }
+        var filename = "";
+        if (file == undefined) {
+            alert('Please select file');
+          
+            return;
+        }
+        else {
+            filename = file.name;
+            $.ajax({
+                url: "/FileUpload.ashx",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+
+
+                }
+            });
+        }
+
+
+        $.ajax({
+            url: '/Vendor/UpdateProfilePic',
+            type: "GET",
+            dataType: "JSON",
+            data: {FileName: filename },
+            success: function (data) {
+                alert(data.Result);
+             
+
+            }
+        })
+    }
+</script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>

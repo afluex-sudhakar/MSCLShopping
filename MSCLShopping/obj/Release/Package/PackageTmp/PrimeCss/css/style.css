@@ -1,0 +1,76 @@
+
+.spacedw {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.row.spacedwco {
+  padding-top: 70px;
+}
+.contentdetails1 h2 {
+  padding: 18px 0px;
+}
+.carousel-item img {
+  height: 540px;
+  object-fit: fill;
+}
+
+
+.backvideo {
+  background: #c31432;
+  background: -webkit-linear-gradient(to bottom, #240b36, #c31432);
+  background: linear-gradient(to bottom, #240b36, #c31432);
+}
+
+.backmusic {
+  background: #ad5389;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #3c1053, #ad5389);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom, #3c1053, #ad5389); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.backdeals {
+  background: #000046;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #1CB5E0, #000046);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #1CB5E0, #000046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+}
+
+.backgaming {
+  background: #ff00cc;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #333399, #ff00cc);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #333399, #ff00cc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+
+.backmore {
+  background: #ff0084;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #33001b, #ff0084);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom, #33001b, #ff0084); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.backdelivery{
+  background: #1488CC;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #2B32B2, #1488CC);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.zoom {
+  padding: 40px 6px;
+  background-color: green;
+  transition: transform .2s; /* Animation */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+
+@media (min-width: 320px) and (max-width: 568px) {
+  .carousel-item img {
+    height: 246px;
+    object-fit: fill;
+}
+  .col-md-12.col-lg-12.col-sm-12.scrolling {
+    overflow: auto;
+}
+}

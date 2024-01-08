@@ -1,0 +1,104 @@
+﻿@model AfluexShopping.Models.Customer
+
+@{
+    ViewBag.Title = "MyCoupons";
+    Layout = "~/Views/Shared/CustomerLayout.cshtml";
+}
+
+@using (Html.BeginForm("MyCoupons", "Customer", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-inner">
+                <ul class="list-inline list-unstyled">
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                    <li><a href="/Home/Index">Shop now !</a></li>
+                </ul>
+            </div><!-- /.breadcrumb-inner -->
+        </div><!-- /.container -->
+    </div>
+
+    <main class="main">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#"><i class="icon-home"></i></a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                            <li></li>
+                        </ol>
+
+                    </div>
+                    <div class="col-md-2">
+                        <a href="/Home/Index" class="btn btn-sm btn-info pull-right">Shop now !</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="sign-in-page spaceacc">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 order-lg-last dashboard-content">
+                        <h2>Coupon List</h2>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="example21" class="display nowrap table table-hover table-striped table-bordered dataTable no-footer">
+                                        <thead>
+                                            <tr>
+                                                <th>S No.</th>
+                                                <th>Coupon Code</th>
+                                                <th>Discount Amount</th>
+                                                <th>Valid From</th>
+                                                <th>Valid To</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model != null)
+                                        {
+                                            if (Model.lstOrders != null)
+                                            {
+                                                int i = 1;
+                                                foreach (var Item in Model.lstOrders)
+                                                {
+                                        <tr class="text-left">
+                                            <td>@i</td>
+                                            <td>@Item.CouponCode</td>
+                                            <td>@Item.TotalAmount</td>
+                                            <td>@Item.FromDate</td>
+                                            <td>@Item.ToDate</td>
+                                            @*<td>
+                                                <a href="#" class="btn btn-sm btn-primary" onclick="editc('@Item.FK_AddressID','@Item.HouseNo','@Item.Locality','@Item.Landmark','@Item.Pincode')">Edit</a>
+                                                <a href="/Customer/DeleteAddress/@Item.FK_AddressID" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you wish to delete this ?');">Delete</a>
+                                            </td>*@
+                                        </tr>
+                                                    i++;
+                                                }
+                                            }
+                                        }
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    @{Html.RenderAction("CustomerLeftMenu", "Customer", new { area = "" });}
+                </div>
+            </div>
+            </div>
+            <div class="mb-5"></div>
+</main>
+                    }
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+    });
+</script>

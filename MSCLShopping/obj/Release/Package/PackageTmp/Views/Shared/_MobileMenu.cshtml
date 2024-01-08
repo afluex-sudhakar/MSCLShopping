@@ -1,0 +1,64 @@
+﻿@model AfluexShopping.Models.Customer
+
+
+@if (Model != null)
+{
+    if (Model.lstMainCategory != null)
+    {
+        var i = 0;
+        foreach (var item in Model.lstMainCategory)
+
+        {
+<li class="has-dropdown has-mega-menu">
+    <a href="javascript:void(0)">@item.MainCategoryName</a>
+    <div class="shop-mega-menu tp-submenu tp-mega-menu">
+
+        <div class="row">
+            @foreach (var item1 in Model.lstCategory)
+            {
+                if (item1.MainCategoryID == item.MainCategoryID)
+                {
+                        <div class="col-lg-3">
+                            <div class="shop-mega-menu-list">
+                                <a href="/Customer/ProductList?id=@item1.CategoryID&Status=Category&f=menu" class="shop-mega-menu-title">@item1.CategoryName</a>
+                                <ul>
+                                    
+                                            @foreach (var item2 in Model.lstSubCategory)
+                                            {
+                                                if (item2.CategoryID == item1.CategoryID)
+                                                {
+                                                    <li><a href="/Customer/ProductList?id=@item2.SubCategoryID&Status=Sub Category&f=menu">@item2.SubCategoryName</a></li>
+
+                                                }
+                                            }
+                                     
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                }
+            
+        </div>
+
+    </div>
+</li>
+        }
+        i++;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

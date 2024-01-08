@@ -1,0 +1,27 @@
+.first-section p {
+  font-size: 15px;
+}
+.second-section p {
+  line-height: 4px;
+  font-size: 14px;
+}
+.reciptmang {
+  font-size: 15px;
+}
+
+span.ttotalpri {
+  float: right;
+}
+.reciptdecip p {
+  /*line-height: 5px;*/
+  font-size: 14px;
+}
+.row.footersignature {
+  padding-top: 40px;
+}
+.reciptmain-page {
+  padding: 50px 0px;
+}
+img.logo11 {
+  max-width: 130px;
+}

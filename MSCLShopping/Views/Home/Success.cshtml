@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="icon" type="image/x-icon" href="../../img/favicon.png">
+    <meta name="viewport" content="width=device-width" />
+    <title>Success</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-6 col-sm-offset-3">
+                <br><br> <h2 style="color:#0fad00">Success</h2>
+                @*<img src="http://osmhotels.com//assets/check-true.jpg">*@
+                <img src="../../images/success.gif" />
+                <h3>Dear,@Session["VendorName"]</h3>
+
+                @if (Session["Email"] != null)
+                { <p style="font-size:20px;color:#5C5C5C;">
+                    Thank you for verifying your Mobile No.We have sent you an email @Session["Email"] with your details
+                    Please go to your above email.
+                </p>
+                <p>Your LoginId and Password is send on your mobile no.</p>
+                }
+                else
+                {
+                    <p style="font-size:20px;color:#5C5C5C;">Email Verification Completed.</p>
+                }
+
+
+                <a href="/Seller" class="btn btn-success">    Login Now    </a>
+                <br><br>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

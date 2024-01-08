@@ -1,0 +1,455 @@
+﻿@model AfluexShopping.Models.Customer
+
+@{
+    Layout = null;
+}
+
+
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+
+    <!-- META DATA -->
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+
+    <!-- TITLE -->
+    <title>Afluex Shopping</title>
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/AssetsAdmin/images/brand/favicon.png" />
+
+    <!-- BOOTSTRAP CSS -->
+    <link href="~/AssetsAdmin/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- STYLE CSS -->
+    <link href="~/AssetsAdmin/css/style.css" rel="stylesheet" />
+    <link href="~/AssetsAdmin/css/dark-style.css" rel="stylesheet" />
+    <link href="~/AssetsAdmin/css/skin-modes.css" rel="stylesheet" />
+
+    <!-- SIDE-MENU CSS -->
+    <link href="~/AssetsAdmin/css/sidemenu.css" rel="stylesheet" id="sidemenu-theme">
+
+    <!--C3 CHARTS CSS -->
+    <link href="~/AssetsAdmin/plugins/charts-c3/c3-chart.css" rel="stylesheet" />
+
+    <!-- P-scroll bar css-->
+    <link href="~/AssetsAdmin/plugins/p-scroll/perfect-scrollbar.css" rel="stylesheet" />
+
+    <!--- FONT-ICONS CSS -->
+    <link href="~/AssetsAdmin/plugins/icons/icons.css" rel="stylesheet" />
+
+    <!-- SIDEBAR CSS -->
+    <link href="~/AssetsAdmin/plugins/sidebar/sidebar.css" rel="stylesheet" />
+
+
+    <!-- SELECT2 CSS -->
+    <link href="~/AssetsAdmin/plugins/select2/select2.min.css" rel="stylesheet" />
+
+
+    <!-- COLOR SKIN CSS -->
+    <link id="theme" rel="stylesheet" type="text/css" media="all" href="~/AssetsAdmin/colors/color1.css" />
+
+    <!-- INTERNAL Switcher css -->
+    <link href="~/AssetsAdmin/switcher/css/switcher.css" rel="stylesheet" />
+    <link href="~/AssetsAdmin/switcher/demo.css" rel="stylesheet" />
+
+
+</head>
+<body class="app sidebar-mini">
+    @*@if (Model != null)
+    {
+        if (Model.lstOrders != null)
+        {
+            foreach (var item in Model.lstOrders)
+            {
+                <div class="reciptmain-page">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="first-section">
+                                    <h3>Tax Invoice</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="first-section">
+                                    <p>Order Id : <strong>@ViewBag.InvoiceNo</strong> <br>Order Date :@ViewBag.OrderDate</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="first-section">
+                                    <p>Invoice No : <strong>@item.InvoiceNo</strong><br>Invoice Date:@DateTime.Now.ToString("dd/MM/yyyy")</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="first-section">
+                                    <p>GSTIN: @item.GSTNo<br>PAN: @item.PAN</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="second-section">
+                                    <h5>Sold By</h5>
+                                    <p style="line-height: 18px;">@item.VendorName,</p>
+
+                                    <P style="line-height: 18px;">@item.Address,</P>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="second-section">
+                                    <h5>Shipping Address </h5>
+                                    <P>@ViewBag.CustomerName, Mob : (@ViewBag.CustomerMobile)</P>
+                                    <p>@ViewBag.CustomerAddress,</p>
+
+                                    <p>@ViewBag.State, @ViewBag.City , @ViewBag.Pin</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="second-section">
+                                    <h5>Billing Address</h5>
+
+                                    <P>@ViewBag.CustomerName, Mob : (@ViewBag.CustomerMobile)</P>
+                                    <p>@ViewBag.CustomerAddress,</p>
+
+                                    <p>@ViewBag.State, @ViewBag.City , @ViewBag.Pin</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="recipttablman">
+                                    <table class="table  table-bordered">
+                                        <thead>
+                                            <tr class="table-borderless">
+                                                <th>Product</th>
+                                                <th>Description</th>
+                                                <th>Qty</th>
+                                                <th>Gross Amount</th>
+                                                <th>Discount</th>
+                                                <th>CGST</th>
+                                                <th>SGST</th>
+                                                <th>IGST</th>
+                                                <th>Taxable Amt</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="table-borderless">
+                                                <td class="reciptmang">
+                                                    @item.ProductName<br>
+                                                </td>
+                                                <td class="reciptmang">@item.Description</td>
+                                                <td class="reciptmang">@item.ProductQuantity</td>
+                                                <td class="reciptmang">@item.TotalAmount</td>
+                                                <td>@item.RedeemPrice</td>
+                                                @if (item.CustomerState == "UTTAR PRADESH")
+                                                {
+                                                <td class="reciptmang">@item.CGST</td>
+                                                <td class="reciptmang">@item.SGST</td>
+                                                }
+
+                                                else
+                                                {
+                                                <td class="reciptmang">0</td>
+                                                <td class="reciptmang">0</td>
+                                                }
+                                                @if (item.CustomerState == "UTTAR PRADESH")
+                                                {
+                                                <td class="reciptmang">0</td>
+                                                }
+                                                else
+                                                {
+                                                <td class="reciptmang">@item.IGST</td>
+                                                }
+                                                <td class="reciptmang">@item.TaxableAmt</td>
+                                                <td class="reciptmang">@item.SubTotal</td>
+
+                                            </tr>
+                                            <tr class="table-borderless">
+                                                <td>Guarantee**</td>
+                                                <td>Shipping Charge</td>
+                                                <td class="reciptmang">@item.ProductQuantity</td>
+                                                <td>@item.DeliveryCharge</td>
+
+                                                <td>0</td>
+                                                @if (item.CustomerState == "UTTAR PRADESH")
+                                                {
+                                                <td class="reciptmang">@item.ShippingCGST</td>
+                                                <td class="reciptmang">@item.ShippingSGST</td>
+                                                }
+
+                                                else
+                                                {
+                                                <td class="reciptmang">0</td>
+                                                <td class="reciptmang">0</td>
+                                                }
+                                                @if (item.CustomerState == "UTTAR PRADESH")
+                                                {
+                                                <td class="reciptmang">0</td>
+                                                }
+                                                else
+                                                {
+                                                <td class="reciptmang">@item.ShippingIGST</td>
+                                                }
+                                                <td class="reciptmang">@item.ShippingTaxable</td>
+                                                <td class="reciptmang">@item.DeliveryCharge</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 reciptto">
+                                <p>
+                                    <strong>Total QTY:@item.ProductQuantity</strong> <span class="ttotalpri"><strong>TOTAL PRICE:@item.FinalAmount</strong></span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="reciptdecip">
+                                    <p>@item.VendorName</p>
+                                    <p>@item.Address</p>
+                                    <p><strong>Declaration</strong> </p>
+                                    <p>The goods solid are intended for end user consumption and not for resale.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row footersignature">
+                            <div class="col-md-6">
+                                <div class="reciptdecip11">
+                                    <p>** Condition Apply Please refer to the product page for more details </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="reciptdecip11">
+                                    <p>Ordered Through</p>
+
+                                    <img src="../../ReceiptFolder/images/logo.png" class="logo11" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="reciptdecip11">
+                                    <p>Authorized Signature</p>
+                                    <img src="@item.Signature" style="width:50px;height:50px" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            }
+        }
+    }*@
+
+
+
+    <!-- PAGE -->
+    <div class="page">
+        <div class="side-app">
+
+ @if (Model != null)
+    {
+        if (Model.lstOrders != null)
+        {
+            foreach (var item in Model.lstOrders)
+            {
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="clearfix">
+                                    <div class="float-start">
+                                        <h3 class="card-title mb-0">Tax Invoice</h3>
+                                    </div>
+                                    <div class="float-end">
+                                        <h3 class="card-title">Date: @DateTime.Now.ToString("dd/MM/yyyy")</h3>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p class="h3">Sold By :</p>
+                                        <address>
+                                            @item.VendorName,<br>
+                                            @item.Address,
+                                        </address>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p class="h3">Shipping Address :</p>
+                                        <address>
+                                            <P class="mb-1"><strong>@ViewBag.CustomerName,</strong>  Mob : (@ViewBag.CustomerMobile)</P>
+                                            <p class="mb-1">@ViewBag.CustomerAddress,</p>
+                                            <p class="mb-1">@ViewBag.State, @ViewBag.City , @ViewBag.Pin</p>
+                                            <p class="mb-1">Order Id : <strong>@ViewBag.InvoiceNo</strong> <br>Order Date :@ViewBag.OrderDate</p>
+                                            <p class="mb-1">Invoice No : <strong>@item.InvoiceNo</strong><br>Invoice Date:@DateTime.Now.ToString("dd/MM/yyyy")</p>
+                                            <p class="mb-1">GSTIN: @item.GSTNo<br>PAN: @item.PAN</p>
+                                        </address>
+                                    </div>
+                                    <div class="col-lg-4 text-end">
+                                        <p class="h3">Billing Address :</p>
+                                        <address>
+                                            <P class="mb-1"><strong>@ViewBag.CustomerName,</strong>  Mob : (@ViewBag.CustomerMobile)</P>
+                                            <p class="mb-1">@ViewBag.CustomerAddress,</p>
+                                            <p class="mb-1">@ViewBag.State, @ViewBag.City , @ViewBag.Pin</p>
+                                            <p class="mb-1">Order Id : <strong>@ViewBag.InvoiceNo</strong> <br>Order Date :@ViewBag.OrderDate</p>
+                                            <p class="mb-1">Invoice No : <strong>@item.InvoiceNo</strong><br>Invoice Date:@DateTime.Now.ToString("dd/MM/yyyy")</p>
+                                            <p class="mb-1">GSTIN: @item.GSTNo<br>PAN: @item.PAN</p>
+                                        </address>
+                                    </div>
+                                </div>
+                                <div class="table-responsive push">
+                                    <table class="table table-bordered table-hover mb-0 text-nowrap">
+                                        <tbody>
+                                            <tr class="">
+                                                <th>Product</th>
+                                                <th>Description</th>
+                                                <th>Qty</th>
+                                                <th>Gross Amount</th>
+                                                <th>Discount</th>
+                                                <th>CGST</th>
+                                                <th>SGST</th>
+                                                <th>IGST</th>
+                                                <th>Taxable Amt</th>
+                                                <th>Total</th>
+                                            </tr>
+                                            <tr>
+                                                <td class="reciptmang">
+                                                    @item.ProductName<br>
+                                                </td>
+                                                <td class="reciptmang">@item.Description</td>
+                                                <td class="reciptmang">@item.ProductQuantity</td>
+                                                <td class="reciptmang">@item.TotalAmount</td>
+                                                <td>@item.RedeemPrice</td>
+                                                @if (item.CustomerState == "UTTAR PRADESH")
+                                                {
+                                                    <td class="reciptmang">@item.CGST</td>
+                                                    <td class="reciptmang">@item.SGST</td>
+                                                }
+
+                                                else
+                                                {
+                                                    <td class="reciptmang">0</td>
+                                                    <td class="reciptmang">0</td>
+                                                }
+                                                @if (item.CustomerState == "UTTAR PRADESH")
+                                                {
+                                                    <td class="reciptmang">0</td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="reciptmang">@item.IGST</td>
+                                                }
+                                                <td class="reciptmang">@item.TaxableAmt</td>
+                                                <td class="reciptmang">@item.SubTotal</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Guarantee**</td>
+                                                <td>Shipping Charge</td>
+                                                <td class="reciptmang">@item.ProductQuantity</td>
+                                                <td>@item.DeliveryCharge</td>
+
+                                                <td>0</td>
+                                                @if (item.CustomerState == "UTTAR PRADESH")
+                                                {
+                                                    <td class="reciptmang">@item.ShippingCGST</td>
+                                                    <td class="reciptmang">@item.ShippingSGST</td>
+                                                }
+
+                                                else
+                                                {
+                                                    <td class="reciptmang">0</td>
+                                                    <td class="reciptmang">0</td>
+                                                }
+                                                @if (item.CustomerState == "UTTAR PRADESH")
+                                                {
+                                                    <td class="reciptmang">0</td>
+                                                }
+                                                else
+                                                {
+                                                    <td class="reciptmang">@item.ShippingIGST</td>
+                                                }
+                                                <td class="reciptmang">@item.ShippingTaxable</td>
+                                                <td class="reciptmang">@item.DeliveryCharge</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer text-end">
+                                @*<button type="button" class="btn btn-info mb-1" onclick="javascript:window.print();"><i class="si si-printer"></i> Print Invoice</button>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <p>
+                                    <strong>Total QTY:@item.ProductQuantity</strong> <span class="ttotalpri"><strong>TOTAL PRICE:@item.FinalAmount</strong></span>
+                                </p>
+                                <p>@item.VendorName</p>
+                                <p>@item.Address</p>
+                                <p><strong>Declaration</strong> </p>
+                                <p>The goods solid are intended for end user consumption and not for resale.</p>
+                                <p>** Condition Apply Please refer to the product page for more details </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 align-self-end">
+                        <div class="card">
+                            <div class="card-body">
+                                <p>Ordered Through</p>
+                                <img src="~/newassets/Afluex-logo/logo-black.png"  class="logo11" style="width:140px;height:50px" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 align-self-end">
+                        <div class="card">
+                            <div class="card-body">
+                                <p>Authorized Signature</p>
+                                <img src="@item.Signature" style="width:50px;height:50px" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  <hr />
+        
+            }
+        }
+    }
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row align-items-center flex-row-reverse">
+                    <div class="col-md-12 col-sm-12 text-center">
+                        Copyright © 2023  All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- FOOTER CLOSED -->
+
+    </div>
+
+    <!-- BACK-TO-TOP -->
+    <a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+
+
+    <!-- JQUERY JS -->
+    <script src="~/AssetsAdmin/plugins/jquery/jquery.min.js"></script>
+    <!-- CUSTOM JS-->
+    <script src="~/AssetsAdmin/js/custom.js"></script>
+</body>
+</html>

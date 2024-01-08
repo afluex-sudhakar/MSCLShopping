@@ -1,0 +1,82 @@
+﻿@model MSCLShopping.Models.Master
+
+@{
+    ViewBag.Title = "VariantMaster";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+ 
+@using (Html.BeginForm("VariantMaster", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <p style="color: red">
+        @TempData["Variant"]
+        <br />
+    </p>
+  
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Variant</h4>
+             
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label> Name <span style="color: red">*</span></label>
+                        @Html.TextBoxFor(m => m.VariantName, new { @class = "form-control", @Placeholder = "Variant Name", maxlength = "50" })
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @if (Model.VariantID == null)
+                        {
+                            <input class="btn btn-success btn-sm" type="submit" onclick="return validateform();" value="Save" id="btnSave" name="btnSave" />
+                        }
+                        else
+                        {
+                            @Html.HiddenFor(m => m.VariantID, new { @Value = @Model.VariantID })
+                            <input class="btn btn-success btn-sm" type="submit" value="Update" id="btnUpdate" name="btnUpdate" />
+                        }
+                        <a class="btn btn-primary btn-sm" href="/Master/VariantList">Back To List</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+}
+
+<script>
+
+
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+       
+        if ($('#VariantName').val() == '') {
+            $("#VariantName").addClass('errortext');
+            $('#VariantName').focus();
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
+

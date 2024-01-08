@@ -1,0 +1,183 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    ViewBag.Title = "Color";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("SaveColor", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Color</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Master</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Color</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <p style="color:red">
+                @if (TempData["Color"] != null)
+                {
+                <div class="@TempData["Class"]">
+                    @TempData["Color"]
+                </div>
+                }
+            </p>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Color <span style="color: red">*</span></label>
+                            @Html.TextBoxFor(m => m.ColorName, new { @class = "form-control", @Placeholder = "Color", maxlength = "50" })
+                            @Html.HiddenFor(m => m.ColorID, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Color Code <span style="color: red">*</span></label>
+                            @Html.TextBoxFor(m => m.ColorCode, new { @class = "form-control", @Placeholder = "Color Code", maxlength = "50", @readonly = "readonly" })
+                            <input type="color" name="clr" id="clr" onchange="processdata();" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label d-lg-block d-none">&nbsp;</label>
+                            <input class="btn btn-success" onclick="return validateform()" type="submit" value="Save" id="btnSave" />
+                            <a href="#" class="btn btn-success" onclick="return updatecolor()" id="btnUpdate" style="display: none">Update</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">Color List</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                        <thead class="border-top">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Color</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lstCategory != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lstCategory)
+                                    {
+                                        <tr class="text-left">
+                                            <td>@i</td>
+                                            <td>@Item.ColorName</td>
+                                            <td>
+                                                <a href="#" class="btn btn-primary btn-sm" onclick="editcolor('@Item.ColorName','@Item.ColorID','@Item.ColorCode')">Edit</a>
+                                                <a href="/Master/DeleteColor/@Item.ColorID" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wish to delete this ?');">Delete</a>
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+}
+<script type="text/javascript">
+        function processdata() {
+            var a = document.getElementById('clr').value;
+        //    alert(a);
+            $("#ColorCode").val(a)  ;
+          //  document.getElementById("selectedcolor").style.color = a;
+       }
+        function newBackgroundColor(color) {
+            document.bgColor = color;
+            var a = document.getElementById("t1");
+            a.value = color;
+        }
+</script>
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<script>
+
+    function editcolor(colorName, colorID, ColorCode) {
+        $('#ColorName').val(colorName);
+        $('#ColorID').val(colorID);
+        $('#ColorCode').val(ColorCode);
+        
+        $('#btnSave').hide();
+        $('#btnUpdate').show();
+    }
+
+    function updatecolor() {
+        $(".errortext").removeClass("errortext");
+        if ($('#ColorName').val() == '') {
+            $("#ColorName").addClass('errortext');
+            $('#ColorName').focus();
+            return false;
+        }
+
+        $.ajax({
+            url: "/Master/UpdateColor",
+            Type: "Get",
+            DataType: "JSON",
+            data: { ColorID: $("#ColorID").val(), ColorName: $("#ColorName").val(), ColorCode: $("#ColorCode").val() },
+            success: function (data) {
+                alert(data.Result);
+                window.location.href = '@Url.Action("Color", "Master")';
+            }
+
+        });
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#ColorName').val() == '') {
+            $("#ColorName").addClass('errortext');
+            $('#ColorName').focus();
+            return false;
+        }
+        if ($('#ColorCode').val() == '') {
+            $("#ColorCode").addClass('errortext');
+            $('#ColorCode').focus();
+            return false;
+        }
+        
+        return true;
+    }
+
+</script>
+
+@*<script>
+        $(document).ready(function () {
+            $('#dataTables-example').DataTable({
+                responsive: true,
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ]
+            });
+        });
+    </script>*@
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+

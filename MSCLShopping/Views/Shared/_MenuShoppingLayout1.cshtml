@@ -1,0 +1,50 @@
+﻿@model AfluexShopping.Models.Customer
+
+<nav class="tp-main-menu-content">
+    <ul>
+        <li class="has-mega-menu">
+            <a href="/Home/Index">Home</a>
+
+        </li>
+@if (Model != null)
+{
+    if (Model.lstMainCategory != null)
+    {
+        var i = 0;
+        foreach (var item in Model.lstMainCategory)
+        {
+        <li class="has-dropdown has-mega-menu ">
+            <a href="shop.html">@item.MainCategoryName</a>
+            <ul class="tp-submenu tp-mega-menu mega-menu-style-2">
+                <!-- first col -->
+               
+                      <li class="has-dropdown">
+                           @foreach (var item1 in Model.lstCategory)
+                           {
+                               if (item1.MainCategoryID == item.MainCategoryID)
+                               {
+                                <a class="mega-menu-title" href="/Customer/ProductList?id=@item1.CategoryID&Status=Category&f=menu" onclick="return openloader();"><b>@item1.CategoryName</b></a>
+
+                                <ul class="tp-submenu">
+                                   @foreach (var item2 in Model.lstSubCategory)
+                                   {
+                                       if (item2.CategoryID == item1.CategoryID)
+                                       {
+                                                    <li><a onclick="return openloader();" href="/Customer/ProductList?  id=@item2.SubCategoryID&Status=Sub Category&f=menu">@item2.SubCategoryName</a></li>
+                                       }
+
+                                   }
+                                </ul>
+                                }
+                            }
+
+                     </li>
+            </ul>
+        </li>
+        }
+        i++;
+    }
+}
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>

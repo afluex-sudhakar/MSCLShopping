@@ -1,0 +1,157 @@
+﻿@model MSCLShopping.Models.Customer
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/CustomerLayout.cshtml";
+}
+
+<div class="container">
+    @*<ul class="checkout-progress-bar">
+        <li class="active">
+            <span>Shipping</span>
+        </li>
+        <li>
+            <span>Review &amp; Payments</span>
+        </li>
+    </ul>*@
+    <div class="row">
+        <div class="col-lg-8">
+            <ul class="checkout-steps">
+                <li>
+                    <h2 class="step-title">Shipping Address</h2>
+
+                    @*<form action="#">
+                        <div class="form-group required-field">
+                            <label>Email Address </label>
+                            <div class="form-control-tooltip">
+                                <input type="email" class="form-control" required>
+                                <span class="input-tooltip" data-toggle="tooltip" title="We'll send your order confirmation here." data-placement="right"><i class="icon-question-circle"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group required-field">
+                            <label>Password </label>
+                            <input type="password" class="form-control" required>
+                        </div>
+
+                        <p>You already have an account with us. Sign in or continue as guest.</p>
+                        <div class="form-footer">
+                            <button type="submit" class="btn btn-primary">LOGIN</button>
+                            <a href="forgot-password.html" class="forget-pass">Forgot your password?</a>
+                        </div>
+                    </form>*@
+
+                    <div class="row">
+                        <div class="col-lg-6 form-group required-field">
+                            <label>House No </label>
+                            <input type="text" class="form-control" required>
+                        </div>
+
+                        <div class=" col-lg-6 form-group required-field">
+                            <label>Locality </label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 form-group">
+                            <label>Landmark </label>
+                            <input type="text" class="form-control">
+                        </div>
+
+                        <div class="col-lg-6 form-group">
+                            <label>Pincode </label>
+                            <input type="text" class="form-control" required>
+                        </div>
+
+                    </div>
+
+                </li>
+
+                <li>
+                    <div class="checkout-step-shipping">
+                        <h2 class="step-title">Payment Methods</h2>
+                        <table class="table table-step-shipping">
+                            <tbody>
+                                <tr>
+                                    <td><input type="radio" name="shipping-method" value="flat"></td>
+                                    <td><strong>Cash On Delivery</strong></td>
+                                </tr>
+
+                                @*<tr>
+                                    <td><input type="radio" name="shipping-method" value="best"></td>
+                                    <td><strong>Paytm</strong></td>
+                                </tr>*@
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- End .col-lg-8 -->
+        <div class="col-lg-4">
+            <div class="order-summary">
+                <h3>Summary</h3>
+
+                <h4>
+                    <a data-toggle="collapse" href="#order-cart-section" class="collapsed" role="button" aria-expanded="false" aria-controls="order-cart-section">2 products in Cart</a>
+                </h4>
+
+                <div class="collapse" id="order-cart-section">
+                    <table class="table table-mini-cart">
+                        <tbody>
+                            <tr>
+                                <td class="product-col">
+                                    <figure class="product-image-container">
+                                        <a href="product.html" class="product-image">
+                                            <img src="assets/images/products/product-1.jpg" alt="product">
+                                        </a>
+                                    </figure>
+                                    <div>
+                                        <h2 class="product-title">
+                                            <a href="product.html">Felt Hat</a>
+                                        </h2>
+
+                                        <span class="product-qty">Qty: 4</span>
+                                    </div>
+                                </td>
+                                <td class="price-col">$156.00</td>
+                            </tr>
+
+                            <tr>
+                                <td class="product-col">
+                                    <figure class="product-image-container">
+                                        <a href="product.html" class="product-image">
+                                            <img src="assets/images/products/product-2.jpg" alt="product">
+                                        </a>
+                                    </figure>
+                                    <div>
+                                        <h2 class="product-title">
+                                            <a href="product.html">Zippered Jacket</a>
+                                        </h2>
+
+                                        <span class="product-qty">Qty: 4</span>
+                                    </div>
+                                </td>
+                                <td class="price-col">$220.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End #order-cart-section -->
+            </div>
+            <!-- End .order-summary -->
+        </div>
+        <!-- End .col-lg-4 -->
+    </div>
+    <!-- End .row -->
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="checkout-steps-action">
+                <a href="checkout-review.html" class="btn btn-primary float-right">PLACE ORDER</a>
+            </div>
+        </div>
+    </div>
+    <!-- End .row -->
+</div>
+<!-- End .container -->

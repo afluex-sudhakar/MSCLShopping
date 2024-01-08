@@ -1,0 +1,65 @@
+﻿@model MSCLShopping.Models.Vendor
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/VendorLayout.cshtml";
+}
+
+@using (Html.BeginForm("Profile", "Vendor", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">View/Update Profile</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Adhar Number <span style="color: red">*</span></label>
+                        @Html.TextBoxFor(m => m.AdharNo, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>PAN Number <span style="color: red">*</span></label>
+                        @Html.TextBoxFor(m => m.PAN, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>GSTIN <span style="color: red">*</span></label>
+                        @Html.TextBoxFor(m => m.GSTNo, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Adhar Number <span style="color: red">*</span></label>
+                        @Html.TextBoxFor(m => m.AdharNo, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>PAN Number <span style="color: red">*</span></label>
+                        @Html.TextBoxFor(m => m.PAN, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>GSTIN <span style="color: red">*</span></label>
+                        @Html.TextBoxFor(m => m.GSTNo, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input class="btn btn-success btn-sm pull-right" type="submit" onclick="return validateform();" value="Save" id="btnSave" name="btnSave" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

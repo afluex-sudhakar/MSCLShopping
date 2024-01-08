@@ -1,0 +1,874 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    ViewBag.Title = "AddNewVariantToProduct";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+<style>
+    #divload {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 9999;
+        background: url("../../images/cart-loading.gif") no-repeat center center rgba(0,0,0,0.25);
+    }
+
+    .errortext {
+        border: 1px solid red !important;
+    }
+</style>
+<div class="loader" id="divload"></div>
+
+@using (Html.BeginForm("AddNewVariantToProduct", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <p style="color: red">
+        @TempData["Product"]<br />
+    </p>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Select Product</h4>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        Main Category <span style="color: red">*</span>
+                        @Html.DropDownListFor(m => m.MainCategoryID, new SelectList(ViewBag.ddlMainCategory, "Value", "Text"), new { @class = "form-control", @onchange = "return onMainCategoryChange();" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        Category <span style="color: red">*</span>
+                        @Html.DropDownListFor(m => m.CategoryID, new SelectList(ViewBag.ddlCategory, "Value", "Text"), new { @class = "form-control", @onchange = "return onCategoryChange();" })
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        Sub Category  <span style="color: red">*</span>
+                        @Html.DropDownListFor(m => m.SubCategoryID, new SelectList(ViewBag.ddlSubCategory, "Value", "Text"), new { @class = "form-control", @onchange = "return onSubCategoryChange()" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        Product Name <span style="color: red">*</span>
+                        @Html.DropDownListFor(m => m.ProductID, new SelectList(ViewBag.ddlProduct, "Value", "Text"), new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input class="btn btn-success pull-left" type="submit" onclick="return valid();" value="Get" id="btnSave" name="Search" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <div class="card">
+        <div class="card-body">
+    @if (Model.ProductID != null)
+    {
+        @Html.HiddenFor(m => m.ProductID)
+        <h4 class="card-title">Product Details</h4>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <b><u> HSN No.:</u></b>
+                    <span>@Model.HSNNo</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <b><u>  Brand  :</u></b>
+                    <span>@Model.BrandName</span>
+                </div>
+            </div>
+
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    <b><u>  Tags:</u></b>
+                    <span>@Model.Tags</span>
+                </div>
+            </div>*@
+        </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <b><u> Short Description   :</u></b>
+                            <span>@Model.ShortDescription</span>
+                        </div>
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <b><u>  Description:</u></b>
+                                <span>@Model.Description</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th hidden>ID</th>
+                                    <th>S No.</th>
+                                  @*//  <th>Quantity</th>*@
+                                    <th>BV</th>
+                                    <th>MRP</th>
+                                 @*   <th>Offered Price</th>*@
+                                    <th>Dealer Price</th>
+                                    <th>CGST</th>
+                                    <th>SGST</th>
+                                    <th>IGST</th>
+                                    <th>Unit</th>
+                                    <th>Size</th>
+                                    <th>Flavor</th>
+                                    <th>Material</th>
+                                    <th>Color</th>
+                                    <th>RAM</th>
+                                    <th>Storage</th>
+                                    <th>Star Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    if (Model.lstProduct != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lstProduct)
+                                        {
+                                <tr class="text-left">
+                                    <td hidden>
+                                        @Item.ProductID
+                                        @Item.ProductInfoCode
+                                    </td>
+                                    <td>@i</td>
+                                    @*<td>@Item.Quantity</td>*@
+                                    <td>@Item.BV</td>
+                                    <td>@Item.MRP</td>
+                                @*    <td>@Item.OfferedPrice</td>*@
+                                    <td>@Item.DealerPrice</td>
+                                    <td>@Item.CGST</td>
+                                    <td>@Item.SGST</td>
+                                    <td>@Item.IGST</td>
+                                    <td>@Item.UnitName</td>
+                                    <td>@Item.SizeName</td>
+                                    <td>@Item.FlavorName </td>
+                                    <td>@Item.MaterialName</td>
+                                    <td>@Item.ColorName </td>
+                                    <td>@Item.RAM</td>
+                                    <td>@Item.Storage </td>
+                                    <td>@Item.StarRating</td>
+
+
+                                </tr>
+                                            i++;
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <br/>
+
+                    <h4 class="card-title">Add New</h4>
+                    <div class="row" id="addnewvar">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                Unit  <span style="color: red">*</span>
+                                @Html.DropDownListFor(m => m.UnitID, new SelectList(ViewBag.ddlUnit, "Value", "Text"), new { @class = "form-control", @onchange = "return onUnitChange();" })
+                                <input type="hidden" id="hdUnitName" />
+                            </div>
+                        </div>
+                        @foreach (var item in Model.lstVariant)
+                        {
+                            if (item.VariantName == "Size")
+                            {
+                                <div class="col-md-2">
+                                    <div class="form-group" id="divsize">
+                                        Size
+                                        @Html.DropDownListFor(m => m.SizeID, new SelectList(ViewBag.ddlSize, "Value", "Text"), new { @class = "form-control", @onchange = "sizeChange()" })
+
+                                    </div>
+                                </div>
+                            }
+                            if (item.VariantName == "Flavor")
+                            {
+                                <div class="col-md-2">
+                                    <div class="form-group" id="divflavor">
+                                        Flavor
+                                        @Html.DropDownListFor(m => m.FlavorID, new SelectList(ViewBag.ddlFlavor, "Value", "Text"), new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            }
+                            if (item.VariantName == "Material")
+                            {
+                                <div class="col-md-2">
+                                    <div class="form-group" id="divmaterial">
+                                        Material
+                                        @Html.DropDownListFor(m => m.MaterialID, new SelectList(ViewBag.ddlMaterial, "Value", "Text"), new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            }
+                            if (item.VariantName == "Color")
+                            {
+                                <div class="col-md-2">
+                                    <div class="form-group" id="divcolor">
+                                        Color
+                                        @Html.DropDownListFor(m => m.ColorID, new SelectList(ViewBag.ddlColor, "Value", "Text"), new { @class = "form-control", @onchange = "colorChange()" })
+                                        <input type="hidden" id="hdColorName" />
+                                    </div>
+                                </div>
+                            }
+                            if (item.VariantName == "RAM")
+                            {
+                                <div class="col-md-2">
+                                    <div class="form-group" id="divram">
+                                        RAM
+                                        @Html.DropDownListFor(m => m.RamID, new SelectList(ViewBag.ddlRAM, "Value", "Text"), new { @class = "form-control" })
+                                        <input type="hidden" id="hdColorName" />
+                                    </div>
+                                </div>
+                            }
+                            if (item.VariantName == "Storage")
+                            {
+                                <div class="col-md-2">
+                                    <div class="form-group" id="divstorage">
+                                        Storage
+                                        @Html.DropDownListFor(m => m.StorageID, new SelectList(ViewBag.ddlStorage, "Value", "Text"), new { @class = "form-control" })
+                                        <input type="hidden" id="hdColorName" />
+                                    </div>
+                                </div>
+                            }
+                            if (item.VariantName == "Star Rating")
+                            {
+                                <div class="col-md-2">
+                                    <div class="form-group" id="divstarrating">
+                                        Star Rating
+                                        @Html.DropDownListFor(m => m.StarRatingID, new SelectList(ViewBag.ddlStarRating, "Value", "Text"), new { @class = "form-control" })
+                                        <input type="hidden" id="hdColorName" />
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                Quantity <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.ProductQuantity, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                BV   <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.BV, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)" })
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                MRP  <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.MRP, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)" })
+                            </div>
+                        </div>
+                        @*<div class="col-md-2">
+                            <div class="form-group">
+                                Offered Price  <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.OfferedPrice, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)", @onchange = "return CheckPrice();" })
+                            </div>
+                        </div>*@
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                Dealer Price   <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.DealerPrice, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)" })
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                CGST (%) <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.CGST, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)" })
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                SGST  (%) <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.SGST, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)" })
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                IGST  (%) <span style="color: red">*</span>
+                                @Html.TextBoxFor(m => m.IGST, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event)" })
+                            </div>
+                        </div>
+
+                        @*<div class="col-md-2">
+                                <div class="form-group">
+                                    Upload Primary Image
+                                            <input type="file" name="postedFile" id="Image" onchange="readURL(this)" />
+                                    <img id="ContentPlaceHolder1_imgProductImage" runat="server" class="fileinput-preview thumbnail" style="width: 150px; height: 100px;" />
+                                </div>
+                            </div>*@
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                @*<img src="@Model.ProfilePicture" height="190" width="250" />*@
+                                Upload Secondary Images
+                                <input type="file" name="postedFile1" id="ImageM" onchange="readURL1(this)" multiple="multiple" />
+                                @*<img src="../../images/no-profile.png" alt="..." class="img-square profile_img"*@
+                                <img id="ContentPlaceHolder1_imgProductImage1" class="fileinput-preview thumbnail" style="width: 150px; height: 100px;" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <br />
+                            <div class="form-group">
+                                <a class="btn btn-primary pull-left" id="btnSaveTemp" onclick="saveDataTemporary()">Add Qty to List</a>
+                                @*<input class="btn btn-primary pull-left" type="submit" onclick="return validateform();" value="Add Qty to List" id="btnAddQty" name="AddQty" />*@
+                            </div>
+                        </div>
+                    </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S No.</th>
+                                                        <th>Unit</th>
+                                                        <th>Size </th>
+                                                        <th>Flavor</th>
+                                                        <th>Material</th>
+                                                        <th>Color</th>
+                                                        <th>RAM</th>
+                                                        <th>Storage</th>
+                                                        <th>Star Rating</th>
+                                                        <th>Qty</th>
+                                                        <th>BV</th>
+                                                        <th>MRP</th>
+                                                        <th>Offered Price</th>
+                                                        <th>DealerPrice</th>
+                                                        <th>CGST</th>
+                                                        <th>SGST</th>
+                                                        <th>IGST</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="plccharge"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input class="btn btn-success btn-sm" type="submit" value="Save" id="btnSave" name="Save" />
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <input type="hidden" value="@Session["ProductInfoCode"]" id="prodctinfocode" />
+
+    }
+            
+        </div>
+    </div>
+
+
+}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+    });
+    function CheckPrice() {
+        debugger
+        var mrp = $('#MRP').val();
+        var offeedprice = $('#OfferedPrice').val();
+
+        if (offeedprice > mrp) {
+            alert("Offered Price cannot be greater than MRP !");
+            $('#OfferedPrice').val('');
+        }
+
+    }
+
+    function saveDataTemporary() {
+
+        $("#MainCategoryID").attr("disabled", "disabled");
+        $("#CategoryID").attr("disabled", "disabled");
+        $("#SubCategoryID").attr("disabled", "disabled");
+        $("#ProductID").attr("disabled", "disabled");
+
+        if ($('#UnitID').val() == '0') {
+            $("#UnitID").addClass('errortext');
+            $('#UnitID').focus();
+            return false;
+        }
+        if ($("#divsize").is(':visible') && $('#SizeID').val() == '0') {
+            // alert("dsd");
+            $("#SizeID").addClass('errortext');
+            $('#SizeID').focus();
+            return false;
+
+        }
+        if ($("#divflavor").is(':visible') && $('#FlavorID').val() == '0') {
+            //   alert("dsd");
+            $("#FlavorID").addClass('errortext');
+            $('#FlavorID').focus();
+            return false;
+
+        }
+        if ($("#divmaterial").is(':visible') && $('#MaterialID').val() == '0') {
+            //alert("dsd");
+            $("#MaterialID").addClass('errortext');
+            $('#MaterialID').focus();
+            return false;
+
+        }
+        if ($("#divcolor").is(':visible') && $('#ColorID').val() == '0') {
+            $("#ColorID").addClass('errortext');
+            $('#ColorID').focus();
+            return false;
+        }
+        if ($("#divram").is(':visible') && $('#RamID').val() == '0') {
+            $("#RamID").addClass('errortext');
+            $('#RamID').focus();
+            return false;
+        }
+        if ($("#divstorage").is(':visible') && $('#StorageID').val() == '0') {
+            $("#StorageID").addClass('errortext');
+            $('#StorageID').focus();
+            return false;
+        }
+        if ($("#divstarrating").is(':visible') && $('#StarRatingID').val() == '0') {
+            $("#StarRatingID").addClass('errortext');
+            $('#StarRatingID').focus();
+            return false;
+        }
+        if ($('#ProductQuantity').val() == '') {
+            $("#ProductQuantity").addClass('errortext');
+            $('#ProductQuantity').focus();
+            return false;
+        }
+        if ($('#BV').val() == '') {
+            $("#BV").addClass('errortext');
+            $('#BV').focus();
+            return false;
+        }
+        if ($('#MRP').val() == '') {
+            $("#MRP").addClass('errortext');
+            $('#MRP').focus();
+            return false;
+        }
+        if ($('#OfferedPrice').val() == '') {
+            $("#OfferedPrice").addClass('errortext');
+            $('#OfferedPrice').focus();
+            return false;
+        }
+        if ($('#DealerPrice').val() == '') {
+            $("#DealerPrice").addClass('errortext');
+            $('#DealerPrice').focus();
+            return false;
+        }
+        if ($('#CGST ').val() == '') {
+            $("#CGST").addClass('errortext');
+            $('#CGST').focus();
+            return false;
+        }
+        if ($('#SGST ').val() == '') {
+            $("#SGST").addClass('errortext');
+            $('#SGST').focus();
+            return false;
+        }
+        if ($('#IGST ').val() == '') {
+            $("#IGST").addClass('errortext');
+            $('#IGST').focus();
+            return false;
+        }
+        if ($('#ImageM').val() == '') {
+            $("#ImageM").addClass('errortext');
+            alert("Select images !");
+            $('#ImageM').focus();
+            return false;
+
+        }
+
+
+        else {
+            $("#divload").css({ 'display': '' });
+            var unitname = $('#UnitID').find(":selected").text();
+            var sizename = $('#SizeID').find(":selected").text();
+            var colorname1 = $('#ColorID').find(":selected").text();
+            var sizeID = $('#SizeID').val();
+            var qty = $('#ProductQuantity').val();
+            var sizenm = $('#SizeName').val();
+            var unit = $('#UnitID').val();
+            var colorid = $('#ColorID').val();
+            var colorname = $('#ColorName').val();
+            var bv = $('#BV').val();
+            var mrp = $('#MRP').val();
+            var offerprice = $('#OfferedPrice').val();
+            var dealerprice = $('#DealerPrice').val();
+            var cgst = $('#CGST').val();
+            var sgst = $('#SGST').val();
+            var igst = $('#IGST').val();
+            var flavorid = $('#FlavorID').val();
+            var materialid = $('#MaterialID').val();
+            var flavorname = $('#FlavorID').find(":selected").text();
+            var materialname = $('#MaterialID').find(":selected").text();
+            var ramid = $('#RamID').val();
+            var storageid = $('#StorageID').val();
+            var starid = $('#StarRatingID').val();
+            var ramname = $('#RamID').find(":selected").text();
+            var storagename = $('#StorageID').find(":selected").text();
+            var starname = $('#StarRatingID').find(":selected").text();
+            var files = $("#ImageM").get(0).files;
+            var fileData = new FormData();
+
+            for (var i = 0; i < files.length; i++) {
+                fileData.append("ImageM", files[i]);
+            }
+
+            var tr = [];
+            var j = 1;
+            $.ajax({
+                url: '/Master/saveDataTemporary', type: 'post', dataType: 'json',
+                data: {
+                    'sizeID': sizeID, 'colorID': colorid, 'qty': qty, 'bv': bv, 'mrp': mrp, 'offeredprice': offerprice, 'dealerprice': dealerprice, 'cgst': cgst,
+                    'sgst': sgst, 'igst': igst, 'unitID': unit, 'unitname': unitname, 'sizename': sizename, 'colorname': colorname1, 'flavorid': flavorid,
+                    'flavorname': flavorname, 'materialid': materialid, 'materialname': materialname, 'ramid': ramid, 'storageid': storageid, 'starid': starid,
+                    'ramname': ramname, 'storagename': storagename, 'starname': starname
+
+                },
+                success: function (data) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Master/UploadFiles",
+                        //data : {'sizeID' : sizeID, 'unitID' : unit, 'colorID' : colorid},
+                        dataType: "json",
+                        contentType: false, // Not to set any content header
+                        processData: false, // Not to process data
+                        data: fileData,
+                        success: function (result, status, xhr) {
+                            // alert(result);
+                            //$("#divload").css({ 'display': 'none' });
+                        },
+                        error: function (xhr, status, error) {
+                            // alert(status);
+                        }
+                    });
+
+                    $("#divload").css({ 'display': 'none' });
+                    $('#plccharge').empty();
+                    for (var i = 0; i < data.lstSizeTemp.length; i++) {
+                        tr.push('<tr>');
+                        tr.push("<td>" + j + "</td>");
+                        tr.push("<td><label id='txtUnitName_ " + i + "' name='txtUnitName_ " + i + "' >" + unitname + " </label></td>");
+                        tr.push("<td><label id='txtSizeName_ " + i + "' name='txtSizeName_ " + i + "'>" + data.lstSizeTemp[i].SizeName + "  </label></td>");
+                        tr.push("<td><label id='txtFlavorName_ " + i + "' name='txtFlavorName_ " + i + "' >" + data.lstSizeTemp[i].FlavorName + " </label></td>");
+                        tr.push("<td><label id='txtMaterialName_ " + i + "' name='txtMaterialName_ " + i + "'>" + data.lstSizeTemp[i].MaterialName + "  </label></td>");
+                        tr.push("<td><label id='stxtColorName_ " + i + "' name='stxtColorName_ " + i + "'> " + data.lstSizeTemp[i].ColorName + "</label></td>");
+                        tr.push("<td><label id='txtramnamee_ " + i + "' name='txtramnamee_ " + i + "'> " + data.lstSizeTemp[i].RAM + "</label></td>");
+                        tr.push("<td><label id='txtStoragee_ " + i + "' name='txtStoragee_ " + i + "'> " + data.lstSizeTemp[i].Storage + "</label></td>");
+                        tr.push("<td><label id='starrating_ " + i + "' name='starrating_ " + i + "'> " + data.lstSizeTemp[i].StarRating + "</label></td>");
+                        tr.push("<td><label id='stxtQuantity_ " + i + "' name='stxtQuantity_ " + i + "'> " + data.lstSizeTemp[i].Quantity + " </label></td>");
+                        tr.push("<td><label id='stxtBV_ " + i + "' name='stxtBV_ " + i + "'>" + data.lstSizeTemp[i].BV + "</label></td>");
+                        tr.push("<td><label id='stxtMRP_ " + i + "' name='stxtMRP_ " + i + "' >" + data.lstSizeTemp[i].MRP + "</label></td>");
+                        tr.push("<td><label id='stxtOfferedPrice_ " + i + "' name='stxtOfferedPrice_ " + i + "' >" + data.lstSizeTemp[i].OfferedPrice + "</label></td>");
+                        tr.push("<td><label id='stxtDealerPrice_ " + i + "' name='stxtDealerPrice_ " + i + "' >" + data.lstSizeTemp[i].DealerPrice + "</label></td>");
+                        tr.push("<td><label id='stxtCGST_ " + i + "' name='stxtCGST_ " + i + "'>" + data.lstSizeTemp[i].CGST + "</label></td>");
+                        tr.push("<td><label id='stxtSGST_ " + i + "' name='stxtSGST_ " + i + "' >" + data.lstSizeTemp[i].SGST + "</label></td>");
+                        tr.push("<td><label id='stxtIGST_ " + i + "' name='stxtIGST_ " + i + "' >" + data.lstSizeTemp[i].IGST + "</label></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].UnitID + "' id='unitid_ " + i + "' name='unitid_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].SizeID + "' id='sizeid_ " + i + "' name='sizeid_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].ColorID + "' id='colorid_ " + i + "' name='colorid_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].Quantity + "' id='txtQuantity_ " + i + "' name='txtQuantity_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].UnitName + "' id='unitname_ " + i + "' name='unitname_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].SizeName + "' id='sizename_ " + i + "' name='sizename_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].ColorName + "' id='colorname_ " + i + "' name='colorname_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].BV + "' id='txtBV_ " + i + "' name='txtBV_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].MRP + "' id='txtMRP_ " + i + "' name='txtMRP_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].OfferedPrice + "' id='txtOfferedPrice_ " + i + "' name='txtOfferedPrice_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].DealerPrice + "' id='txtDealerPrice_ " + i + "' name='txtDealerPrice_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].CGST + "' id='txtCGST_ " + i + "' name='txtCGST_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].SGST + "' id='txtSGST_ " + i + "' name='txtSGST_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].IGST + "' id='txtIGST_ " + i + "' name='txtIGST_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].FlavorID + "' id='flavorid_ " + i + "' name='flavorid_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].MaterialID + "' id='materialid_ " + i + "' name='materialid_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].FlavorName + "' id='flavorname_ " + i + "' name='flavorname_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].MaterialName + "' id='materialname_ " + i + "' name='materialname_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].ProductInfoCode + "' id='productinfocode_ " + i + "' name='productinfocode_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].RamID + "' id='ramid_ " + i + "' name='ramid_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].RAM + "' id='ramname_ " + i + "' name='ramname_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].StorageID + "' id='storageid_ " + i + "' name='storageid_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].Storage + "' id='storagename_ " + i + "' name='storagename_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].StarRatingID + "' id='starrate_ " + i + "' name='starrate_ " + i + "'></td>");
+                        tr.push("<td style='display:none'><input type='hidden' value='" + data.lstSizeTemp[i].StarRating + "' id='starratingname_ " + i + "' name='starratingname_ " + i + "'></td>");
+
+
+                        tr.push('</tr>');
+                        j++;
+
+                    }
+                    tr.push('<tr style="display:none">');
+                    tr.push("<td><input type='hidden' value='" + j + "' id='hdrows' name='hdrows'></td>");
+                    tr.push('</tr>');
+                    $('#plccharge').append($(tr.join('')));
+
+                }
+
+            });
+
+
+        }
+    }
+
+
+    function onMainCategoryChange() {
+        debugger
+        $("#divload").css({ 'display': '' });
+        var value = $('#MainCategoryID').val();
+        var values = $('#CategoryID').val();
+
+        $.ajax({
+            url: "/Master/GetCategoryByMainCategory",
+            Type: "Get",
+            DataType: "JSON",
+            data: { MainCategoryID: value },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                // alert(data.Result);
+
+                $("#CategoryID").html(""); // clear before appending new list
+                $("#CategoryID").empty();
+
+                $("#CategoryID").append(
+                      $('<option></option>').val(0).html('Select Category'));
+                $.each(data.ddlCategory, function (index, count) {
+                    $("#CategoryID").append(
+                          $('<option></option>').val(count.Value).html(count.Text));
+
+                });
+
+            }
+
+        });
+
+    }
+
+    function onCategoryChange() {
+        //  alert("fh");
+        $("#divsize").hide();
+        $("#divcolor").hide();
+        $("#divflavor").hide();
+        $("#divmaterial").hide();
+        $("#divload").css({ 'display': '' });
+        var MainCategoryId = $('#MainCategoryID').val();
+        var CategoryId = $('#CategoryID').val();
+        $.ajax({
+            url: '/Master/GetSubCategory', type: 'post', dataType: 'json',
+            data: { 'MainCategoryID': MainCategoryId, 'CategoryID': CategoryId },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                $("#SubCategoryID").html(""); // clear before appending new list
+                $("#SubCategoryID").empty();
+                $("#SubCategoryID").append(
+                      $('<option></option>').val(0).html('Select SubCategory'));
+                $.each(data.ddlSubCategory, function (index, BlockCount) {
+                    $("#SubCategoryID").append(
+                          $('<option></option>').val(BlockCount.Value).html(BlockCount.Text));
+                });
+                var ctrVariant = data.lstVarient;
+
+                for (var i = 0; i <= data.lstVarient.length - 1; i++) {
+                    if (data.lstVarient[i].VariantName == "Size") {
+                        $("#divsize").show();
+
+                    }
+
+                    if (data.lstVarient[i].VariantName == "Color") {
+                        $("#divcolor").show();
+
+                    }
+                    if (data.lstVarient[i].VariantName == "Flavour") {
+                        $("#divflavor").show();
+
+                    }
+                    if (data.lstVarient[i].VariantName == "Material") {
+                        $("#divmaterial").show();
+
+                    }
+
+
+                    if (data.lstVarient[i].VariantName == "RAM") {
+                        $("#divram").show();
+
+                    }
+                    if (data.lstVarient[i].VariantName == "Storage") {
+                        $("#divstorage").show();
+
+                    }
+                    if (data.lstVarient[i].VariantName == "Star Rating") {
+                        $("#divstarrating").show();
+
+                    }
+                }
+
+            }
+
+        });
+
+    }
+
+    function onUnitChange() {
+        debugger
+        $("#divload").css({ 'display': '' });
+        var value = $('#UnitID').val();
+        var values = $('#SizeID').val();
+
+        $.ajax({
+            url: "/Master/GetSizeByUnit",
+            Type: "Get",
+            DataType: "JSON",
+            data: { UnitID: value },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                $("#SizeID").html(""); // clear before appending new list
+                $("#SizeID").empty();
+                $("#SizeID").append(
+                      $('<option></option>').val(0).html('Select Size'));
+                $.each(data.ddlSize, function (index, count) {
+                    $("#SizeID").append(
+                          $('<option></option>').val(count.Value).html(count.Text));
+
+                });
+            }
+        });
+
+        var unitName = $('#UnitID').find(":selected").text();
+        //     alert(unitName);
+        $('#hdUnitName').val() = unitName;
+
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#ContentPlaceHolder1_imgProductImage')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#ContentPlaceHolder1_imgProductImage1')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+
+    function onSubCategoryChange() {
+        debugger
+        $("#divload").css({ 'display': '' });
+        var MainCategoryID = $('#MainCategoryID').val();
+        var CategoryID = $('#CategoryID').val();
+        var SubCategoryID = $('#SubCategoryID').val();
+        $.ajax({
+            url: "/Master/GetProductsInDDL",
+            Type: "Get",
+            DataType: "JSON",
+            data: { 'MainCategoryID': MainCategoryID, 'CategoryID': CategoryID, 'SubCategoryID': SubCategoryID },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                // alert(data.Result);
+
+                $("#ProductID").html(""); // clear before appending new list
+                $("#ProductID").empty();
+
+                $("#ProductID").append(
+                      $('<option></option>').val(0).html('Select Product'));
+                $.each(data.ddlProduct, function (index, count) {
+                    $("#ProductID").append(
+                          $('<option></option>').val(count.Value).html(count.Text));
+
+                });
+
+            }
+
+        });
+
+    }
+
+
+    function valid() {
+        $("#divload").css({ 'display': '' });
+        $(".errortext").removeClass("errortext");
+        if ($('#MainCategoryID').val() == '0') {
+            $("#MainCategoryID").addClass('errortext');
+            $('#MainCategoryID').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#CategoryID').val() == '0') {
+            $("#CategoryID").addClass('errortext');
+            $('#CategoryID').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#SubCategoryID').val() == '0') {
+            $("#SubCategoryID").addClass('errortext');
+            $('#SubCategoryID').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        if ($('#ProductID').val() == '0') {
+            $("#ProductID").addClass('errortext');
+            $('#ProductID').focus();
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        return true;
+    }
+
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>

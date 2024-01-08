@@ -1,0 +1,61 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    ViewBag.Title = "VariantList";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("VariantList", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Variant List</h4>
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table id="order-listing" class="table">
+                            <thead>
+                                <tr>
+                                    <th>S No.</th>
+                                    <th>Variant</th>
+                                   
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    if (Model.lstProduct != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lstProduct)
+                                        {
+                                            <tr class="text-left">
+                                                <td>@i</td>
+                                                <td hidden>@Item.VariantID</td>
+                                                <td>@Item.VariantName</td>
+                                                <td>
+                                                    <a href="/Master/VariantMaster?VariantID=@Item.VariantID" class="btn btn-info btn-sm">Edit</a>
+                                                    <a href="/Master/DeleteVariant/@Item.VariantID" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wish to delete this Variant?');">Delete</a>
+                                                </td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+

@@ -1,0 +1,148 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    ViewBag.Title = "Discount";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("SaveDiscount", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Add New Discount</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Coupon Code<span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.CouponCode, new { @class = "form-control", @Placeholder = "CouponCode" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Discount Amount <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.DiscountAmount, new { @class = "form-control", @Placeholder = "DiscountAmount", @onkeypress = "return isNumberOrDecimal(event);" })
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        FromDate<span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "Enter  valid From Date", @readonly = "readonly" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        ToDate <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "Enter valid To Date", @readonly = "readonly" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @if (Model.DiscountID == null)
+                        {
+                            <input class="btn btn-success pull-left" type="submit" onclick="return validateform();" value="Save" id="btnSave" name="Save" />
+                        }
+                        else
+                        {
+                            @Html.HiddenFor(m => m.DiscountID, new { @Value = @Model.DiscountID })
+                            <input class="btn btn-success pull-left" type="submit" value="Update" id="btnUpdate" name="Update" onclick="return validateform();" />
+                        }
+                        <a href="/Master/DiscountList" class="btn btn-primary ">Back To List</a>
+                    </div>
+
+                </div>
+                <p style="color: red">
+                    @TempData["Discount"]
+                    <br />
+                </p>
+            </div>
+        </div>
+    </div>
+     
+
+}
+
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<script>
+
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#CouponCode').val() == '') {
+            $("#CouponCode").addClass('errortext');
+            $('#CouponCode').focus();
+            return false;
+        }
+        if ($('#DiscountAmount').val() == '') {
+            $("#DiscountAmount").addClass('errortext');
+            $('#DiscountAmount').focus();
+            return false;
+        }
+        if ($('#FromDate').val() == '') {
+            $("#FromDate").addClass('errortext');
+            $('#FromDate').focus();
+            return false;
+        }
+        if ($('#ToDate').val() == '') {
+            $("#ToDate").addClass('errortext');
+            $('#ToDate').focus();
+            return false;
+        }
+
+        return true;
+    }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#ContentPlaceHolder1_imgProductImage')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+
+    });
+
+</script>
+

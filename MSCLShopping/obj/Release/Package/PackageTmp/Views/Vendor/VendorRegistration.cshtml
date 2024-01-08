@@ -1,0 +1,245 @@
+﻿@model AfluexShopping.Models.Vendor
+
+@{
+    ViewBag.Title = "VendorRegistration";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("VendorRegistration", "Vendor", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Vendor Registration</h4>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                         Name <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @Placeholder = " Name" })
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Mobile Number <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile Number", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "10" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        GSTNo <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.GSTNo, new { @class = "form-control", @Placeholder = "GST No" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        PAN <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.PAN, new { @class = "form-control", @Placeholder = "PAN" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        AdharNo <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.AdharNo, new { @class = "form-control", @Placeholder = "Adhar No", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "20" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Email
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @Placeholder = "Email" })
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        Address <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @Placeholder = "Address" })
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Pincode <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control", @Placeholder = "Pincode", @onchange = "return getStateCity();", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "6" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        State <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.State, new { @class = "form-control", @Placeholder = "State", @readonly = "readonly" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        City <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.City, new { @class = "form-control", @Placeholder = "City", @readonly = "readonly" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @if (Model.VendorID == null)
+                        {
+                        <input class="btn btn-success pull-left" type="submit" onclick="return validateform();" value="Save" id="btnSave" name="Save" />
+                        }
+                        else
+                        {
+                        @Html.HiddenFor(m => m.VendorID, new { @Value = @Model.VendorID })
+                        <input class="btn btn-success pull-left" type="submit" onclick="return validateform();" value="Update" id="btnUpdate" name="Updates" />
+                        }
+                    </div>
+                    <p style="color: red">
+
+                        @TempData["Vendor"]
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+}
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+
+
+    function validatePan() {
+        var panVal = $('#PanNo').val();
+        var regpan = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
+
+        if (regpan.test(panVal)) {
+            $("#PanNo").removeClass('errortext');
+        } else {
+            alert("Invalid PAN Number");
+            $("#PanNo").val('');
+            $("#PanNo").addClass('errortext');
+        }
+    }
+
+    function getStateCity() {
+
+        var pincode = $('#Pincode').val();
+        $.ajax({
+            url: '/Vendor/GetStateCity', type: 'post', dataType: 'json',
+            data: { 'Pincode': pincode },
+            success: function (data) {
+                if (data.Result == "yes") {
+                    $("#State").val(data.State);
+                    $("#City").val(data.City);
+                    $("#State").removeClass('errortext');
+                    $("#City").removeClass('errortext');
+                    $("#Pincode").removeClass('errortext');
+                }
+                else if (data.Result == "no") {
+                    alert("Invalid Pincode");
+                    $("#State").val('');
+                    $("#City").val('');
+                    $("#State").addClass('errortext');
+                    $("#City").addClass('errortext');
+                    $("#Pincode").addClass('errortext');
+                    $('#Pincode').focus();
+                    $('#Pincode').val('');
+
+                }
+            }
+
+        });
+    }
+
+    function validateform() {
+
+        $(".errortext").removeClass("errortext");
+
+
+        if ($('#FirstName').val() == '') {
+            $("#FirstName").addClass('errortext');
+            $('#FirstName').focus();
+            return false;
+        }
+
+        if ($('#Mobile').val() == '') {
+            $("#Mobile").addClass('errortext');
+            $('#Mobile').focus();
+            return false;
+        }
+
+        if ($('#GSTNo').val() == '') {
+            $("#GSTNo").addClass('errortext');
+            $('#GSTNo').focus();
+            return false;
+        }
+        if ($('#PAN').val() == '') {
+            $("#PAN").addClass('errortext');
+            $('#PAN').focus();
+            return false;
+        }
+        if ($('#AdharNo').val() == '') {
+            $("#AdharNo").addClass('errortext');
+            $('#AdharNo').focus();
+            return false;
+        }
+
+        if ($('#Address').val() == '') {
+            $("#Address").addClass('errortext');
+            $('#Address').focus();
+            return false;
+        }
+        if ($('#Pincode').val() == '') {
+            $("#Pincode").addClass('errortext');
+            $('#Pincode').focus();
+            return false;
+        }
+
+        return true;
+    }
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function onlyAlphabets(e, t) {
+        try {
+            if (window.event) {
+                var charCode = window.event.keyCode;
+            }
+            else if (e) {
+                var charCode = e.which;
+            }
+            else { return true; }
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+                return true;
+            else
+                return false;
+        }
+        catch (err) {
+            alert(err.Description);
+        }
+    }
+
+</script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>

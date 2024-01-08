@@ -1,0 +1,151 @@
+﻿@model AfluexShopping.Models.Customer
+
+@{
+    ViewBag.Title = "ComplainReply";
+    Layout = "~/Views/Shared/CustomerLayout.cshtml";
+}
+
+@using (Html.BeginForm("ComplainReply", "Customer", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-inner">
+                <ul class="list-inline list-unstyled">
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                    <li><a href="/Home/Index">Shop now !</a></li>
+                </ul>
+            </div><!-- /.breadcrumb-inner -->
+        </div><!-- /.container -->
+    </div>
+    <main class="main">
+        <div class="sign-in-page spaceacc">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 order-lg-last dashboard-content">
+                        <h2>Complain Reply</h2>
+
+                        <div class="row">
+                            <div class="col-md-3 form-group">
+                                <b>Ticket No :</b>
+                                <span>@Model.ComplainID</span>
+                                @Html.HiddenFor(m => m.PK_ComplainID)
+                            </div>
+
+                            <div class="col-md-3 form-group">
+                                <b>Ticket Date :</b>
+                                <span>@Model.ComplainDate</span>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <b>Ticket Status :</b>
+                                <span>@Model.ComplainStatus1</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <b>Issue :</b>
+                                <span>@Model.Issue</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9 form-group">
+                                <b>Reply to Admin</b>
+                                @Html.TextBoxFor(m => m.Reply, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <br />
+                                <input type="button" value="Send" name="btnSend" onclick="return saveReply();" class="btn btn-sm btn-success" />
+                            </div>
+                        </div>
+                        @if (Model != null)
+                        {
+                            if (Model.lstComplainResponse != null)
+                            {
+                        <div class="table-responsive">
+                            <table class="table text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Sr No.</th>
+                                        <th>Reply</th>
+                                        <th>Date</th>
+                                        <th>Reply Person</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                            {
+                                                if (Model.lstComplainResponse != null)
+                                                {
+                                                    int i = 1;
+                                                    foreach (var Item in Model.lstComplainResponse)
+                                                    {
+                                            <tr class="text-left">
+                                                <td>@i</td>
+                                                <td>@Item.Reply</td>
+                                                <td>@Item.ReplyDate</td>
+                                                <td>@Item.ReplyPerson</td>
+                                            </tr>
+                                                        i++;
+                                                    }
+
+                                                }
+                                            }
+                                </tbody>
+                            </table>
+                        </div>
+                            }
+                        }
+
+                    </div>
+
+                    @{Html.RenderAction("CustomerLeftMenu", "Customer", new { area = "" });}
+                </div>
+            </div>
+        </div>
+        <div class="mb-5"></div>
+    </main>
+                        }
+
+<script>
+
+    function saveReply() {
+        if ($("#Reply").val() == '') {
+            $("#Reply").focus();
+            return false;
+        }
+
+        $.ajax({
+            url: '/Customer/ComplainReplySave',
+            type: "GET",
+            dataType: "JSON",
+            data: { cid: $("#PK_ComplainID").val(), rp: $("#Reply").val() },
+            success: function (data) {
+                //alert(data.Result);
+                if (data.Result == "1") {
+                    window.location.reload();
+                    //window.location.href = "/Admin/PK_ComplainID";
+                    //$("#divload").css({ 'display': 'none' });
+                }
+                else {
+                    alert("Reply not saved..");
+                }
+            }
+        })
+
+    }
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+
+</script>
+
+

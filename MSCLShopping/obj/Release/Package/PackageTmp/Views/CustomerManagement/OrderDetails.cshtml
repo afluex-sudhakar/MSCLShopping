@@ -1,0 +1,137 @@
+﻿@model AfluexShopping.Models.CustomerManagement
+@{
+    ViewBag.Title = "OrderDetails";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("OrderDetails", "CustomerManagement", FormMethod.Post, new { @id = "form1" }))
+{
+ 
+    <div class="row" id="Details1">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="row ">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @*<input type="button" name="Back" value="Save" id="btnSave" class="btn btn-success" onclick="return validateform();" />*@
+                    </div>
+                </div>
+            </div>
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Order Details @*<small>List Of Sites</small>*@</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <a href="/CustomerManagement/CustomerOrders">Back To List</a>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <b>CustomerName :</b>
+                            @Html.DisplayFor(m => m.CustomerName)
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <b>Order No.</b>
+                            @Html.DisplayFor(m => m.OrderNO)
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <b>Order Date :</b>
+                            @Html.DisplayFor(m => m.OrderDate)
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <b>Total Amount:</b>
+                            @Html.DisplayFor(m => m.TotalAmount)
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="x_content">
+
+                    <table id="datatable-buttons" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th hidden>PK_GalleryID</th>
+                                <th>S No.</th>
+                                <th>Product</th>
+                                <th>Size</th>
+                                <th>Unit</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.List != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.List)
+                                    {
+                                <tr class="text-left">
+                                    <td hidden>@Item.OrderID</td>
+                                    <td>@i</td>
+                                    <td>@Item.ProductName</td>
+                                    <td>@Item.SizeName</td>
+                                    <td>@Item.UnitName</td>
+                                    <td>@Item.Quantity</td>
+                                    <td>@Item.Rate</td>
+                                    <td>@Item.TotalAmount</td>
+
+                                </tr>
+                                        i++;
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+               
+}
+
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+@*<script>
+    $(document).ready(function () {
+        $('#dataTables-example').DataTable({
+            responsive: true,
+
+        });
+    });
+
+</script>*@
+
+<script src="../../VendorCss/lib/jquery/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        maxDate: 0,
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+        minDate: new Date(new Date().setMonth(new Date().getMonth() - 2))
+    });
+
+</script>
+

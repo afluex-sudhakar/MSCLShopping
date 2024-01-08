@@ -1,0 +1,141 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    ViewBag.Title = "ProductsAssignedByAdminLedger";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("ProductsAssignedByAdmin", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Products Ledger</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Product Name
+                        @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", @Placeholder = "Search by Product Name" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <br />
+                        <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="Search" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <br />
+            <table id="order-listing" class="table">
+                <thead>
+                    <tr>
+                        <th>S No.</th>
+                        <th>Transaction Date</th>
+                        <th>Product Name </th>
+                        <th>Brand</th>
+                        <th>Unit</th>
+                        <th>Size </th>
+                        <th>Color</th>
+                        <th>Flavor</th>
+                        <th>Material</th>
+                        <th>RAM</th>
+                        <th>Storage </th>
+                        <th>Credit Quantity</th>
+                        <th>Debit Quantity</th>
+                        <th>Balance Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        if (Model.lstProduct != null)
+                        {
+                            int i = 1;
+                            foreach (var Item in Model.lstProduct)
+                            {
+                                <tr class="text-left">
+
+                                    <td>@i</td>
+                                    <td>@Item.ToDate</td>
+                                    <td>@Item.ProductName</td>
+                                    <td>@Item.BrandName </td>
+                                    <td>@Item.UnitName</td>
+                                    <td>@Item.SizeName </td>
+                                    <td>@Item.ColorName</td>
+                                    <td>@Item.FlavorName</td>
+                                    <td>@Item.MaterialName </td>
+                                    <td>@Item.RAM</td>
+                                    <td>@Item.Storage</td>
+                                    <td>@Item.Quantity</td>
+                                    <td>@Item.DebQuantity</td>
+                                  
+                                    <td>@Item.BalanceQuantity</td>
+                                    <td></td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+}
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+
+
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#ContentPlaceHolder1_imgProductImage')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
+<script>
+
+
+    $('#OrderDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+
+    });
+
+</script>
+
+
+

@@ -1,0 +1,177 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    ViewBag.Title = "OrderDeliveryByCourrier";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("OrderDeliveryByCourrier", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Order Delivery By Courrier</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Courrier<span style="color: red">*</span>
+                        @Html.DropDownListFor(m => m.CourrierID, new SelectList(ViewBag.ddlCourrier, "Value", "Text"), new { @class = "form-control"  })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Courrier Date<span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.CourrierDate, new { @class = "form-control" ,@readonly="read" ,@placeholder= "Courrier Date" })
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="x_title">
+                <h4 class="card-title">Orders</h4>
+                <div class="clearfix"></div>
+            </div>
+            <table id="order-listing" class="table">
+                <thead>
+                    <tr> 
+                        <th>S No.</th>
+                        <th>Date</th>
+                        <th>Order Number</th>        
+                        <th>Product</th>
+                        <th>Customer Name</th>
+                        <th>Number</th>
+                        <th>Amount</th>
+                        <th>Payment Mode</th>
+                        <th>Tracking Number</th>
+                        <th> Select All&nbsp;&nbsp; <input type="checkbox" name="checkedAll" id="checkedAll" style="margin-top:3px;" /> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        if (Model.lstProduct != null)
+                        {
+                            int i = 1;
+                            foreach (var Item in Model.lstProduct)
+                            {
+                                <tr class="text-left">
+                                    <td>@i</td>
+                                    <td>@Item.OrderDate</td>
+                                    <td>@Item.OrderNumber</td>
+                                    <td>@Item.ProductName</td>
+                                    <td>@Item.Name</td>
+                                    <td>@Item.Contact</td>
+                                    <td>@Item.Amount</td>
+                                    <td>@Item.PayMode</td>
+                                    <td><input type="text" id="trackno_ @i" name="trackno_ @i" onchange="return gettrackno(this,'@i')" /></td>
+                                         <td>
+                                        <input type="checkbox" id="Chk_ @i" name="Chk_ @i"  class="chkclass" />
+                                        <input type='hidden' value='@Item.OrderID' id='OrderID_ @i' name='OrderID_ @i' >
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+                            <input type='hidden' value='@i' id='hdrows' name='hdrows' />
+                            <input type="hidden" id="track" />
+                        }
+                    }
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <br/>
+                        <input class="btn btn-success pull-left" type="submit" onclick="return validateform();" value="Assign Courrier" id="btnSave" name="Save" />            
+                    </div>
+                    <p style="color: red">
+                        @TempData["AssignCourrier"]
+                        <br />
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+ 
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+    function gettrackno(track,i)
+    {
+        var otime = track.value;
+     
+    }
+    $('#checkedAll').click(function () {
+        if ($(this).prop("checked")) {
+            //$('input:checkbox[name=checkBoxId_]').attr('checked', true);
+            $('.chkclass').prop("checked", true);
+        } else {
+            //$('input:checkbox[name=checkBoxId_]').attr('checked', false);
+            $('.chkclass').prop("checked", false);
+        }
+    });
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#CourrierID').val() == '0') {
+            $("#CourrierID").addClass('errortext');
+            $('#CourrierID').focus();
+            return false;
+        }
+        if ($('#CourrierDate').val() == '') {
+            $("#CourrierDate").addClass('errortext');
+            $('#CourrierDate').focus();
+            return false;
+        }
+        if (($("input[name*='Chk_']:checked").length) <= 0) {
+            alert("You must check at least 1 box");
+            return false;
+        }
+
+        return true;
+    }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#ContentPlaceHolder1_imgProductImage')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
+<script>
+
+    $('#CourrierDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+
+    });
+
+</script>
+
+

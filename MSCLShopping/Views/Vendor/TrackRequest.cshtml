@@ -1,0 +1,117 @@
+﻿@model MSCLShopping.Models.Vendor
+
+@{
+    ViewBag.Title = "TrackRequest";
+    Layout = "~/Views/Shared/VendorLayout.cshtml";
+}
+
+@using (Html.BeginForm("TrackRequest", "Vendor", FormMethod.Post, new { @id = "form1" }))
+{
+    <div class="content content-fixed">
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-30">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item"><a href="#">Product</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Track Request</li>
+                        </ol>
+                    </nav>
+
+                </div>
+                <div class="d-none d-md-block">
+                    @if (TempData["BrandRequestOrder"] != null)
+                    {
+                        <div class="@TempData["Class"]">
+                            @TempData["BrandRequestOrder"]
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row row-xs">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-footer pd-y-15 pd-x-20">
+                            <div class="row row-xs">
+                                <div class="col-md-3">
+                                    Status
+                                    @Html.DropDownListFor(m => m.Status, new SelectList(ViewBag.Status, "Value", "Text"), new { @class = "form-control"})
+                                </div>
+                                <div class="col-md-3">
+                                    From Date
+                                    @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "From Date", @readonly = "readonly" })
+                                </div>
+
+                                <div class="col-md-3">
+                                    To Date
+                                    @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "From Date", @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-3">
+                                    <br />
+                                    <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="Search" />
+
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row row-xs">
+                                <table id="example23" class="display nowrap table table-hover table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>S No.</th>
+                                            <th>Request Date</th>
+                                            <th>Request Code</th>
+                                            <th>Brand Name</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model != null)
+                                        {
+                                            if (Model.lstRequests != null)
+                                            {
+                                                int i = 1;
+                                                foreach (var Item in Model.lstRequests)
+                                                {
+                                                    <tr class="text-left">
+                                                        <td>@i</td>
+                                                        <td>@Item.AddedOn</td>
+                                                        <td>@Item.RequestCode</td>
+                                                        <td>@Item.BrandName</td>
+                                                        <td>@Item.Status</td>
+                                                    </tr>
+                                                    i++;
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+}
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        maxDate: 0,
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+
+</script>

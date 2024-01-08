@@ -1,0 +1,244 @@
+﻿@model MSCLShopping.Models.Master
+
+@{
+    ViewBag.Title = "GiftVoucher";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+ 
+
+@using (Html.BeginForm("GiftVoucher", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Generate Gift Voucher</h4>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        LoginID <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.LoginID, new { @class = "form-control", @Placeholder = "Login ID", @onchange = "return getSponsorName();" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        Name<span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @Placeholder = "Name", @readonly = "readonle" })
+                         
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        Amount <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", @Placeholder = "Amount", @onkeypress = "return isNumberOrDecimal(event);" })
+
+                    </div>
+                </div>
+                @*<div class="col-md-3">
+                    <div class="form-group">
+                        ToDate <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "Enter Offer To Date", @readonly = "readonle" })
+
+                    </div>
+                </div>*@
+                <div class="col-md-3">
+                    <div class="form-group">
+                        NoOfVoucher <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.NoOfVoucher, new { @class = "form-control", @Placeholder = "NoOfVoucher", @onkeypress = "return isNumberOrDecimal(event);" })
+                        @Html.HiddenFor(m => m.Fk_UserId)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        PayMode <span style="color: red">*</span>
+                        @Html.DropDownListFor(m => m.PayMode, new SelectList(ViewBag.lstPayment, "Value", "Text"), new { @class = "form-control" ,onchange="return Payment();" })
+                    </div>
+                </div>
+                <div class="col-md-3" style="display:none;" id="desc">
+                    <div class="form-group">
+                        Description <span style="color: red">*</span>
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @Placeholder = "Description" })
+                    </div>
+                </div>
+                <div class="col-md-3" style="display:none;" id="bal">
+                    <div class="form-group">
+                        Balance Wallet <span style="color: red">*</span>
+                        @Html.TextBoxFor(m => m.BalanceQuantity, new { @class = "form-control" ,@readonly="readonly" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @if (Model.GiftVoucherID == null)
+                        {
+                            <input class="btn btn-success" type="submit" onclick="return validateform();" value="Generate" id="btnSave" name="Save" />
+                            <a href="/Master/GiftVoucherList" class="btn btn-primary">Go To List</a>
+                        }
+                        else
+                        {
+                            @Html.HiddenFor(m => m.OfferID, new { @Value = @Model.GiftVoucherID })
+                            <input class="btn btn-success btn-sm" type="submit" value="Update" id="btnUpdate" name="Update" onclick="return validateform();" />
+                        }
+                        @*<a href="/Master/OfferList" class="btn btn-primary btn-sm">Back To List</a>*@
+                    </div>
+
+                </div>
+                <p style="color: red">
+                    @TempData["GiftVoucher"]
+                    <br />
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+}
+
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+
+<script>
+
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#LoginID').val() == '') {
+            $("#LoginID").addClass('errortext');
+            $('#LoginID').focus();
+            return false;
+        }
+        if ($('#Amount').val() == '') {
+            $("#Amount").addClass('errortext');
+            $('#Amount').focus();
+            return false;
+        }
+        if ($('#NoOfVoucher').val() == '') {
+            $("#NoOfVoucher").addClass('errortext');
+            $('#NoOfVoucher').focus();
+            return false;
+        }
+        if ($('#PayMode').val() == '') {
+            $("#PayMode").addClass('errortext');
+            $('#PayMode').focus();
+            return false;
+        }
+        return true;
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#ContentPlaceHolder1_imgProductImage')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function getSponsorName() {
+        $("#divload").css({ 'display': '' });
+        var LoginID = $('#LoginID').val();
+        $.ajax({
+            url: '/Master/GetSponsorName', type: 'post', dataType: 'json',
+            data: { 'LoginID': LoginID },
+            success: function (data) {
+                $("#divload").css({ 'display': 'none' });
+                if (data.Result == "yes") {
+                    $("#Name").val(data.Name);
+                    $("#Fk_UserId").val(data.Fk_UserId);
+                    $("#Name").removeClass('errortext');
+                    $("#Name").removeClass('errortext');
+
+
+
+                }
+                else {
+                    $("#Name").val('');
+                    $("#Name").addClass('errortext');
+                    $("#LoginID").addClass('errortext');
+
+                    $('#LoginID').focus();
+                    $('#LoginID').val('');
+                    alert(data.Result);
+                }
+            }
+
+        });
+    }
+
+    function Payment() {
+
+        
+        debugger
+        if ($("#PayMode").val() == "Cash")
+        {
+            $("#desc").show();
+            $("#bal").hide();
+        }
+
+        else
+        {
+
+            $("#desc").hide();
+            $("#bal").show();
+
+        $.ajax({
+            url: "/Master/ShoppingBalance",
+            Type: "Get",
+            DataType: "JSON",
+            data: { Fk_UserId: $("#Fk_UserId").val() },
+            success: function (data) {
+
+                $("#BalanceQuantity").val(data.BalanceQuantity);
+
+
+            }
+
+        });
+
+        }
+    }
+</script>
+
+  
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
+
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+
+    });
+
+</script>
+

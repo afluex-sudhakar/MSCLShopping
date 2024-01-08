@@ -1,0 +1,167 @@
+﻿@model AfluexShopping.Models.Customer
+
+@{
+    ViewBag.Title = "DetailedCustomerOrders";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("DetailedCustomerOrders", "CustomerManagement", FormMethod.Post, new { @id = "form1" }))
+{
+    @Html.HiddenFor(m => m.OrderDetailsID)
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Detailed Customer Order List</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Customer</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detailed Customer Order List</li>
+            </ol>
+        </div>
+        @*<div class="ms-auto pageheader-btn">
+                <a href="#" class="btn btn-primary btn-icon text-white me-2">
+                    <span>
+                        <i class="fe fe-plus"></i>
+                    </span> Add Account
+                </a>
+                <a href="#" class="btn btn-success btn-icon text-white">
+                    <span>
+                        <i class="fe fe-log-in"></i>
+                    </span> Export
+                </a>
+            </div>*@
+    </div>
+    <div class="row">
+        <div class="card">
+            <div>
+                <p style="color:red">
+                    @if (TempData["Offer"] != null)
+                    {
+                    <div class="@TempData["Class"]">
+                        @TempData["Offer"]
+                    </div>
+                    }
+                </p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Customer Name</label>
+                            @Html.DropDownListFor(m => m.CustomerID, new SelectList(ViewBag.ddlCustomers, "Value", "Text"), new { @class = "form-control form-select" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Order No</label>
+                            @Html.TextBoxFor(m => m.OrderNo, new { @class = "form-control", @Placeholder = "Order No" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">From Date</label>
+                            @Html.TextBoxFor(m => m.FromDate, new { @class = "form-control", @Placeholder = "From Date", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">To Date</label>
+                            @Html.TextBoxFor(m => m.ToDate, new { @class = "form-control", @Placeholder = "To Date", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <input class="btn btn-info" type="submit" value="Get Details" name="getOrderList" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                @* Order Display Section *@
+                <div class="row">
+                    <div class="col-sm-12">
+                        @if (Model != null)
+                        {
+                            if (Model.lstcustomer != null)
+                            {
+                                foreach (var item in Model.lstcustomer)
+                                {
+                                    <div class="col-md-12">
+                                        <h2 class="product-title">
+                                            <a class="btn btn-primary mb-3" style="color:white">@item.CustomerName, @item.Contact</a>
+                                            <a class="btn btn-primary float-right mb-3" @*href="/Customer/TrackOrder?orderID=@item.PK_OrderID"*@ href="#" style="color:white; margin-right:2%">Order No : @item.OrderNo</a>
+                                            <a class="btn btn-primary float-right mb-3" href="/Customer/Invoice?ono=@item.OrderNo" style="color:white; margin-right:2%" target="_blank">Print Invoice</a>
+                                            <a class="btn btn-primary float-right mb-3" href="/CustomerManagement/OrderSlip?cn=@item.CustomerName&con=@item.Contact" style="color:white; margin-right:2%" target="_blank">Print Slip</a>
+                                        </h2>
+                                        @if (Model.lstOrders != null)
+                                        {
+                                            foreach (var itemDetails in Model.lstOrders)
+                                            {
+                                                if (item.PK_OrderID == itemDetails.PK_OrderID)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <img src="@itemDetails.PrimaryImage" alt="product" height="50" width="50" class="img-responsive" style="margin-left:5%">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            @itemDetails.ProductName<br />
+                                                            <small>Color : @itemDetails.ColorName</small>&nbsp;<small>Size : @itemDetails.SizeName</small>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            @itemDetails.DeliveryDate <br />
+                                                            <small>Expected Delivery</small>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            @itemDetails.ProductQuantity x @itemDetails.Rate
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            &#8377; @itemDetails.TotalAmount
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            @itemDetails.Status
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="float-right" style="margin-right:3%;color:blue">Order Date : @item.OrderDate</span>
+                                                            <span class="float-right" style="margin-right:3%;color:blue">Order Total :  &#8377; @item.TotalAmount</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-2"></div>
+                                                }
+                                            }
+                                            <hr />
+                                        }
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        maxDate: 0,
+        //changeYear: true,
+        //changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        //changeYear: true,
+        //changeMonth: true,
+        minDate: new Date(new Date().setMonth(new Date().getMonth() - 2))
+    });
+
+</script>

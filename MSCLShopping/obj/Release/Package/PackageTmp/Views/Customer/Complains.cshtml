@@ -1,0 +1,146 @@
+﻿@model AfluexShopping.Models.Customer
+
+@{
+    ViewBag.Title = "Complains";
+    Layout = "~/Views/Shared/CustomerLayout.cshtml";
+}
+
+<!-- Page header -->
+<!-- /page header -->
+@using (Html.BeginForm("Complains", "Customer", FormMethod.Post, new { @id = "form1" }))
+{
+    <div class="breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-inner">
+                <ul class="list-inline list-unstyled">
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                    <li><a href="#">Complains</a></li>
+                </ul>
+            </div><!-- /.breadcrumb-inner -->
+        </div><!-- /.container -->
+    </div>
+
+    <main class="main">
+        
+        <div class="sign-in-page spaceacc">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 order-lg-last dashboard-content">
+                        <h2>Complains</h2>
+                        <form class="register-form outer-top-xs" role="form">
+                            <div class="form-group">
+                                <label class="info-title">Issue <span style="color:red">*</span></label>
+                                @*<textarea class="form-control" rows="3"></textarea>*@
+                                @Html.TextAreaFor(m => m.Issue, new { @class = "form-control", @placeholder = "Describe your Issue",@rows="3" })
+                            </div>     
+                            @*<button type="submit" class="btn-upper btn btn-primary checkout-page-button">Generate Ticket</button>*@
+                            <input type="submit" class="btn-upper btn btn-primary checkout-page-button" value="Generate Ticket" name="btnInsertComplain" onclick="return validateForm();" />
+                        </form>
+
+                        @*<div class="row">
+                            <div class="col-md-9 form-group">
+                                Issue <span style="color:red">*</span>
+                                @Html.TextAreaFor(m => m.Issue, new { @class = "form-control", @placeholder = "Describe your Issue" })
+                            </div>
+                            <div class="col-md-3 form-group">
+                                <br />
+                                <br />
+                                <input type="submit" class="btn btn-sm btn-success pull-right" value="Generate Ticket" name="btnInsertComplain" onclick="return validateForm();" />
+                            </div>
+                        </div>*@
+
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <br />
+                                <p style="color:red; font-size:large">
+                                    @TempData["Complain"]
+                                </p>
+                            </div>
+                        </div>
+                        @if (Model != null)
+                    {
+                        if (Model.lstComplains != null)
+                        {
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr No.</th>
+                                            <th>Ticket Number</th>
+                                            <th>Date</th>
+                                            <th>Issue</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model != null)
+                                                {
+                                                    if (Model.lstComplains != null)
+                                                    {
+                                                        int i = 1;
+                                                        foreach (var Item in Model.lstComplains)
+                                                        {
+                                                <tr class="text-left">
+                                                    <td>@i</td>
+                                                    <td>@Item.ComplainID</td>
+                                                    <td>@Item.ComplainDate</td>
+                                                    <td>@Item.Issue</td>
+                                                    <td>@Item.ComplainStatus1</td>
+                                                    <td>
+                                                        <a href="/Customer/ComplainReply?id=@Item.EncrptNo" class="btn btn-sm btn-info">View</a>
+                                                    </td>
+                                                </tr>
+                                                            i++;
+                                                        }
+
+                                                    }
+                                                }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                        }
+                    }
+
+                    </div>
+
+                    @{Html.RenderAction("CustomerLeftMenu", "Customer", new { area = "" });}
+                </div>
+            </div>
+        </div>
+        <div class="mb-5"></div>
+    </main>
+
+                    }
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+    });
+</script>
+<script>
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function validateForm() {
+        if ($('#Issue').val() == '') {
+            $("#Issue").addClass('errortext');
+            $('#Issue').focus();
+            return false;
+        }
+        $("#divload").css({ 'display': '' });
+    }
+
+</script>
+

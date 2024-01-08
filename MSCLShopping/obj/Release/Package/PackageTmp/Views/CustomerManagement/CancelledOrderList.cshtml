@@ -1,0 +1,186 @@
+﻿@model AfluexShopping.Models.CustomerManagement
+
+@{
+    ViewBag.Title = "CancelledOrderList";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<style>
+    #divload {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 9999;
+        background: url("../../images/cart-loading.gif") no-repeat center center rgba(0,0,0,0.25);
+    }
+
+    .errortext {
+        border: 1px solid red !important;
+    }
+</style>
+<div class="loader" id="divload"></div>
+
+@using (Html.BeginForm("CancelledOrderList", "CustomerManagement", FormMethod.Post, new { @id = "form1" }))
+{
+
+<p style="color: red">
+    @TempData["Offer"]
+</p>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Cancel Order List</h4>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    Customer Name
+                    @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    Order Number
+                    @Html.TextBoxFor(m => m.OrderNO, new { @class = "form-control" })
+                    @Html.HiddenFor(m => m.OrderID)
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <br />
+                    <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="Search" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="card">
+    <div class="card-body">
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+
+                    @if (Model != null)
+                    {
+                    if (Model.List != null)
+                    {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input class="btn btn-success pull-right" type="submit" value="Refund" id="btnUpdate" name="Update" style="margin-bottom: 10px;" onclick="return validateSave();" />
+                            </div>
+                        </div>
+                    </div>
+
+                    }
+                    }
+                    <table  class="table">
+
+                        <thead>
+                            <tr>
+                                <th hidden>OrderDetailsID</th>
+                                <th>S No.</th>
+                                <th>OrderDate</th>
+                                <th>OrderNo</th>
+                                <th>ProductName</th>
+                                <th>CustomerName</th>
+                                <th>Mobile</th>
+                                <th>Quantity</th>
+                                <th>Amount</th>
+                                <th><input type="checkbox" id="select-all" /></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                            if (Model.List != null)
+                            {
+                            int i = 1;
+                            foreach (var Item in Model.List)
+                            {
+                            <tr class="text-left">
+                                <td hidden>@Item.OrderDetailsID</td>
+                                <td>@i</td>
+                                <td>@Item.OrderDate</td>
+                                <td>@Item.OrderNumber </td>
+                                <td>@Item.ProductName</td>
+                                <td>@Item.CustomerName</td>
+                                <td>@Item.Mobile</td>
+                                <td>@Item.Quantity</td>
+                                <td>@Item.TotalAmount</td>
+                                <td>
+                                    <input type="checkbox" id="Chk_ @i" name="Chk_ @i" />
+                                    <input type='hidden' value='@Item.OrderDetailsID' id='orderdetailid_ @i' name='orderdetailid_ @i'>
+                                    <input type='hidden' value='@Item.TotalAmount' id='amt_ @i' name='amt_ @i'>
+                                    <input type='hidden' value='@Item.CustomerID' id='custid_ @i' name='custid_ @i'>
+                                </td>
+                            </tr>
+                            i++;
+                            }
+
+                            <input type='hidden' value='@i' id='hdrows' name='hdrows' />
+                            }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+}
+
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+
+    });
+    $('#select-all').click(function (event) {
+        if (this.checked) {
+            // Iterate each checkbox
+            $(':checkbox').each(function () {
+                this.checked = true;
+            });
+        } else {
+            $(':checkbox').each(function () {
+                this.checked = false;
+            });
+        }
+    });
+
+    function validateSave() {
+        $("#divload").css({ 'display': '' });
+
+        if (($("input[name*='Chk_']:checked").length) <= 0) {
+            alert("You must check at least 1 box");
+            $("#divload").css({ 'display': 'none' });
+            return false;
+
+        }
+        $("#divload").css({ 'display': '' });
+        return true;
+    }
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        maxDate: 0,
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+        minDate: new Date(new Date().setMonth(new Date().getMonth() - 2))
+    });
+
+</script>
+

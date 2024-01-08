@@ -1,0 +1,892 @@
+﻿@model AfluexShopping.Models.Customer
+
+@{
+    Layout = "~/Views/Shared/_CustomerLayout1.cshtml";
+
+}
+<style media="screen">
+    figure.zoom {
+        overflow: hidden;
+        cursor: zoom-in;
+    }
+
+        figure.zoom img:hover {
+            opacity: 0;
+        }
+
+        figure.zoom img {
+            transition: opacity 0.5s;
+            display: block;
+            width: 100%;
+        }
+</style>
+<!-- breadcrumb area start -->
+<section class="breadcrumb__area breadcrumb__style-2 include-bg pt-50 pb-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="breadcrumb__content p-relative z-index-1">
+                    <div class="breadcrumb__list has-icon">
+                        <span class="breadcrumb-icon">
+                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1.42393 16H15.5759C15.6884 16 15.7962 15.9584 15.8758 15.8844C15.9553 15.8104 16 15.71 16 15.6054V6.29143C16 6.22989 15.9846 6.1692 15.9549 6.11422C15.9252 6.05923 15.8821 6.01147 15.829 5.97475L8.75305 1.07803C8.67992 1.02736 8.59118 1 8.5 1C8.40882 1 8.32008 1.02736 8.24695 1.07803L1.17098 5.97587C1.11791 6.01259 1.0748 6.06035 1.04511 6.11534C1.01543 6.17033 0.999976 6.23101 1 6.29255V15.6063C1.00027 15.7108 1.04504 15.8109 1.12451 15.8847C1.20398 15.9585 1.31165 16 1.42393 16ZM10.1464 15.2107H6.85241V10.6202H10.1464V15.2107ZM1.84866 6.48977L8.4999 1.88561L15.1517 6.48977V15.2107H10.9946V10.2256C10.9946 10.1209 10.95 10.0206 10.8704 9.94654C10.7909 9.87254 10.683 9.83096 10.5705 9.83096H6.42848C6.316 9.83096 6.20812 9.87254 6.12858 9.94654C6.04904 10.0206 6.00435 10.1209 6.00435 10.2256V15.2107H1.84806L1.84866 6.48977Z"
+                                      fill="#55585B" stroke="#55585B" stroke-width="0.5" />
+                            </svg>
+                        </span>
+                        <span><a href="#">Home</a></span>
+                        <span><a href="#">Product Details</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb area end -->
+<!-- product details area start -->
+<section class="tp-product-details-area">
+    <div class="tp-product-details-top pb-115">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-7 col-lg-6">
+                    <div class="tp-product-details-thumb-wrapper tp-tab d-sm-flex">
+                        <nav>
+                            <div class="nav nav-tabs flex-sm-column " id="productDetailsNavThumb" role="tablist">
+                                @if (Model != null)
+                                {
+                                    int i = 1;
+                                    if (Model.lstproductimages != null)
+                                    {
+                                            foreach (var item in Model.lstproductimages)
+                                            {
+                                                
+                                                    if (i == 1)
+                                                    {
+                                                    <button class="nav-link active" id="nav-1-tab" data-bs-toggle="tab"
+                                                            data-bs-target="#nav-1" type="button" role="tab" aria-controls="nav-1"
+                                                            aria-selected="true">
+                                                        <img src="/@item.SecondaryImage" alt="">
+                                                    </button>
+                                                    }
+                                                    else
+                                                    {
+                                                    <button class="nav-link" id="nav-@i-tab" data-bs-toggle="tab" data-bs-target="#nav-@i"
+                                                            type="button" role="tab" aria-controls="nav-@i" aria-selected="true">
+                                                        <img src="/@item.SecondaryImage" alt="">
+                                                    </button>
+                                                    }
+
+                                                    i++;
+                                                
+                                            }
+                                       
+
+                                    }
+                                }
+                            </div>
+                        </nav>
+                        <div class="tab-content m-img" id="productDetailsNavContent">
+                            @if (Model != null)
+                            {
+                                int j = 1;
+                                if (Model.lstproductimages != null)
+                                {
+                                   
+                                        foreach (var item in Model.lstproductimages)
+                                        {
+                                            
+                                                if (j == 1)
+                                                {
+                                            <div class="tab-pane fade show active" id="nav-1" role="tabpanel"
+                                                 aria-labelledby="nav-1-tab" tabindex="0">
+                                                <div class="tp-product-details-nav-main-thumb">
+                                                    <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(&quot;/@item.SecondaryImage&quot;); background-position: 80.5882% 35.8065%;">
+                                                        <img src="/@item.SecondaryImage">
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                                }
+                                                else
+                                                {
+                                            <div class="tab-pane fade show" id="nav-@j" role="tabpanel" aria-labelledby="nav-@j-tab"
+                                                 tabindex="0">
+                                                <div class="tp-product-details-nav-main-thumb">
+                                                    <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(&quot;/@item.SecondaryImage&quot;); background-position: 80.5882% 35.8065%;">
+                                                        <img src="/@item.SecondaryImage">
+                                                    </figure>
+                                                </div>
+
+                                            </div>
+                                                }
+                                                j++;
+                                            
+                                        }
+                                    
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <!-- col end -->
+                <!-- col end -->
+                <div class="col-xl-5 col-lg-6">
+                    <div class="tp-product-details-wrapper">
+                        <div class="tp-product-details-category">
+
+                        </div>
+                        <h3 class="tp-product-details-title">@Model.ProductName</h3>
+
+                        <!-- inventory details -->
+                        <div class="tp-product-details-inventory d-flex align-items-center mb-10">
+                            <div class="tp-product-details-stock mb-10">
+                                <input type="hidden" id="hdFk_VendorId" value="@Model.Fk_vendorId" />
+                                <span>Seller</span>
+                            </div>
+                            <div class="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
+                                <div class="tp-product-details-reviews">
+                                    <span>(@Model.VendorName)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p>@Model.ShortDescription<span>See more</span></p>
+
+                        <!-- price -->
+                        <div class="tp-product-details-price-wrapper mb-20">
+                            <span class="tp-product-details-price new-price"
+                                  id="offeredPrice">@Model.OfferedPrice</span>
+                                <span class="tp-product-details-price old-price">@Model.MRP</span>
+                            </div>
+                            <div class="tp-product-details-price-wrapper mb-20">
+                                Delivery Charge <span id="spDeliveryCharge"style="color: green;font-size: 15px;font-family: cursive;">@Model.DeliveryCharge</span><br />
+                                Max. Shopping Point Redeemption <span id="redeemprice"style="color: green;font-size: 15px;font-family: cursive;">@Model.RedeemPrice</span>
+                            </div>
+                            <div class="tp-product-details-variation">
+                                  <!-- single item -->
+                                  <div class="tp-product-details-variation-item">
+                                    <h4 class="tp-product-details-variation-title">Color :</h4>
+                                        @if (Model != null)
+                                {
+                                    @Html.HiddenFor(m => m.ColorID)
+                                              if (Model.lstColorMapped != null)
+                                    {
+                                        var i = 0;
+                                        int colrcount = 0;
+                                                  <input type="hidden" id="hdValidateColor" value="1" />
+                                                  <div class="tp-product-details-variation-list" id="ulColor">
+                                                       @foreach (var item in Model.lstColorMapped)
+                                {
+                                    if (item.Status == "selectedColor")
+                                    {
+                                                             <button type="button" class="@item.CssClass">
+                                                              <span data-bg-color="@item.ColorCode"></span>
+                                                              <span class="tp-color-variation-tootltip"                                                         id="lstColor_@i">@item.ColorName</span>
+                                                              </button>
+                                                          }
+                                                          else
+                                                          {
+                                                            <button type="button" class="@item.CssClass"
+                                                                                                                        onclick="return colorChange(@i,@item.ColorID)">
+                                                            <span data-bg-color="@item.ColorCode"></span>
+                                                            <span class="tp-color-variation-tootltip"
+                                                                                                                          id="lstColor_@i">@item.ColorName</span>
+                                                             </button>
+                                                         }
+                                                         i++;
+                                                         colrcount++;
+                                                        }
+                                                   </div>
+                                            }
+                                       }
+                                       </div>
+                                        <div class="tp-product-details-variation-item">
+                                          @if (Model != null)
+                                {
+                                    if (Model.lstSizeMapped != null)
+                                    {
+                                        var i = 0;
+                                                                                                    <input type="hidden" id="hdValidateSize" value="1" />
+                                                                                                    <h4 class="tp-product-details-variation-title">Size : </h4>
+                                                                                                    <div class="tp-product-details-variation-list" id="ddlSize">
+                                                                                                        @foreach (var item in Model.lstSizeMapped)
+                                {
+                                                                                                            <button type="button" class="tp-size-variation-btn" d="asize_@i"
+                                                                                                                    onclick="return sizeChange(@i,@item.SizeID,@item.UnitID);">
+                                                                                                                <span>@item.SizeName</span>
+                                                                                                            </button>
+                                                                                                        }
+                                                                                                    </div>
+                                                                                                }
+                                                                                            }
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <!-- actions -->
+                                                                                <div class="tp-product-details-action-wrapper">
+                                                                                    <h3 class="tp-product-details-action-title">Quantity</h3>
+                                                                                    <div class="tp-product-details-action-item-wrapper d-flex align-items-center">
+                                                                                        <div class="tp-product-details-quantity">
+                                                                                            <div class="tp-product-quantity mb-15 mr-15">
+                                                                                                <span class="tp-cart-minus">
+                                                                                                    <svg width="11" height="2" viewBox="0 0 11 2" fill="none"
+                                                                                                         xmlns="http://www.w3.org/2000/svg">
+                                                                                                        <path d="M1 1H10" stroke="currentColor" stroke-width="1.5"
+                                                                                                              stroke-linecap="round" stroke-linejoin="round" />
+                                                                                                    </svg>
+                                                                                                </span>
+                                                                                                <input class="tp-cart-input" type="text" id="txtQty" value="1">
+                                                                                                <span class="tp-cart-plus">
+                                                                                                    <svg width="11" height="12" viewBox="0 0 11 12" fill="none"
+                                                                                                         xmlns="http://www.w3.org/2000/svg">
+                                                                                                        <path d="M1 6H10" stroke="currentColor" stroke-width="1.5"
+                                                                                                              stroke-linecap="round" stroke-linejoin="round" />
+                                                                                                        <path d="M5.5 10.5V1.5" stroke="currentColor" stroke-width="1.5"
+                                                                                                              stroke-linecap="round" stroke-linejoin="round" />
+                                                                                                    </svg>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="tp-product-details-add-to-cart mb-15 w-100">
+                                                                                            <button class="tp-product-details-buy-now-btn w-100"
+                                                                                                    onclick="return addToCart();">
+                                                                                                Add To Cart
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                </div>
+                                                                <div class="tp-product-details-bottom pb-140">
+                                                                    <div class="container">
+                                                                        <div class="row">
+                                                                            <div class="col-xl-12">
+                                                                                <div class="tp-product-details-tab-nav tp-tab">
+                                                                                    <nav>
+                                                                                        <div class="nav nav-tabs justify-content-center p-relative tp-product-tab"
+                                                                                             id="navPresentationTab" role="tablist">
+                                                                                            <button class="nav-link active" id="nav-description-tab" data-bs-toggle="tab"
+                                                                                                    data-bs-target="#nav-description" type="button" role="tab"
+                                                                                                    aria-controls="nav-description" aria-selected="true">
+                                                                                                Description
+                                                                                            </button>
+                                                                                            <button class="nav-link" id="nav-review-tab" data-bs-toggle="tab"
+                                                                                                    data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-review"
+                                                                                                    aria-selected="false">
+                                                                                                Reviews
+                                                                                            </button>
+
+                                                                                            <span id="productTabMarker" class="tp-product-details-tab-line"></span>
+                                                                                        </div>
+                                                                                    </nav>
+                                                                                    <div class="tab-content" id="navPresentationTabContent">
+                                                                                        <div class="tab-pane fade show active" id="nav-description" role="tabpanel"
+                                                                                             aria-labelledby="nav-description-tab" tabindex="0">
+                                                                                            <div class="tp-product-details-desc-wrapper pt-80">
+                                                                                                <div class="row justify-content-center">
+                                                                                                    <div class="col-xl-10">
+                                                                                                        <div class="tp-product-details-desc-item pb-105">
+                                                                                                            <div class="row">
+                                                                                                                <div class="col-sm-12">
+                                                                                                                    <div class="tp-product-details-desc-content pt-25">
+                                                                                                                        <p class="text">@(new HtmlString(Model.Description))</p>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab"
+                                                                                             tabindex="0">
+                                                                                            <div class="tp-product-details-review-wrapper pt-60">
+                                                                                                <div class="row">
+                                                                                                    <div class="col-lg-12">
+                                                                                                        <div class="tp-product-details-review-statics">
+                                                                                                            <!-- number -->
+                                                                                                            <!-- reviews -->
+                                                                                                            <div class="tp-product-details-review-list pr-110">
+                                                                                                                <h3 class="tp-product-details-review-title">Customer Reviews</h3>
+                                                                                                                <div class="tp-product-details-review-avater d-flex align-items-start">
+                                                                                                                    @if (Model != null)
+                                {
+                                    if (Model.lstrating != null)
+                                    {
+                                        foreach (var item in Model.lstrating)
+                                        {
+                                                                                                                                <div class="tp-product-details-review-avater-thumb">
+                                                                                                                                    @*<a href="#">
+                                                                                                                                            <img src="/newassets/img/users/user-3.jpg" alt="">
+                                                                                                                                        </a>*@
+                                                                                                                                </div>
+                                                                                                                                <div class="tp-product-details-review-avater-content">
+                                                                                                                                    <h3 class="tp-product-details-review-avater-title">
+                                                                                                                                        @item.CustomerName
+                                                                                                                                    </h3>
+                                                                                                                                    <span class="tp-product-details-review-avater-meta">@item.AddedOn</span>
+
+                                                                                                                                    <div class="tp-product-details-review-avater-comment">
+                                                                                                                                        <p>@item.Comment</p>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div> <!-- end col -->
+                                                                                                    @*<div class="col-lg-6">
+                                                                                                            <div class="tp-product-details-review-form">
+                                                                                                                <h3 class="tp-product-details-review-form-title">Review this product
+                                                                                                                </h3>
+                                                                                                                <p>Your email address will not be published. Required fields are marked
+                                                                                                                    *</p>
+                                                                                                                <form action="#">
+                                                                                                                    <div
+                                                                                                                        class="tp-product-details-review-form-rating d-flex align-items-center">
+                                                                                                                        <p>Your Rating :</p>
+                                                                                                                        <div
+                                                                                                                            class="tp-product-details-review-form-rating-icon d-flex align-items-center">
+                                                                                                                            <span><i class="fa-solid fa-star"></i></span>
+                                                                                                                            <span><i class="fa-solid fa-star"></i></span>
+                                                                                                                            <span><i class="fa-solid fa-star"></i></span>
+                                                                                                                            <span><i class="fa-solid fa-star"></i></span>
+                                                                                                                            <span><i class="fa-solid fa-star"></i></span>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="tp-product-details-review-input-wrapper">
+                                                                                                                        <div class="tp-product-details-review-input-box">
+                                                                                                                            <div class="tp-product-details-review-input">
+                                                                                                                                <textarea id="msg" name="msg"
+                                                                                                                                    placeholder="Write your review here..."></textarea>
+                                                                                                                            </div>
+                                                                                                                            <div class="tp-product-details-review-input-title">
+                                                                                                                                <label for="msg">Your Name</label>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="tp-product-details-review-input-box">
+                                                                                                                            <div class="tp-product-details-review-input">
+                                                                                                                                <input name="name" id="name" type="text"
+                                                                                                                                    placeholder="Shahnewaz Sakil">
+                                                                                                                            </div>
+                                                                                                                            <div class="tp-product-details-review-input-title">
+                                                                                                                                <label for="name">Your Name</label>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="tp-product-details-review-input-box">
+                                                                                                                            <div class="tp-product-details-review-input">
+                                                                                                                                <input name="email" id="email" type="email"
+                                                                                                                                    placeholder="shofy@mail.com">
+                                                                                                                            </div>
+                                                                                                                            <div class="tp-product-details-review-input-title">
+                                                                                                                                <label for="email">Your Email</label>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="tp-product-details-review-suggetions mb-20">
+                                                                                                                        <div class="tp-product-details-review-remeber">
+                                                                                                                            <input id="remeber" type="checkbox">
+                                                                                                                            <label for="remeber">Save my name, email, and website in
+                                                                                                                                this browser for the next time I comment.</label>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="tp-product-details-review-btn-wrapper">
+                                                                                                                        <button class="tp-product-details-review-btn">Submit</button>
+                                                                                                                    </div>
+                                                                                                                </form>
+                                                                                                            </div>
+                                                                                                        </div>*@
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+
+                                                            <!-- related product area start -->
+                                                            <section class="tp-related-product pt-95 pb-120">
+                                                                <div class="container">
+                                                                    <div class="row">
+                                                                        <div class="tp-section-title-wrapper-6 text-center mb-40">
+                                                                            <h3 class="tp-section-title-6">UPSELL PRODUCTS</h3>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="tp-product-related-slider">
+                                                                            <div class="tp-product-related-slider-active swiper-container">
+
+                                                                                <div class="swiper-wrapper">
+                                                                                    @if (Model != null)
+                                                                                    {
+                                                                                        if (Model.lstnewarrivals != null)
+                                                                                        {
+
+                                                                                            foreach (var Item in Model.lstnewarrivals)
+                                                                                            {
+                                                                                                <div class="swiper-slide">
+                                                                                                    <div class="tp-product-item-3 tp-product-style-primary">
+                                                                                                        <div class="tp-product-thumb-3 fix p-relative z-index-1">
+                                                                                                            <a href="/Customer/QuickView?pid=@Item.ProductID&&colorid=@Item.ColorID">
+                                                                                                                <img src="@Item.PrimaryImage" alt="">
+                                                                                                            </a>
+
+                                                                                                            <!-- product badge -->
+                                                                                                            @*<div class="tp-product-badge">
+                                                                                                                    <span class="product-offer">-25%</span>
+                                                                                                                </div>*@
+                                                                                                            <!-- product action -->
+                                                                                                            <div class="tp-product-action-3 tp-product-action-4 has-shadow tp-product-action-primaryStyle">
+                                                                                                                <div class="tp-product-action-item-3 d-flex flex-column">
+                                                                                                                    <a href="/Customer/QuickView?pid=@Item.ProductID&&colorid=@Item.ColorID"
+                                                                                                                       class="tp-product-action-btn-3 tp-product-quick-view-btn">
+                                                                                                                        <svg width="18" height="15" viewBox="0 0 18 15" fill="none"
+                                                                                                                             xmlns="http://www.w3.org/2000/svg">
+                                                                                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                                                                                  d="M8.99948 5.06828C7.80247 5.06828 6.82956 6.04044 6.82956 7.23542C6.82956 8.42951 7.80247 9.40077 8.99948 9.40077C10.1965 9.40077 11.1703 8.42951 11.1703 7.23542C11.1703 6.04044 10.1965 5.06828 8.99948 5.06828ZM8.99942 10.7482C7.0581 10.7482 5.47949 9.17221 5.47949 7.23508C5.47949 5.29705 7.0581 3.72021 8.99942 3.72021C10.9407 3.72021 12.5202 5.29705 12.5202 7.23508C12.5202 9.17221 10.9407 10.7482 8.99942 10.7482Z"
+                                                                                                                                  fill="currentColor" />
+                                                                                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                                                                                  d="M1.41273 7.2346C3.08674 10.9265 5.90646 13.1215 8.99978 13.1224C12.0931 13.1215 14.9128 10.9265 16.5868 7.2346C14.9128 3.54363 12.0931 1.34863 8.99978 1.34773C5.90736 1.34863 3.08674 3.54363 1.41273 7.2346ZM9.00164 14.4703H8.99804H8.99714C5.27471 14.4676 1.93209 11.8629 0.0546754 7.50073C-0.0182251 7.33091 -0.0182251 7.13864 0.0546754 6.96883C1.93209 2.60759 5.27561 0.00288103 8.99714 0.000185582C8.99894 -0.000712902 8.99894 -0.000712902 8.99984 0.000185582C9.00164 -0.000712902 9.00164 -0.000712902 9.00254 0.000185582C12.725 0.00288103 16.0676 2.60759 17.945 6.96883C18.0188 7.13864 18.0188 7.33091 17.945 7.50073C16.0685 11.8629 12.725 14.4676 9.00254 14.4703H9.00164Z"
+                                                                                                                                  fill="currentColor" />
+                                                                                                                        </svg>
+                                                                                                                        <span class="tp-product-tooltip">Quick View</span>
+                                                                                                                    </a>
+                                                                                                                </div>
+                                                                                                            </div>
+
+                                                                                                            <div class="tp-product-add-cart-btn-large-wrapper">
+                                                                                                                <a href="/Customer/QuickView?pid=@Item.ProductID"
+                                                                                                                   class="tp-product-add-cart-btn-large" id="addtocrt">Add to Cart</a>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="tp-product-content-3">
+                                                                                                            @*<div class="tp-product-tag-3">
+                                                                                                                    <span>Tablet</span>
+                                                                                                                </div>*@
+                                                                                                            <h3 class="tp-product-title-3">
+                                                                                                                <a href="/Customer/QuickView?pid=@Item.ProductID&&colorid=@Item.ColorID">@Item.ProductName</a>
+                                                                                                            </h3>
+                                                                                                            <div class="tp-product-price-wrapper-3">
+                                                                                                                <span class="tp-product-price-3 new-price">₹@Item.OfferedPrice</span>
+                                                                                                                <span class="tp-product-price-3 old-price">@Item.MRP</span>
+                                                                                                            </div>
+                                                                                                        </div>
+
+                                                                                                    </div>
+
+                                                                                                </div>
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="tp-related-swiper-scrollbar tp-swiper-scrollbar"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+
+@*  *@
+                                                            @if (Model != null)
+                                                            {
+                                                                <input type="hidden" value="@Model.EncryptKey" id="EncryptedProductID" />
+                                                                <input type="hidden" value="@Model.ProductID" id="ProductID" />
+                                                                <input type="hidden" value="@Model.UnitID" id="UnitID" />
+                                                                <input type="hidden" value="@Model.OfferedPrice" id="OfferedPrice" />
+                                                                <input type="hidden" value="@Model.ProductCode" id="ProductCode" />
+
+                                                                @*Store Currently Selected Variant Values*@
+                                                                <input type="hidden" id="hdColorID" value="@Model.ColorID" />
+                                                                <input type="hidden" id="hdSizeID" value="@Model.SizeID" />
+                                                                <input type="hidden" id="hdUnitID" value="@Model.UnitID" />
+                                                                <input type="hidden" id="hdMaterialID" value="@Model.MaterialID" />
+                                                                <input type="hidden" id="hdFlavorID" value="@Model.FlavorID" />
+                                                                <input type="hidden" id="hdRamID" value="@Model.RamID" />
+                                                                <input type="hidden" id="hdStorageID" value="@Model.StorageID" />
+                                                                <input type="hidden" id="hdStarRatingID" value="@Model.StarRatingID" />
+                                                                @*Store Currently Selected Variant Values*@
+                                                            }
+                                                            <!-- related product area end -->
+<div class="modal fade tp-product-modal tp-product-modal-styleGreen" id="login-signup1" tabindex="-1" aria-labelledby="login-signup" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered justify-content-center d-flex">
+        <div class="modal-content w-auto">
+            <div class="tp-product-modal-content d-lg-flex flex-column align-items-start">
+                <button type="button" class="tp-product-modal-close-btn close" data-dismiss="modal" aria-label="Close" id="modalcls"><i class="fa-regular fa-xmark"></i></button>
+                <form action="#">
+                    <div class="tp-return-customer-input">
+                        <label>Mobile No</label>
+                        @Html.TextBoxFor(m => m.LoginID, new { @class = "form-control", @placeholder = "Mobile No" })
+                    </div>
+                    <div class="tp-return-customer-input">
+                        <label>Password</label>
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                    </div>
+                    <div class="tp-return-customer-suggetions d-sm-flex align-items-center justify-content-between mb-20">
+                        <div class="tp-return-customer-remeber">
+                            @*<input id="remeber" type="checkbox">*@
+                            <p class="mb-0">Do have an account ?</p>
+                        </div>
+                        <div class="tp-return-customer-forgot">
+                            <a href="/Home/Registration">Sign-Up</a>
+                        </div>
+                    </div>
+                    <button type="submit" value="Login" class="tp-return-customer-btn tp-checkout-btn" onclick="return login();">Login</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+                                                            
+                                                            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                                                            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+                                                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+                                                            <script>
+                                                                $("#modalcls").click(function () {
+                                                                    $("#login-signup1").modal('hide');
+                                                                });
+
+
+                                                                function variantChange(lastSelected) {
+                                                                    $("#divload").css({ 'display': '' });
+                                                                    var productID, colorID, sizeID, unitID, materialID, flavorID, ramID, storageID, starID = null;
+
+                                                                    if (document.getElementById("EncryptedProductID") != null) {
+                                                                        productID = document.getElementById("EncryptedProductID").value;
+                                                                    }
+                                                                    if (document.getElementById("hdColorID") != null && document.getElementById("hdColorID").value != "") {
+                                                                        colorID = document.getElementById("hdColorID").value;
+                                                                    }
+                                                                    else { colorID = ""; }
+                                                                    if (document.getElementById("hdSizeID") != null && document.getElementById("hdSizeID").value != "") {
+                                                                        sizeID = document.getElementById("hdSizeID").value;
+                                                                    }
+                                                                    else { sizeID = ""; }
+                                                                    if (document.getElementById("hdUnitID") != null && document.getElementById("hdUnitID").value != "") {
+                                                                        unitID = document.getElementById("hdUnitID").value;
+                                                                    }
+                                                                    else { unitID = ""; }
+                                                                    if (document.getElementById("hdMaterialID") != null && document.getElementById("hdMaterialID").value != "") {
+                                                                        materialID = document.getElementById("hdMaterialID").value;
+                                                                    }
+                                                                    else { materialID = ""; }
+                                                                    if (document.getElementById("hdFlavorID") != null && document.getElementById("hdFlavorID").value != "") {
+                                                                        flavorID = document.getElementById("hdFlavorID").value;
+                                                                    }
+                                                                    else { flavorID = ""; }
+                                                                    if (document.getElementById("hdRamID") != null && document.getElementById("hdRamID").value != "") {
+                                                                        ramID = document.getElementById("hdRamID").value;
+                                                                    }
+                                                                    else { ramID = ""; }
+                                                                    if (document.getElementById("hdStorageID") != null && document.getElementById("hdStorageID").value != "") {
+                                                                        storageID = document.getElementById("hdStorageID").value;
+                                                                    }
+                                                                    else { storageID = ""; }
+                                                                    if (document.getElementById("hdStarID") != null && document.getElementById("hdStarID").value != "") {
+                                                                        starID = document.getElementById("hdStarID").value;
+                                                                    }
+                                                                    else { starID = ""; }
+
+                                                                    window.location.href = "/Customer/QuickView?pid=" + productID + "&colorid=" + colorID + "&sizeid=" + sizeID + "&flavorid=" + flavorID + "&materialid=" + materialID + "&ramid=" + ramID + "&storageid=" + storageID + "&starid=" + starID + "&last=" + lastSelected;
+                                                                }
+
+                                                                function rateChange() {
+                                                                    var productID, colorID, sizeID, unitID, materialID, flavorID, ramID, storageID = null;
+
+                                                                    if (document.getElementById("ProductID") != null) {
+                                                                        productID = document.getElementById("ProductID").value;
+                                                                    }
+                                                                    if (document.getElementById("ColorID") != null) {
+                                                                        colorID = document.getElementById("ColorID").value;
+                                                                    }
+                                                                    if (document.getElementById("hdSizeID") != null) {
+                                                                        sizeID = document.getElementById("hdSizeID").value;
+                                                                    }
+                                                                    if (document.getElementById("hdUnitID") != null) {
+                                                                        unitID = document.getElementById("hdUnitID").value;
+                                                                    }
+                                                                    if (document.getElementById("hdMaterialID") != null) {
+                                                                        materialID = document.getElementById("hdMaterialID").value;
+                                                                    }
+                                                                    if (document.getElementById("hdFlavorID") != null) {
+                                                                        flavorID = document.getElementById("hdFlavorID").value;
+                                                                    }
+                                                                    if (document.getElementById("hdRamID") != null) {
+                                                                        ramID = document.getElementById("hdRamID").value;
+                                                                    }
+                                                                    if (document.getElementById("hdStorageID") != null) {
+                                                                        storageID = document.getElementById("hdStorageID").value;
+                                                                    }
+
+                                                                    $.ajax({
+                                                                        url: "/Customer/RateChangeQuickView",
+                                                                        Type: "Get",
+                                                                        DataType: "JSON",
+                                                                        data: { productID: productID, colorid: colorID, sizeid: sizeID, unitid: unitID, materialid: materialID, flavorid: flavorID, ramid: ramID, storageid: storageID },
+                                                                        success: function (data) {
+                                                                            if (data.Result == "1") {
+                                                                                document.getElementById('offeredPrice').innerText = data.OfferedPrice;
+                                                                                document.getElementById('mrp').innerText = data.MRP;
+                                                                            }
+                                                                            else {
+                                                                                //  alert(data.Result);
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }
+
+                                                                function colorChange(i, colorID) {
+                                                                    //$("li").removeClass("selectedFlavor");
+                                                                    //$("#lstColor_" + i).addClass('selectedFlavor');
+                                                                    $("#divload").css({ 'display': '' });
+                                                                    document.getElementById('hdColorID').value = colorID;
+
+                                                                    //rateChange();
+                                                                    variantChange('Color');
+                                                                }
+
+                                                                function sizeChange(i, sizeID, unitID) {
+                                                                    $("li").removeClass("selectedSize");
+                                                                    $("#asize_" + i).removeClass("mappedvariant");
+                                                                    $("#asize_" + i).addClass("mappedvariant1");
+                                                                    $("#lstsize_" + i).addClass('selectedSize');
+                                                                    document.getElementById('hdSizeID').value = sizeID;
+                                                                    document.getElementById('hdUnitID').value = unitID;
+
+                                                                    variantChange('Size');
+                                                                }
+
+                                                                function materialChange(i, materialID) {
+                                                                    $("li").removeClass("selectedMaterial");
+                                                                    $("#amaterial_" + i).removeClass("mappedvariant");
+                                                                    $("#amaterial_" + i).addClass("mappedvariant1");
+                                                                    $("#lstMaterial_" + i).addClass('selectedMaterial');
+                                                                    document.getElementById('hdMaterialID').value = materialID;
+
+                                                                    variantChange('Material');
+                                                                }
+
+                                                                function flavorChange(i, flavourId) {
+                                                                    $("li").removeClass("selectedRam");
+                                                                    $("#aflavour_" + i).removeClass("mappedvariant");
+                                                                    $("#aflavour_" + i).removeClass("unmappedvariant");
+                                                                    $("#aflavour_" + i).addClass("mappedvariant1");
+
+                                                                    $("#lstFlavour_" + i).addClass('selectedRam');
+
+                                                                    document.getElementById('hdFlavorID').value = flavourId;
+
+                                                                    variantChange('Flavor');
+                                                                }
+
+                                                                function ramChange(i, ramID) {
+                                                                    $("li").removeClass("selectedRam");
+                                                                    $("#aram_" + i).removeClass("mappedvariant");
+                                                                    $("#aram_" + i).removeClass("unmappedvariant");
+                                                                    $("#aram_" + i).addClass("mappedvariant1");
+
+                                                                    $("#lstRam_" + i).addClass('selectedRam');
+                                                                    document.getElementById('hdRamID').value = ramID;
+
+                                                                    variantChange('Ram');
+                                                                }
+
+                                                                function storageChange(i, storageID) {
+                                                                    $("li").removeClass("selectedStorage");
+                                                                    $("#astorage_" + i).removeClass("mappedvariant");
+                                                                    $("#astorage_" + i).addClass("mappedvariant1");
+                                                                    $("#lstStorage_" + i).addClass('selectedStorage');
+                                                                    document.getElementById('hdStorageID').value = storageID;
+
+                                                                    //rateChange();
+                                                                    variantChange('Storage');
+                                                                }
+                                                                function flogin() {
+                                                                    $(".errortext").removeClass("errortext");
+                                                                    if ($('#LoginID').val() == '') {
+                                                                        $("#LoginID").addClass('errortext');
+                                                                        $('#LoginID').focus();
+                                                                        return false;
+                                                                    }
+                                                                    if ($('#Password').val() == '') {
+                                                                        $("#Password").addClass('errortext');
+                                                                        $('#Password').focus();
+                                                                        return false;
+                                                                    }
+                                                                    debugger;
+                                                                    $("#divload").css({ 'display': '' });
+                                                                    var productID = document.getElementById("ProductID").value;
+                                                                    var qty = document.getElementById("txtQty").value;
+                                                                    var sizeid = document.getElementById('hdSizeID').value;
+                                                                    var materialid = document.getElementById('hdMaterialID').value;
+                                                                    //var sizeID =  $('#ddlSize li a').text();
+                                                                    //  var unitID = $("#UnitID").val();
+                                                                    var unitID = document.getElementById("hdUnitID").value;
+                                                                    var colorid = document.getElementById('ColorID').value;
+                                                                    var flavorid = document.getElementById('hdFlavorID').value;
+                                                                    var ramid = document.getElementById('hdRamID').value;
+                                                                    var storageid = document.getElementById('hdStorageID').value;
+                                                                    var rate = document.getElementById('offeredPrice').innerText;
+                                                                    var productCode = document.getElementById("ProductCode").value;
+                                                                    var dcharge = $('#spDeliveryCharge').html();
+
+                                                                    $.ajax({
+                                                                        url: "/Customer/LoginCustomer",
+                                                                        Type: "Get",
+                                                                        DataType: "JSON",
+                                                                        data: { LoginID: $("#LoginID").val(), Password: $("#Password").val(), productInfoCode: productCode, productID: productID, sizeID: sizeid, unitID: unitID, colorid: colorid, flavorid: flavorid, ramid: ramid, storageid: storageid, rate: rate, qty: qty, FK_vendorId: document.getElementById('hdFk_VendorId').value, materialid: materialid, dcharge: dcharge },
+                                                                        success: function (data) {
+                                                                            if (data.Result == "1") {
+                                                                                alert("Added to cart !");
+                                                                                window.location.href = "/Customer/Cart";
+                                                                                //window.location.reload();
+                                                                                $("#divload").css({ 'display': 'none' });
+                                                                            }
+                                                                            else {
+                                                                                alert(data.Result);
+                                                                                window.location.reload();
+                                                                                $("#divload").css({ 'display': 'none' });
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }
+                                                                function changeSizeColor() {
+                                                                    var productID = document.getElementById("ProductID").value;
+                                                                    var sizeID = $("#SizeID").val();
+                                                                    var colorid = $("#ColorID").val();
+                                                                    //alert("Product ID: " + productID + "\nColor ID : " + colorid + "\nSize ID : " + sizeID);
+                                                                    //window.location.href = "/Customer/QuickViewNew?pid=" + productID + "&colorid=" + colorid + "&sizeid=" + sizeID;
+                                                                    variantChange();
+                                                                }
+                                                                function addToCart() {
+                                                                    debugger;
+                                                                    $("#divSize").removeClass('errortext');
+                                                                    $("#divColor").removeClass('errortext');
+                                                                    $("#divMaterial").removeClass('errortext');
+                                                                    $("#divFlavor").removeClass('errortext');
+                                                                    $("#divStorage").removeClass('errortext');
+
+                                                                    if (document.getElementById("hdValidateColor") != null && document.getElementById("hdValidateColor").value == "1" && document.getElementById("hdColorID").value == '') {
+                                                                        alert("Select Color");
+                                                                        $("#divColor").addClass('errortext');
+                                                                        $('#divColor').focus();
+                                                                        return false;
+                                                                    }
+                                                                    if (document.getElementById("hdValidateSize") != null && document.getElementById("hdValidateSize").value == "1" && document.getElementById('hdSizeID').value == '') {
+                                                                        alert("Select Size");
+                                                                        $("#divSize").addClass('errortext');
+                                                                        $('#divSize').focus();
+                                                                        return false;
+                                                                    }
+                                                                    if (document.getElementById("hdValidateRam") != null && document.getElementById("hdValidateRam").value == "1" && $('#hdRamID').val() == '') {
+                                                                        alert("Select RAM");
+                                                                        $("#divRAM").addClass('errortext');
+                                                                        $('#divRAM').focus();
+                                                                        return false;
+                                                                    }
+                                                                    if (document.getElementById("hdValidateStorage") != null && document.getElementById("hdValidateStorage").value == "1" && $('#hdStorageID').val() == '') {
+                                                                        alert("Select Storage");
+                                                                        $("#divStorage").addClass('errortext');
+                                                                        $('#divStorage').focus();
+                                                                        return false;
+                                                                    }
+                                                                    if (document.getElementById("hdValidateMaterial") != null && document.getElementById("hdValidateMaterial").value == "1" && document.getElementById('hdMaterialID').value == '') {
+                                                                        alert("Select Material");
+                                                                        $("#divMaterial").addClass('errortext');
+                                                                        $('#divMaterial').focus();
+                                                                        return false;
+                                                                    }
+                                                                    if (document.getElementById("hdValidateFlavor") != null) {
+                                                                        if (document.getElementById("hdValidateFlavor").value == "1" && $('#FlavorID').val() == '0') {
+                                                                            alert("Select Flavor");
+                                                                            $("#divFlavor").addClass('errortext');
+                                                                            $('#divFlavor').focus();
+                                                                            return false;
+                                                                        }
+                                                                    }
+
+                                                                    var productID = document.getElementById("ProductID").value;
+                                                                    var qty = document.getElementById("txtQty").value;
+                                                                    var sizeID = document.getElementById('hdSizeID').value;
+                                                                    //var sizeID =  $('#ddlSize li a').text();
+                                                                    //   var unitID = $("#UnitID").val();
+                                                                    var unitID = document.getElementById("hdUnitID").value;
+                                                                    var colorid = document.getElementById('hdColorID').value;
+                                                                    var materialid = document.getElementById('hdMaterialID').value;
+                                                                    var flavorid = document.getElementById('hdFlavorID').value;
+                                                                    var ramid = document.getElementById('hdRamID').value;
+                                                                    var storageid = document.getElementById('hdStorageID').value;
+                                                                    var rate = document.getElementById('offeredPrice').innerText;
+                                                                    //var rate = $("#OfferedPrice").val();
+                                                                    var productCode = document.getElementById("ProductCode").value;
+                                                                    var starratingid = document.getElementById("hdStarRatingID").value;
+                                                                    var vendorid = document.getElementById("hdFk_VendorId").value;
+                                                                    var dcharge = $('#spDeliveryCharge').html();
+                                                                    $("#divload").css({ 'display': '' });
+                                                                    //alert("RAM ID : " + document.getElementById('hdRamID').value + "\Storage ID : " + document.getElementById('hdStorageID').value);
+                                                                    //alert("Color ID : " + document.getElementById('hdColorID').value + "\nSize ID : " + document.getElementById('hdSizeID').value + "\nMaterial ID : " + document.getElementById('hdMaterialID').value + "\nProduct Code : " + document.getElementById('ProductCode').value);
+                                                                    $.ajax({
+                                                                        url: "/Customer/AddToCart",
+                                                                        Type: "Get",
+                                                                        DataType: "JSON",
+                                                                        data: { productInfoCode: productCode, productID: productID, sizeID: sizeID, unitID: unitID, colorID: colorid, FlavorID: flavorid, ramid: ramid, storageid: storageid, starratingid: starratingid, rate: rate, qty: qty, vendorID: vendorid, materialid: materialid, delcharge: dcharge },
+                                                                        success: function (data) {
+                                                                            if (data.Result == "1") {
+                                                                                window.location.href = "/Customer/Cart";
+                                                                                $("#divload").css({ 'display': 'none' });
+                                                                                //alert("Added to cart !");
+                                                                            }
+                                                                            else if (data.Result == "2") {
+                                                                                //alert('Please Login to continue..');
+                                                                                //document.getElementById("hdSizeID").value = data.SizeID;
+                                                                                //document.getElementById("hdColorID").value = data.ColorID;
+                                                                                //document.getElementById("hdMaterialID").value = data.MaterialID;
+                                                                                //document.getElementById("hdFlavorID").value = data.FlavorID;
+
+
+                                                                                $("#login-signup1").modal('show');
+                                                                                $("#vendorModal").modal('hide');
+                                                                                $("#divload").css({ 'display': 'none' });
+
+                                                                            }
+                                                                            else {
+                                                                                alert(data.Status);
+                                                                                $("#divload").css({ 'display': 'none' });
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }
+                                                                function isNumberKey(evt) {
+
+                                                                    var charCode = (evt.which) ? evt.which : event.keyCode;
+                                                                    if (charCode != 46 && charCode > 31
+                                                                        && (charCode < 48 || charCode > 57))
+                                                                        return false;
+
+                                                                    return true;
+                                                                }
+                                                            </script>
+
+                                                            <script type="text/javascript">
+                                                                function zoom(e) {
+                                                                    var zoomer = e.currentTarget;
+                                                                    e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
+                                                                    e.offsetY ? offsetY = e.offsetY : offsetX = e.touches[0].pageX
+                                                                    x = offsetX / zoomer.offsetWidth * 200
+                                                                    y = offsetY / zoomer.offsetHeight * 200
+                                                                    zoomer.style.backgroundPosition = x + '% ' + y + '%';
+                                                                }
+                                                            </script>

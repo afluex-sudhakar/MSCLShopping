@@ -1,0 +1,892 @@
+﻿@model AfluexShopping.Models.Customer
+
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_CustomerLayout1.cshtml";
+}
+<style>
+    .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+        border: 1px solid #ddd;
+    }
+
+    .body-content .my-wishlist-page .my-wishlist table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+        padding: 10px !important;
+    }
+</style>
+@using (Html.BeginForm("PlaceCustomerOrder", "Customer", FormMethod.Post, new { @id = "form1" }))
+{
+
+      <!-- breadcrumb area start -->
+    <section class="breadcrumb__area include-bg pt-95 pb-50" >
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-12">
+                    <div class="breadcrumb__content p-relative z-index-1">
+                        <h3 class="breadcrumb__title">Shopping Cart</h3>
+                        <div class="breadcrumb__list">
+                            <span><a href="#">Customer</a></span>
+                            <span>Shopping Cart</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+         <!-- breadcrumb area end -->
+
+         <!-- cart area start -->
+        <section class="tp-cart-area pb-120"  >
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 col-lg-8" id="divproducts">
+                        <div class="tp-cart-list mb-25 mr-30 table table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="tp-cart-header-product">Image</th>
+                                        <th class="tp-cart-header-product">Product</th>
+                                        <th class="tp-cart-header-price">Price</th>
+                                        <th class="tp-cart-header-quantity">Qty</th>
+
+                                        <th>Delivery Charge</th>
+                                        <th>Final Amt</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+
+
+                                        @if (Model != null)
+                                        {
+                                            if (Model.lstProducts != null)
+                                            {
+                                                var i = 1;
+                                                foreach (var Item in Model.lstProducts)
+
+                                                {
+                                                <tr>
+                                                    <td class="tp-cart-img">
+                                                        <a href="#">
+                                                            <img src="/@Item.PrimaryImage" style="width:50px;height:50px" alt="product">
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="tp-cart-title" href="#" target="_blank">@Item.ProductName (@Item.ProductInfo)</a>
+                                                        <br />
+                                                        <b style="color:blue">Vendor:@Item.VendorName</b>
+
+                                                        <br />
+                                                        @if (Item.IsAvailable == "0")
+                                                        {
+                                                            <b style="color:red">
+
+                                                                Out Of Stock
+
+                                                            </b>
+                                                        }
+
+                                                    </td>
+                                                    <td class="tp-cart-price">
+                                                        ₹@Item.MRP
+                                                        <input type="hidden" id="txt_@i" name="txt_@i" />
+                                                        <input type="hidden" value="@Item.SoldOutCss" id="txtsod_@i" name="txtsod_@i" />
+                                                        <input type="hidden" value="@Item.Fk_vendorId" id="txtvendorId_@i" name="txtvendorId_@i" />
+                                                    </td>
+                                                    <td class="tp-cart-quantity">
+                                                        <div class="tp-product-quantity mt-10 mb-10">
+                                                            <span id="subtotalwithotdel_@i" style="display:none">@Item.SubTotal</span>
+                                                            <span id="origitaldelivery_@i" style="display:none">@Item.OriginalDeliveryCharge</span>
+                                                            <span id="originalRedeemPrice_@i" style="display:none">@Item.RedeemPrice</span>
+                                                            <span class="tp-cart-minus">
+                                                                <svg width="10" height="2" viewBox="0 0 10 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M1 1H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                </svg>
+                                                            </span>
+                                                            <input class="tp-cart-input" type="text" id="qty_@i" name="qty_@i" value="@Item.ProductQuantity" onchange="return cal('@i','@Item.MRP','@Item.ProductCode','@Item.ProductQuantity','@Item.Fk_vendorId','@Item.OriginalDeliveryCharge','@Item.RedeemPrice');">
+                                                            <span class="tp-cart-plus">
+                                                                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M5 1V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    <path d="M1 5H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                </svg>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <span id="spDel_@i">@Item.DeliveryCharge</span>
+                                                    </td>
+
+                                                    <td>
+                                                        <span id="subtotal_@i">@Item.FinalAmount</span>
+                                                        <span id="spTotalDelivery_@i"></span>
+                                                        <span id="spTotalIndividual_@i"></span>
+                                                    </td>
+                                                    <td>
+                                                        <input type='hidden' value='@Item.ProductID' id='productID_@i' name='productID_@i'>
+                                                        <input type='hidden' value='@Item.UnitID' id='unitID_@i' name='unitID_@i'>
+                                                        <input type='hidden' value='@Item.SizeID' id='sizeID_@i' name='sizeID_@i'>
+                                                        <input type='hidden' value='@Item.ColorID' id='colorID_@i' name='colorID_@i'>
+                                                        <input type='hidden' value='@Item.FlavorID' id='flavorID_@i' name='flavorID_@i'>
+                                                        <input type='hidden' value='@Item.MaterialID' id='materialID_@i' name='materialID_@i'>
+                                                        <input type='hidden' value='@Item.RamID' id='ramID_@i' name='ramID_@i'>
+                                                        <input type='hidden' value='@Item.StorageID' id='storageID_@i' name='storageID_@i'>
+                                                        <input type='hidden' value='@Item.StarRatingID' id='starratingID_@i' name='starratingID_@i'>
+                                                        <input type='hidden' value='@Item.ProductQuantity' id='quantity_@i' name='quantity_@i'>
+                                                        <input type='hidden' value='@Item.MRP' id='rate_@i' name='rate_@i'>
+                                                        <input type='hidden' value='@Item.ProductCode' id='productinfocode_@i' name='productinfocode_@i'>
+
+                                                        <a style="color:red;cursor:pointer" onclick="return ClearParticularProduct('@Item.ProductID','@Item.CartID');"> Remove</a>
+                                                    </td>
+                                                </tr>
+
+                                                    i++;
+                                                }
+                                                <input type='hidden' value='@i' id='hdrows' name='hdrows' />
+                                            }
+                                        }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tp-cart-bottom">
+                            <div class="row align-items-end">
+                                <div class="col-xl-6 col-md-4">
+                                    <div class="tp-cart-update text-md-end">
+                                        <a href="/Home/Index" type="button" class="tp-cart-update-btn">Continue Shopping</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-8" id="divDeliveryAddress" style="display:none">
+                        <div class="tp-cart-list mb-25 mr-30">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                @if (Model != null)
+                                {
+                                    if (Model.lstAddress != null)
+                                    {
+                                        foreach (var item in Model.lstAddress)
+                                        {
+                                        <tr>
+                                            <td>
+                                                    <input type="radio" id="rdDefaultAddress" name="rdDefaultAddress" groupname="rdAddress"     onchange="return addNewAddress(@item.FK_AddressID);" />
+                                          </td>
+                                          <td>
+                                              @item.DisplayName
+                                          </td>
+                                          <td>
+                                              @item.Contact
+                                          </td>
+                                          <td>
+                                              @item.HouseNo @item.Locality  @item.Landmark,@item.Pincode,@item.State,@item.City
+                                          </td>
+                                          <td>
+                                              @item.AddressType
+                                          </td>
+                                              </tr>
+                                              }
+                                          }
+                                      }
+                                    <tr>
+                                        <td colspan="5">
+                                            @*<input type="radio" id="rdNewAddress" name="rdDefaultAddress" groupname="rdAddress" onclick="return addNewAddress();" />*@
+                                            <a href="/Customer/MyAccount" target="_blank">  Add New Address</a>
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tp-cart-bottom">
+                                <div class="row align-items-end">
+                                    <div class="col-xl-6 col-md-4">
+                                        <div class="tp-cart-update text-md-end">
+                                            <a href="/Home/Index" type="button" class="tp-cart-update-btn">Continue Shopping</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="col-xl-9 col-lg-8" id="divPaymentOptions" style="display:none">
+                        <div class="tp-cart-list mb-25 mr-30">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td style="display:none"><input type="radio" name="paymentMode" value="1" onchange="return CheckWallet('1');"></td>
+                                        <td style="display:none"><strong>Cash On Delivery</strong></td>
+                                        <td style="display:none">Shipping Charge</td>
+                                        <td style="display:none">Standard Delivery</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @if (ViewBag.Disable == "disabled")
+                                            {
+                                                <input type="radio" name="paymentMode" value="2" disabled="" checked="checked">
+                                            }
+                                            else
+                                            {
+                                                <input type="radio" name="paymentMode" id="paymentMode" value="2" checked="checked" onchange="return CheckWallet('2');">
+                                            }
+                                        </td>
+                                        <td><strong>Afluex Wallet Balance</strong></td>
+                                        <td> Rs. <span id="customerwallet">@ViewBag.CustomerWallet</span></td>
+                                        <td>Express Delivery</td>
+                                        <input type="hidden" id="modeofpaymnt" />
+                                    </tr>
+
+                                    <tr>
+
+                                        <td colspan="4"><a href="#" data-toggle="modal" data-target="#Moneymodal">Add Money In Afluex Shopping Wallet</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tp-cart-bottom">
+                                <div class="row align-items-end">
+                                    <div class="col-xl-6 col-md-4">
+                                        <div class="tp-cart-update text-md-end">
+                                            <a href="/Home/Index" type="button" class="tp-cart-update-btn">Continue Shopping</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="tp-cart-checkout-wrapper">
+                            <div class="tp-cart-checkout-shipping">
+                              
+                            </div>
+                            <table class="table">
+
+                                <tbody>
+                                    <tr>
+                                        <td style="color:darkgreen"><b>Sub Total</b></td>
+                                        <td>Rs. <span id="finalamt">@ViewBag.SubTotal</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:red"><b>Delivery Charge</b></td>
+                                        <td>Rs. <span id="Deliverycharge">@ViewBag.DelievryCharge</span></td>
+                                    </tr>
+                                    <tr id="redeemtotal" style="display:none">
+                                        <td style="color:red"><b>Order Total</b></td>
+                                        <td>Rs. <span id="textfinal">@ViewBag.FinalAmount</span></td>
+                                    </tr>
+                                    @if (Model.TemPermanent == "P")
+                                    {
+                                        @Html.HiddenFor(m => m.TemPermanent)
+                                        <tr id="becomeprimeper" style="display:none">
+                                            <td style="color:#00c4bb" colspan="2"><b>You are already a prime member</b></td>
+
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr id="becomeprimenote" style="display:none">
+                                            <td colspan="2" style="color:red"><b>Minimum Purchase of Rs2000/- Self Choice Products From Afluex Shopping and become a PRIME MEMBER in Afluex Shopping app</b></td>
+
+                                        </tr>
+                                        <tr id="becomeprime" style="display:none">
+                                            <td style="color:green"><b>Purchasing For Become Prime</b></td>
+                                            <td>
+
+                                                <input type="radio" id="rdbyes" name="redbprime" onchange="return becomeprimechange('1')" /> Yes &nbsp;&nbsp;&nbsp;
+                                                <input type="radio" id="rdbno" checked="checked" name="redbprime" onchange="return becomeprimechange('0')" /> No
+                                            </td>
+                                        </tr>
+                                    }
+                                    @Html.HiddenFor(m => m.IsBecomePrime)
+                                    @Html.HiddenFor(m => m.IsShoopingRedeem)
+                                    <tr id="redeemshoopingdic">
+                                        <td style="color:blue"><b>Redeem Shopping Point</b></td>
+                                        <td>
+
+                                            <input type="radio" id="rdbyes" name="rdbshopping" onchange="return redeemshopping('1')" /> Yes&nbsp;
+                                            <input type="radio" id="rdbno" checked="checked" name="rdbshopping" onchange="return redeemshopping('0')" />No
+                                        </td>
+                                    </tr>
+                                    <tr id="redeemyes" style="display:none">
+                                        <td style="color:brown"><b>Shopping Point</b></td>
+
+                                        <td>Rs. <span id="shoppingbalance">@ViewBag.shoppingbalance</span></td>
+
+                                    </tr>
+                                    <tr id="redeemprice" style="display:none">
+                                        <td colspan="2" style="color:#fd00a3">
+                                            <b> You will save Rs <span id="redeempricevalue">@ViewBag.RedeemPrice</span> using Shopping Point</b>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td><b>Order Total</b></td>
+                                        <td>Rs. <span id="orderamt">@ViewBag.FinalAmount</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color:red" colspan="2">@TempData["CustomerOrder"]</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <div class="tp-cart-checkout-proceed">
+                                <a href="#" class="tp-cart-checkout-btn w-100" onclick="return liDeliveryAddressClick();" id="btnProceedToShipping">NEXT</a>
+                                <a href="#" class="tp-cart-checkout-btn w-100" onclick="return liPaymentOptionsClick();" id="btnProceedToPayment" style="display:none">NEXT</a>
+
+                                @Html.HiddenFor(m => m.FK_AddressID)
+
+                                @*   <a id="btnCoupon" style="display:none">Apply Discount Coupon</a>*@
+
+
+                                <br />
+
+                                <input type="submit" value="Place Order" class="btn btn-block btn-sm btn-success" id="btnPlaceOrder" style="display:none" onclick="return checkpayment();" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+         <!-- cart area end -->
+
+        
+            
+
+}
+
+
+<div id="Moneymodal" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:70%">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Money In Afluex Shopping Wallet</h5>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Amount</label>
+                        <input type="text" class="form-control" placeholder="Amount" id="txtamt" onkeypress="return isNumberKey(event);" />
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <b style="color:red">
+                            Extra Charges On Different Payment Mode
+                        </b>
+
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <table class="display nowrap table table-hover table-striped table-bordered dataTable no-footer">
+
+                            <tbody>
+                                <tr>
+                                    <td style="color:blue">Payment Methods</td>
+                                    <td style="color:blue">Enterprise Plan</td>
+                                </tr>
+                                <tr>
+                                    <td>Debit Cards (< Rs 2,000)</td>
+                                    <td>0.50%</td>
+                                </tr>
+                                <tr>
+                                    <td>Debit Cards (> Rs 2,000)</td>
+                                    <td>1.00%</td>
+                                </tr>
+                                <tr>
+                                    <td>Credit Cards</td>
+                                    <td>1.80%</td>
+                                </tr>
+                                <tr>
+                                    <td>RuPay Debit Card</td>
+                                    <td>0.20%</td>
+                                </tr>
+                                <tr>
+                                    <td>Net-banking</td>
+                                    <td>1.80%</td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile Wallets</td>
+                                    <td>1.90%</td>
+                                </tr>
+                                <tr>
+                                    <td>EMI /AMEX/International</td>
+                                    <td>2.85%</td>
+                                </tr>
+                                <tr>
+                                    <td>UPI</td>
+                                    <td>0.30%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" value="Add Money" class="btn btn-sm btn-primary float-right" onclick="return addmoney();" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+    }
+</style>
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script>
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+        $('#IsShoopingRedeem').val("0");
+        $('#hdftype').val("RuPay");
+        if($('#TemPermanent').val()=="P")
+        {
+            $('#IsBecomePrime').val("0");
+        }
+        else
+        {
+            $('#IsBecomePrime').val("1");
+            if($('#IsBecomePrime').val()=="1")
+            {
+                $('#redeemshoopingdic').css({ 'display': 'none' });
+            }
+        }
+
+    });
+    function transtype(type)
+    {
+        $('#hdftype').val(type);
+    }
+    function addmoney()
+    {
+        $.ajax({
+            url: '/Customer/CreateOrder', type: 'post', dataType: 'json',
+            data: { 'Amount': $('#txtamt').val() },
+            success: function (data) {
+                window.location="/Customer/Payment";
+            }
+
+        });
+    }
+    function becomeprimechange(value1)
+    {
+        if(value1=="1")
+        {
+            $('#redeemshoopingdic').css({ 'display': 'none' });
+            $('#becomeprimenote').css({ 'display': '' });
+
+        }
+        else
+        {
+            $('#redeemshoopingdic').css({ 'display': '' });
+            $('#becomeprimenote').css({ 'display': 'none' });
+
+        }
+        $('#IsBecomePrime').val(value1);
+    }
+    function redeemshopping(value)
+    {
+        if(value=="1")
+        {
+            $('#redeemyes').css({ 'display': '' });
+            $('#redeemprice').css({ 'display': '' });
+            $('#redeemtotal').css({ 'display': '' });
+            var remedprice=$('#redeempricevalue').text();
+
+            var finalamt=Number($('#orderamt').text())-Number(remedprice);
+            $('#orderamt').text(finalamt);
+            $('#IsShoopingRedeem').val("1");
+
+        }
+        else{
+            $('#redeemyes').css({ 'display': 'none' });
+            $('#redeemprice').css({ 'display': 'none' });
+            $('#redeemtotal').css({ 'display': 'none' });
+            var remedprice=$('#redeempricevalue').text();
+            $('#IsShoopingRedeem').val("0");
+            var finalamt=Number($('#orderamt').text())+Number(remedprice);
+            $('#orderamt').text(finalamt);
+
+        }
+    }
+    function  Copy(code,i,amt)
+    {
+        $("#clearbtn").hide();
+        $("#CouponCode").val(code);
+        $("#selectedCode").val(amt);
+
+    }
+    function ClearCode()
+    {
+        var amnt=  $("#selectedCode").val();
+        $("#CouponCode").val("");
+        var totalAmountWithoutDiscount = document.getElementById('finalamt').innerText;
+        var totalAmountAfterDiscount=  document.getElementById('orderamt').innerText ;
+        var totalAmountAfterDiscount = ((Number)(totalAmountAfterDiscount)+(Number)(amnt))
+        document.getElementById('orderamt').innerText = totalAmountAfterDiscount;
+        $("#clearbtn").hide();
+    }
+    function getStateCity() {
+
+        var pincode = $('#Pincode').val();
+        $.ajax({
+            url: '/Vendor/GetStateCity', type: 'post', dataType: 'json',
+            data: { 'Pincode': pincode },
+            success: function (data) {
+                if (data.Result == "yes") {
+                    $("#Pincode").removeClass('errortext');
+                }
+                else if (data.Result == "no") {
+                    alert("Invalid Pincode");
+                    //$("#State").val('');
+                    //$("#City").val('');
+                    //$("#State").addClass('errortext');
+                    //$("#City").addClass('errortext');
+                    $("#Pincode").addClass('errortext');
+                    $('#Pincode').focus();
+                    $('#Pincode').val('');
+
+                }
+            }
+
+        });
+    }
+
+    function applyCoupon(){
+        $("#clearbtn").show();
+        $(".errortext").removeClass("errortext");
+        if ($('#CouponCode').val() == '') {
+            $("#CouponCode").addClass('errortext');
+            $('#CouponCode').focus();
+            return false;
+        }
+
+        var couponCode = $('#CouponCode').val();
+        var CouponID = $('#CouponID').val();
+        var totalAmountWithoutDiscount = document.getElementById('finalamt').innerText;
+        var totalAmountAfterDiscount = "0";
+        $.ajax({
+            url: "/Customer/ApplyDiscount",
+            Type: "Get",
+            DataType: "JSON",
+            data: { cno: couponCode },
+            success: function (data) {
+                if (data.Result == "1") {
+
+                    if((Number)(totalAmountWithoutDiscount) <  (Number)(data.DiscountAmount) )
+                    {
+
+                        alert("You have to purchase atleast  " + data.DiscountAmount+ " to apply this coupon ");
+                        $("#CouponCode").val("");
+                    }
+                    else
+                    {
+                        document.getElementById('hdDiscountAmount').value = data.DiscountAmount;
+                        document.getElementById('CouponID').value = data.CouponID;
+                        totalAmountAfterDiscount = (Number)(totalAmountWithoutDiscount) - (Number)(data.DiscountAmount);
+                        document.getElementById('orderamt').innerText = totalAmountAfterDiscount;
+                    }
+                }
+                else {
+                    alert(data.Result);
+                    $('#CouponCode').val('') ;
+                }
+            }
+        });
+    }
+
+    function addNewAddress(addressID) {
+        $('#FK_AddressID').val(addressID);
+        if ($("#rdNewAddress").is(":checked")) {
+            $('#divHouseDetails').show();
+        }
+        else {
+            $('#divHouseDetails').hide();
+        }
+    }
+
+    function liOrderSummaryClick() {
+        $('#divproducts').show();
+        $('#divDeliveryAddress').hide();
+        $('#divPaymentOptions').hide();
+        $('#btnPlaceOrder').hide();
+        $('#btnCoupon').hide();
+        $('#btnProceedToShipping').show();
+        $('#btnProceedToPayment').hide();
+        $('#liOrderSummary').addClass('active');
+        $('#liDeliveryAddress').removeClass('active');
+        $('#liPaymentOptions').removeClass('active');
+    }
+
+    function liDeliveryAddressClick() {
+        if($('#TemPermanent').val()=="P")
+        {
+            $('#IsBecomePrime').val("0");
+        }
+        ////if( $('#IsBecomePrime').val()=="1")
+        ////{
+        ////    if(Number($('#finalamt').text())<1000){
+        ////        alert('Minimum Purchase of Rs2000/- Self Choice Products From Afluex Shopping and become a PRIME MEMBER in DWPE app');
+        ////        return false;
+        ////    }
+        ////}
+        $('#divproducts').hide();
+        $('#divDeliveryAddress').show();
+        $('#divPaymentOptions').hide();
+        $('#btnProceedToShipping').hide();
+        $('#btnProceedToPayment').show();
+        $('#liOrderSummary').removeClass('active');
+        $('#liDeliveryAddress').addClass('active');
+        $('#liPaymentOptions').removeClass('active');
+        $('#btnPlaceOrder').hide();
+        $('#btnCoupon').hide();
+
+    }
+
+    function liPaymentOptionsClick() {
+        if($('#TemPermanent').val()=="P")
+        {
+            $('#IsBecomePrime').val("0");
+        }
+        ////if( $('#IsBecomePrime').val()=="1")
+        ////{
+        ////    if(Number($('#finalamt').text())<1000){
+        ////        alert('Minimum Purchase of Rs2000/- Self Choice Products From Afluex Shopping and become a PRIME MEMBER in DWPE app');
+        ////        return false;
+        ////    }
+        ////}
+        if ($("#rdNewAddress").is(":checked")) {
+            $(".errortext").removeClass("errortext");
+            if ($('#HouseNo').val() == '') {
+                $("#HouseNo").addClass('errortext');
+                $('#HouseNo').focus();
+                return false;
+            }
+            if ($('#Locality').val() == '') {
+                $("#Locality").addClass('errortext');
+                $('#Locality').focus();
+                return false;
+            }
+            if ($('#Landmark').val() == '') {
+                $("#Landmark").addClass('errortext');
+                $('#Landmark').focus();
+                return false;
+            }
+            if ($('#Pincode').val() == '') {
+                $("#Pincode").addClass('errortext');
+                $('#Pincode').focus();
+                return false;
+            }
+        }
+        if (!$("input[name='rdDefaultAddress']:checked").val()) {
+            alert('Please select Delivery Address');
+            return false;
+        }
+
+        $('#divproducts').hide();
+        $('#divDeliveryAddress').hide();
+        $('#divPaymentOptions').show();
+        $('#btnProceedToShipping').hide();
+        $('#btnProceedToPayment').hide();
+        $('#liOrderSummary').removeClass('active');
+        $('#liDeliveryAddress').removeClass('active');
+        $('#liPaymentOptions').addClass('active');
+        $('#btnPlaceOrder').show();
+        $('#coupon').show();
+        $('#btnCoupon').show();
+    }
+
+    function cal(value, MRP, productCode, oldqty,fk_vendorId, originaldcharge,redemprice) {
+
+        var newqty = $("#qty_" + value).val();
+        var orderamt="0";
+        $.ajax({
+            url: "/Customer/CheckStock",
+            Type: "Get",
+            DataType: "JSON",
+            data: { pcode: productCode ,fk_vendorId:fk_vendorId,Hdrows:$('#hdrows').val()},
+            success: function (data) {
+                if(data.Result == "1"){
+                    if((Number)(data.Status) <= 0){
+                        $('#qty_' + value).val(oldqty);
+                        alert("Insufficient Stock !");
+                    }
+                    else{
+                        if((Number)(newqty) > (Number)(data.Status)){
+                            $('#qty_' + value).val(oldqty);
+                            alert("Insufficient Stock !");
+                        }
+                        else{
+
+                            var totdelcharge = (Number)(newqty) * (Number)(originaldcharge);
+                            var totalredem = (Number)(newqty) * (Number)(redemprice);
+                            var oldamount = (Number)($('#finalamt').text()) - (Number)($('#subtotalwithotdel_' + value).text());
+
+                            var olddelivery = (Number)($('#Deliverycharge').text()) - (Number)($('#origitaldelivery_' + value).text());
+
+                            var subTotalProductWise = (Number)(MRP) * (Number)(newqty);
+
+                            var oldredeemprice=(Number)($('#redeempricevalue').text()) - (Number)($('#originalRedeemPrice_' + value).text());
+
+                            var subTotalProductWiseWithDelivery = (Number)(MRP) * (Number)(newqty) + (Number)(totdelcharge);
+                            var subTotalOverall = (Number)(MRP) * (Number)(newqty) + (Number)(oldamount);
+
+                            var orderTotal = (Number)(MRP) * (Number)(newqty) + (Number)(oldamount);
+                            var deleiveryTotal = (Number)(originaldcharge) * (Number)(newqty) + (Number)(olddelivery);
+
+                            var redeemTotal = (Number)(redemprice) * (Number)(newqty) + (Number)(oldredeemprice);
+
+                            var orderTotalWithDelivery = (Number)(orderTotal) + (Number)(totdelcharge);
+
+                            $('#spDel_' + value).text(totdelcharge);
+
+                            $('#subtotalwithotdel_' + value).text(subTotalProductWise);
+                            $('#origitaldelivery_' + value).text(totdelcharge);
+                            $('#originalRedeemPrice_' + value).text(totalredem);
+                            $('#subtotal_' + value).text(subTotalProductWiseWithDelivery);
+                            $('#finalamt').text(subTotalOverall);
+                            $('#Deliverycharge').text(deleiveryTotal);
+                            if( $('#IsShoopingRedeem').val()=="1")
+                            {
+                                orderamt=((Number)(subTotalOverall)+(Number)(deleiveryTotal))-(Number)(redeemTotal);
+                            }
+                            else{
+                                orderamt=((Number)(subTotalOverall)+(Number)(deleiveryTotal));
+                            }
+                            $('#orderamt').text(orderamt);
+
+                            $('#qty_' + value).val(newqty);
+                            if((Number)(redeemTotal) >(Number)($('#shoppingbalance').text()))
+                            {
+                                $('#redeempricevalue').text($('#shoppingbalance').text());
+                            }
+                            else
+                            {
+                                $('#redeempricevalue').text(redeemTotal);
+                            }
+                            var ordertotalshopping=(Number)($('#finalamt').text())+(Number)($('#Deliverycharge').text());
+                            $('#textfinal').text(ordertotalshopping);
+
+
+                            return;
+                        }
+                    }
+                }
+                else{
+                    $('#qty_' + value).val(oldqty);
+                    alert(data.Status);
+                }
+            }
+        });
+
+    }
+
+    function ClearAll() {
+        var result = confirm("Are you sure you want to remove all Products from your Cart ?");
+        if (result == true) {
+            var value = $('#CustomerID').val();
+            $("#divload").css({ 'display': '' });
+            $.ajax({
+                url: "/Customer/ClearCart",
+                Type: "Get",
+                DataType: "JSON",
+                data: { CustomerID: value },
+                success: function (data) {
+                    $("#divload").css({ 'display': 'none' });
+                    location.reload();
+
+                }
+            })
+        }
+    }
+
+    function ClearParticularProduct(ProductID,CartID) {
+        var result = confirm("Are you sure you want to remove this Product ?");
+        if (result == true) {
+            $("#divload").css({ 'display': '' });
+            $.ajax({
+                url: "/Customer/ClearCart",
+                Type: "Get",
+                DataType: "JSON",
+                data: { ProductID: ProductID,CartID:CartID },
+                success: function (data) {
+                    location.reload();
+                    $("#divload").css({ 'display': 'none' });
+                }
+            })
+        }
+    }
+
+    function checkpayment()
+    {
+        if($('#TemPermanent').val()=="P")
+        {
+            $('#IsBecomePrime').val("0");
+        }
+        //if( $('#IsBecomePrime').val()=="1")
+        //{
+        //    if(Number($('#finalamt').text())<1000){
+        //        alert('Minimum Purchase of Rs2000/- Self Choice Products From Afluex Shopping and become a PRIME MEMBER in DWPE app');
+        //        return false;
+        //    }
+        //}
+        var model = @Html.Raw(Json.Encode(Model));
+        var wallet=$('#customerwallet').html();
+
+        var ttl = document.getElementById("orderamt").innerText;
+
+        var modeofpaymnt = document.getElementById("modeofpaymnt").value;
+
+        if((Number)(wallet)  < (Number)(ttl)   )
+        {
+
+            alert("Insufficient balance in wallet !!");
+            $('#paymentMode').attr("checked" , false );
+
+            return false;
+        }
+
+
+        $("#divload").css({ 'display': '' });
+
+    }
+
+
+    function CheckWallet(value)
+    {
+        var model = @Html.Raw(Json.Encode(Model));
+        var wallet=$('#customerwallet').html();
+
+        var ttl = document.getElementById("orderamt").innerText;
+        $('#paymode').val(value);
+
+        document.getElementById("modeofpaymnt").value=value;
+        if(value =="2")
+        {
+            if((Number)(wallet)  < (Number)(ttl)   )
+            {
+                alert("Insufficient balance in wallet !!");
+                $('#paymentMode').attr("checked" , false );
+            }
+        }
+        $("#divload").css({ 'display': 'none' });
+    }
+</script>

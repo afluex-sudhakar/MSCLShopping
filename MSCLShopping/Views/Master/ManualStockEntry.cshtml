@@ -1,0 +1,263 @@
+﻿@model MSCLShopping.Models.Master
+@{
+    ViewBag.Title = "ManualStockEntry";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+<style>
+
+    .errortext {
+        border: 1px solid red !important;
+    }
+</style>
+
+
+@using (Html.BeginForm("ManualStockEntry", "Master", FormMethod.Post, new { @id = "form1" }))
+{
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Manual Stock</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Master</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Manual Stock</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <div>
+                <p style="color:red">
+                    @TempData["Product"]
+                </p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Main Category</label>
+                            @Html.DropDownListFor(m => m.MainCategoryID, new SelectList(ViewBag.ddlMainCategory, "Value", "Text"), new { @class = "form-control form-select", @onchange = "return onMainCategoryChange();" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            @Html.DropDownListFor(m => m.CategoryID, new SelectList(ViewBag.ddlCategory, "Value", "Text"), new { @class = "form-control form-select", @onchange = "return onCategoryChange();" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Sub Category</label>
+                            @Html.DropDownListFor(m => m.SubCategoryID, new SelectList(ViewBag.ddlSubCategory, "Value", "Text"), new { @class = "form-control form-select" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Product Name</label>
+                            @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control",@placeholder="Product Name"})
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="Search" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive mt-3">
+                    <table class="table table-bordered text-nowrap mb-0" id="dataTable">
+                        <thead class="border-top">
+                            <tr>
+                                @*<th hidden>PK_BookingDetailsId</th>*@
+                                <th>S No.</th>
+                                <th>Main Category</th>
+                                <th>Category</th>
+                                <th>Sub Category</th>
+                                <th>Product</th>
+                                <th>Size</th>
+                                <th>Unit</th>
+                                <th>Color</th>
+                                <th>Flavor</th>
+                                <th>Material</th>
+                                <th>Quantity</th>
+                                <th>Add</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lstProduct != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lstProduct)
+                                    {
+                                        <tr class="text-left">
+                                            @*  <td hidden>@Item.UserID</td>*@
+                                            <td>@i</td>
+                                            <td>@Item.MainCategoryName</td>
+                                            <td>@Item.CategoryName</td>
+                                            <td>@Item.SubCategoryName</td>
+                                            <td>@Item.ProductName</td>
+                                            <td>@Item.SizeName</td>
+                                            <td>@Item.UnitName</td>
+                                            <td>@Item.ColorName</td>
+                                            <td>@Item.FlavorName</td>
+                                            <td>@Item.MaterialName</td>
+                                            <td>
+                                                @Item.Quantity
+                                                <input type='hidden' value='@Item.ProductInfoCode' id='infocodeid_ @i' name='infocodeid_ @i'>
+                                                <input type='hidden' value='@Item.ProductOtherInfoID' id='prodotferinfoid_ @i' name='prodotferinfoid_ @i'>
+
+                                                <input type='hidden' value='@Item.ProductID' id='productid_ @i' name='productid_ @i'>
+                                                <input type='hidden' value='@Item.SizeID' id='sizeid_ @i' name='sizeid_ @i'>
+                                                <input type='hidden' value='@Item.UnitID' id='unitid_ @i' name='unitid_ @i'>
+                                                <input type='hidden' value='@Item.ColorID' id='colorid_ @i' name='colorid_ @i'>
+                                                <input type='hidden' value='@Item.FlavorID' id='flavorid_ @i' name='flavorid_ @i'>
+                                                <input type='hidden' value='@Item.MaterialID' id='materialid_ @i' name='materialid_ @i'>
+                                            </td>
+                                            <td>
+                                                @*@Html.TextBoxFor(m => m.ProductQuantity, new { @class = "form-control" })*@
+                                                <input type="text" id="txtQty_ @i" name="txtQty_ @i" onkeypress="return isNumberOrDecimal(event);" maxlength="20" />
+                                            </td>
+
+
+                                        </tr>
+                                        i++;
+
+                                    }
+                                    <input type='hidden' value='@i' id='hdrows' name='hdrows' />
+
+                                        <input class="btn btn-success btn-sm pull-right " type="submit" value="Add" id="btnAdd" name="Add" onclick="return Validate();" />
+                                        <input class="btn btn-danger btn-sm pull-right" type="submit" value="Deduct" id="btnDeduct" name="Deduct" onclick="return Validate();" />
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+
+            <input type="hidden" id="txtdecription" />
+            <input type="hidden" id="txtAppDt" />
+
+}
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+
+
+<script>
+    $('#dataTable').DataTable({
+        searching: true,
+        responsive: true,
+        autoWidth: false,
+        bPaginate: true,
+        dom: 'Bfltip',
+        buttons: [
+            {
+                className: 'btn-export border-0 btn-outline-export',
+                text: "<button class='bg-success text-white font-13 tunjuk'><i class='las la-sync'></i></button>",
+                action: function ( e, dt, node, config ) {
+                    $('#myTable').DataTable().ajax.reload();
+                },
+                titleAttr: 'Refresh Log'
+            }
+        ],
+        });
+
+
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+    });
+    //function Check(i,Qty)
+    //{
+    //    var quant = i.value;
+    //    if ((Number)(quant) > (Number)(Qty)) {
+    //        alert(" Qantity should be less than or equal to Stock quantity")
+    //        i.value="";
+    //        return false;
+    //    }
+       
+
+    //}
+    function Validate()
+       
+    {
+        $("#divload").css({ 'display': '' });
+        if($("#txtQty_ ").val() == "") {
+            alert("You must fill at least 1 box");
+            $("#divload").css({ 'display': 'none' });
+            return false;
+        }
+        $("#divload").css({ 'display': '' });
+        return true;
+    }
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function onMainCategoryChange() {
+        debugger
+        var value = $('#MainCategoryID').val();
+        var values = $('#CategoryID').val();
+
+        $.ajax({
+            url: "/Master/GetCategoryByMainCategory",
+            Type: "Get",
+            DataType: "JSON",
+            data: { MainCategoryID: value },
+            success: function (data) {
+
+                // alert(data.Result);
+
+                $("#CategoryID").html(""); // clear before appending new list
+                $("#CategoryID").empty();
+
+                $("#CategoryID").append(
+                      $('<option></option>').val(0).html('Select Category'));
+                $.each(data.ddlCategory, function (index, count) {
+                    $("#CategoryID").append(
+                          $('<option></option>').val(count.Value).html(count.Text));
+
+                });
+
+
+            }
+
+        });
+
+    }
+
+    function onCategoryChange() {
+        debugger
+        var MainCategoryId = $('#MainCategoryID').val();
+        var CategoryId = $('#CategoryID').val();
+        $.ajax({
+            url: '/Master/GetSubCategory', type: 'post', dataType: 'json',
+            data: { 'MainCategoryID': MainCategoryId, 'CategoryID': CategoryId },
+            success: function (data) {
+
+                $("#SubCategoryID").html(""); // clear before appending new list
+                $("#SubCategoryID").empty();
+                $("#SubCategoryID").append(
+                      $('<option></option>').val(0).html('Select SubCategory'));
+                $.each(data.ddlSubCategory, function (index, BlockCount) {
+                    $("#SubCategoryID").append(
+                          $('<option></option>').val(BlockCount.Value).html(BlockCount.Text));
+                });
+
+            }
+
+        });
+
+    }
+
+
+</script>
+

@@ -1,0 +1,323 @@
+﻿@model MSCLShopping.Models.Vendor
+@{
+    ViewBag.Title = "VendorList";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("VendorList", "Admin", FormMethod.Post, new { @id = "form1" }))
+{
+
+    <p style="color: red">
+        @TempData["Vendor"]
+    </p>
+
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Vendor List</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Vendor</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Vendor List</li>
+            </ol>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="card">
+          
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Name</label>
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @Placeholder = " Name" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Mobile</label>
+                            @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">City</label>
+                            @Html.TextBoxFor(m => m.City, new { @class = "form-control", @Placeholder = "City" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label d-block">&nbsp;</label>
+                            <input class="btn btn-success d-block" type="submit" value="Search" id="btnSearch" name="Search" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+            <div class="row">
+                <div class="card ">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                                <thead class="border-top">
+                                    <tr>
+                                        <th>SNo.</th>
+                                        <th>Name</th>
+                                        <th>Login Id</th>
+                                        <th>Password</th>
+                                        <th>Mobile</th>
+                                        <th>Email</th>
+                                        <th>Address</th>
+                                        <th>Pin Code</th>
+                                        <th>State</th>
+                                        <th>City</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        if (Model.List != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var Item in Model.List)
+                                            {
+                                                <tr class="text-left">
+                                                    <td>@i</td>
+                                                    <td>@Item.FirstName  @Item.LastName</td>
+                                                    <td>@Item.LoginId</td>
+                                                    <td>@Item.Password</td>
+                                                    <td>@Item.Mobile</td>
+                                                    <td>@Item.Email</td>
+                                                    <td>@Item.Address</td>
+                                                    <td>@Item.Pincode</td>
+                                                    <td>@Item.State</td>
+                                                    <td>@Item.City</td>
+                                                    <td>
+                                                        <a class="btn btn-primary btn-sm" onclick="return openVerificationPopup('@Item.VendorID','@Item.AdharNo','@Item.PAN','@Item.GSTNo','@Item.AccountNumber','@Item.AccountHolderName','@Item.Signature','@Item.isAdharVerified','@Item.isPANVerified','@Item.isGSTINVerified','@Item.isAccountVerified','@Item.isSignatureVerified');">Verify</a>
+                                                        @*<a href="/Vendor/VendorRegistration?VendorID=@Item.EncryptKey" class="btn btn-info btn-sm">Edit</a>*@
+
+                                        <a class="btn btn-info btn-sm" href="/Admin/VendorRegistration?VendorID=@Item.VendorID">Edit</a>
+
+                                                        <a href="/Admin/DeleteVendor?id=@Item.VendorID" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wish to delete this?');">Delete</a>
+                                                    </td>
+
+                                                </tr>
+
+                                                i++;
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+    <div id="verifyVendorModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*<button type="button" class="close" data-dismiss="modal">&times;</button>*@
+                    @*<h4 class="modal-title">List of all Sellers</h4>*@
+                </div>
+                <div class="modal-body">
+                    @*<p>Some text in the modal.</p>*@
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Adhar Number</label>
+                                @Html.HiddenFor(m => m.VendorID)
+                                @Html.TextBoxFor(m => m.AdharNo, new { @class = "form-control", @readonly = "readonly" })
+                                <br />
+                                <span id="spAdhar"></span>
+                                <input type="button" id="btnApprove1" class="btn btn-sm btn-danger pull-right" value="Reject" onclick="return reject('isAdharVerified', '1');" />
+                                <input type="button" id="btnReject1" class="btn btn-sm btn-success pull-right" value="Approve" onclick="return approve('isAdharVerified', '1');" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>PAN Number</label>
+                                @Html.TextBoxFor(m => m.PAN, new { @class = "form-control", @readonly = "readonly" })
+                                <br />
+                                <span id="spPAN"></span>
+                                <input type="button" id="btnApprove2" class="btn btn-sm btn-danger pull-right" value="Reject" onclick="return reject('isPANVerified', '2');" />
+                                <input type="button" id="btnReject2" class="btn btn-sm btn-success pull-right" value="Approve" onclick="return approve('isPANVerified', '2');" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>GSTIN</label>
+                                @Html.TextBoxFor(m => m.GSTNo, new { @class = "form-control", @readonly = "readonly" })
+                                <br />
+                                <span id="spGSTIN"></span>
+                                <input type="button" id="btnApprove3" class="btn btn-sm btn-danger pull-right" value="Reject" onclick="return reject('isGSTINVerified', '3');" />
+                                <input type="button" id="btnReject3" class="btn btn-sm btn-success pull-right" value="Approve" onclick="return approve('isGSTINVerified', '3');" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Account Number</label>
+                                @Html.TextBoxFor(m => m.AccountNumber, new { @class = "form-control", @readonly = "readonly" })
+                                <br />
+                                <span id="spAccount"></span>
+                                <input type="button" id="btnApprove4" class="btn btn-sm btn-danger pull-right" value="Reject" onclick="return reject('isAccountVerified', '4');" />
+                                <input type="button" id="btnReject4" class="btn btn-sm btn-success pull-right" value="Approve" onclick="return approve('isAccountVerified', '4');" />
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Account Holder Name</label>
+                                @Html.TextBoxFor(m => m.AccountHolderName, new { @class = "form-control", @readonly = "readonly" })
+                                <br />
+                                <span id="spAccount"></span>
+                                <input type="button" id="btnApprove5" class="btn btn-sm btn-danger pull-right" value="Reject" onclick="return reject('isAccountVerified', '5');" />
+                                <input type="button" id="btnReject5" class="btn btn-sm btn-success pull-right" value="Approve" onclick="return approve('isAccountVerified','5');" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Signature</label>
+                                @*@Html.TextBoxFor(m => m.Signature, new { @class = "form-control", @readonly = "readonly" })*@
+                                <img id="imgSign" height="120" width="180" />
+                                <br />
+                                <span id="spSign"></span>
+                                <input type="button" id="btnApprove6" class="btn btn-sm btn-danger pull-right" value="Reject" onclick="return reject('isSignatureVerified','6');" />
+                                <input type="button" id="btnReject6" class="btn btn-sm btn-success pull-right" value="Approve" onclick="return approve('isSignatureVerified','6');" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" value="Close" class="btn btn-default" onclick="closePopup();" />
+                    @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script src="../../scripts/jquery-1.7.1.min.js"></script>
+<script>
+
+    function openVerificationPopup(vid, adhar, pan, gstno, accno, accname, sign, vadhar, vpan, vgstin, vaccount, vsign) {
+        $('#VendorID').val(vid);
+        $('#AdharNo').val(adhar);
+        $('#PAN').val(pan);
+        $('#GSTNo').val(gstno);
+        $('#AccountNumber').val(accno);
+        $('#AccountHolderName').val(accname);
+        $('#Signature').val(sign);
+        $('#imgSign').attr("src", sign);
+        document.getElementById('spAdhar').innerText = vadhar;
+        document.getElementById('spPAN').innerText = vpan;
+        document.getElementById('spGSTIN').innerText = vgstin;
+        document.getElementById('spAccount').innerText = vaccount;
+        document.getElementById('spSign').innerText = vsign;
+        if (vadhar != "Pending") {
+            $('#btnApprove1').hide();
+            $('#btnReject1').hide();
+        }
+        if (vpan != "Pending") {
+            $('#btnApprove2').hide();
+            $('#btnReject2').hide();
+        }
+        if (vgstin != "Pending") {
+            $('#btnApprove3').hide();
+            $('#btnReject3').hide();
+        }
+        if (vaccount != "Pending") {
+            $('#btnApprove4').hide();
+            $('#btnReject4').hide();
+            $('#btnApprove5').hide();
+            $('#btnReject5').hide();
+        }
+        if (vsign != "Pending") {
+            $('#btnApprove6').hide();
+            $('#btnReject6').hide();
+        }
+        $('#verifyVendorModal').modal('show');
+    }
+
+    function approve(doc, i) {
+        var res = confirm("Are you sure you want to approve this ?");
+        if (res == true) {
+            $.ajax({
+                url: "/Admin/VerifyVendorDocuments",
+                Type: "Get",
+                DataType: "JSON",
+                data: { doctype: doc, status: 'Approved', vid: $('#VendorID').val() },
+                success: function (data) {
+                    if (data.Result == "1") {
+                        document.getElementById('spAdhar').innerText =  data.isAdharVerified;
+                        document.getElementById('spPAN').innerText = data.isPANVerified;
+                        document.getElementById('spGSTIN').innerText = data.isGSTINVerified;
+                        document.getElementById('spAccount').innerText = data.isAccountVerified;
+                        document.getElementById('spSign').innerText = data.isSignatureVerified;
+
+                        $('#btnApprove' + i).hide();
+                        $('#btnReject' + i).hide();
+                    }
+                    else {
+                        alert(data.Result);
+                    }
+                }
+            });
+        }
+    }
+
+    function reject(doc, i) {
+        var res = confirm("Are you sure you want to reject this ?");
+
+        if (res == true) {
+            $.ajax({
+                url: "/Admin/VerifyVendorDocuments",
+                Type: "Get",
+                DataType: "JSON",
+                data: { doctype: doc, status: 'Rejected', vid: $('#VendorID').val() },
+                success: function (data) {
+                    if (data.Result == "1") {
+                        document.getElementById('spAdhar').innerText = data.isAdharVerified;
+                        document.getElementById('spPAN').innerText = data.isPANVerified;
+                        document.getElementById('spGSTIN').innerText = data.isGSTINVerified;
+                        document.getElementById('spAccount').innerText = data.isAccountVerified;
+                        document.getElementById('spSign').innerText = data.isSignatureVerified;
+
+                        $('#btnApprove' + i).hide();
+                        $('#btnReject' + i).hide();
+                    }
+                    else {
+                        //  alert(data.Result);
+                    }
+                }
+            });
+        }
+        else {
+            return false;
+        }
+
+
+
+    }
+
+    function closePopup() {
+        $('#verifyVendorModal').modal('hide');
+        window.location.reload();
+    }
+
+</script>

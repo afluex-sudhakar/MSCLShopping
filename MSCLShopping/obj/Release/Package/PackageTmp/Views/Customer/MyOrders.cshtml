@@ -1,0 +1,178 @@
+﻿@model AfluexShopping.Models.Customer
+
+@{
+    ViewBag.Title = "MyOrders";
+    Layout = "~/Views/Shared/_CustomerLayout1.cshtml";
+}
+
+
+
+<!-- breadcrumb area start -->
+<section class="breadcrumb__area include-bg pt-95 pb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="breadcrumb__content p-relative z-index-1">
+                    <h3 class="breadcrumb__title">My Orders</h3>
+                    <div class="breadcrumb__list">
+                        <span><a href="/Home/Index">Dashboard</a></span>
+                        <span>My Orders</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb area end -->
+<!-- order area start -->
+
+
+@if (Model != null)
+{
+    if (Model.lstOrderNo != null)
+    {
+        foreach (var item in Model.lstOrderNo)
+        {
+<section class="tp-order-area pb-10">
+    <div class="container">
+        <div class="tp-order-inner">
+
+            <div class="row gx-0">
+                <div class="col-lg-12">
+                    <div class="tp-order-info-wrapper">
+                        <div class="row pb-10">
+                            <div class="col-md-3 col-sm-3">
+                                <a href="javascript:void(0)" class="tp-product-details-buy-now-btn">Order No : @item.OrderNo</a>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <a href="/Customer/TrackOrder?orderID=@item.PK_OrderID" class="tp-product-details-buy-now-btn">Track order</a>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <a  href="/Customer/Invoice?ono=@item.OrderNo" target="_blank" class="tp-product-details-buy-now-btn">Print Invoice</a>
+                            </div>
+                        </div>
+                        <div class="table table-responsive">
+                            <table class="table">
+                                <!-- header -->
+                                <tr>
+                                    <th>Img</th>
+                                    <th>Product</th>
+                                    <th>Expected Delivery</th>
+                                    <th>RedeemPrice</th>
+                                    <th>Delivery Charges</th>
+                                    <th>Total</th>
+                                </tr>
+
+                                <!-- item list -->
+            <tbody>
+                       @if (Model.lstOrders != null)
+                       {
+                           foreach (var itemDetails in Model.lstOrders)
+                           {
+                               if (item.OrderNo == itemDetails.OrderNo)
+                               {
+                                       <tr class="tp-order-info-list-desc">
+                                          
+                                           <td>
+                                               <img src="/@itemDetails.PrimaryImage" alt="product" height="50" width="50" class="img-responsive" style="margin-left:5%">
+                                           </td>
+                                           <td>
+                                               @itemDetails.ProductName<br />
+                                           <small>Color : @itemDetails.ColorName</small>&nbsp;<small>Size :@itemDetails.SizeName</small>
+                                           </td>
+                                       <td>
+                                           @itemDetails.DeliveryDate
+                                       </td>
+                                   <td>
+                                       @itemDetails.ProductQuantity x @itemDetails.Rate <br />
+                                       <small>RedeemPrice: ₹@itemDetails.RedeemPrice</small>
+                                   </td>
+                                   <td>₹@itemDetails.DeliveryCharge</td>
+                                   <td>₹@itemDetails.TotalAmount</td>
+                                   </tr>
+                               }
+                              
+                           }
+                       }
+            </tbody>
+                                <tfooter>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th>Total Order:</th>
+                                        <th>₹@item.SubTotal</th>
+                                    </tr>
+                                </tfooter>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+</section>
+<!-- order area end -->
+
+        }
+    }
+}
+
+
+
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+    });
+    function cancelOrder(orderDetailsID) {
+        debugger;
+        var result = confirm("Are you sure you want to cancel this Order ?");
+        if (result == true) {
+            $.ajax({
+                url: "/Customer/CancelOrder",
+                Type: "Get",
+                DataType: "JSON",
+                data: { orderDetailsID: orderDetailsID },
+                success: function (data) {
+                    if (data.Result == "1") {
+                        alert("Order was Cancelled.");
+                        window.location.reload();
+                    }
+                    else {
+                        alert("Error : " + data.Status);
+                    }
+                }
+            });
+        }
+    }
+    function openReturnPopup(orderDetailsID, orderID) {
+        document.getElementById('hdOrderID').value = orderID;
+        document.getElementById('hdOrderDetailsID').value = orderDetailsID;
+        $('#returnReq').modal('show');
+    }
+    function returnOrder() {
+        debugger;
+        var result = confirm("Are you sure you want to return this Order ?");
+        if (result == true) {
+            $.ajax({
+                url: "/Customer/ReturnOrder",
+                Type: "Get",
+                DataType: "JSON",
+                data: { orderDetailsID: document.getElementById('hdOrderDetailsID').value, orderID: document.getElementById('hdOrderID').value, desc: $('#Description').val() },
+                success: function (data) {
+                    if (data.Result == "1") {
+                        alert("Return Request has been submitted.");
+                        window.location.reload();
+                    }
+                    else {
+                        alert("Error : " + data.Status);
+                    }
+                }
+            });
+        }
+    }
+</script>

@@ -1,0 +1,565 @@
+﻿@model AfluexShopping.Models.Customer
+
+@{
+    ViewBag.Title = "TrackOrder";
+    Layout = "~/Views/Shared/_CustomerLayout1.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- breadcrumb area start -->
+<section class="breadcrumb__area include-bg pt-95 pb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="breadcrumb__content p-relative z-index-1">
+                    <h3 class="breadcrumb__title">Track Order</h3>
+                    <div class="breadcrumb__list">
+                        <span><a href="/Home/Index">Dashboard</a></span>
+                        <span>Track Order</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb area end -->
+<section class="tp-order-area pb-10">
+    <div class="sign-in-page spaceacc">
+        <div class="container">
+            <br />
+            <div class="row">
+                <div class="col-lg-10">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <b>Deliver To</b>
+                        </div>
+                        <div class="panel-body">
+                            @Session["CustomerName"]<br />
+                            @ViewBag.HouseNo&#44;
+                            @ViewBag.Locality&#44;
+                            @ViewBag.Landmark<br />
+                            Phone @Session["Contact"]
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+
+                </div>
+            </div>
+            <div class="mb-2"></div>
+            <div class="row">
+                <div class="col-lg-12 order-lg-last dashboard-content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-md-12">
+                                <h2 class="product-title">
+                                    <a class="tp-product-details-buy-now-btn" href="javascript:void(0)" style="color:white">Order No : @ViewBag.OrderNo</a>
+                                </h2>
+                                @if (Model.lstOrders != null)
+                                {
+                                    foreach (var itemDetails in Model.lstOrders)
+                                    {
+                                        <div class="product-desc">
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                    <img src="/@itemDetails.PrimaryImage" alt="product" height="50" width="50" class="img-responsive" style="margin-left:5%">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    @itemDetails.ProductName<br />
+                                                    <small>Color : @itemDetails.ColorName</small>&nbsp;<small>Size : @itemDetails.SizeName</small>
+                                                    <br />
+                                                    @itemDetails.DeliveryDate <br />
+                                                    <small>Expected Delivery</small>
+                                                    <br />
+                                                    @itemDetails.ProductQuantity x @itemDetails.Rate
+                                                </div>
+                                                <div class="col-md-7">
+                                                    @if (itemDetails.Status == "Delivered" || itemDetails.Status == "Shipped" || itemDetails.Status == "Packed" || itemDetails.Status == "Placed" || itemDetails.Status == "Cancelled" || itemDetails.Status == "Refund")
+                                                    {
+                                                        <ol class="progtrckr" data-progtrckr-steps="4">
+                                                            @if (itemDetails.Status == "Delivered")
+                                                            {
+                                                                <li class="progtrckr-done">Placed</li>
+                                                                <li class="progtrckr-done">Packed</li>
+                                                                <li class="progtrckr-done">Shipped</li>
+                                                                <li class="progtrckr-done">Delivered</li>
+                                                            }
+                                                            else if (itemDetails.Status == "Shipped")
+                                                            {
+                                                                <li class="progtrckr-done">Placed</li>
+                                                                <li class="progtrckr-done">Packed</li>
+                                                                <li class="progtrckr-done">Shipped</li>
+                                                                <li class="progtrckr-todo">Delivered</li>
+                                                            }
+                                                            else if (itemDetails.Status == "Packed")
+                                                            {
+                                                                <li class="progtrckr-done">Placed</li>
+                                                                <li class="progtrckr-done">Packed</li>
+                                                                <li class="progtrckr-todo">Shipped</li>
+                                                                <li class="progtrckr-todo">Delivered</li>
+                                                            }
+                                                            else if (itemDetails.Status == "Placed")
+                                                            {
+                                                                <li class="progtrckr-done">Placed</li>
+                                                                <li class="progtrckr-todo">Packed</li>
+                                                                <li class="progtrckr-todo">Shipped</li>
+                                                                <li class="progtrckr-todo">Delivered</li>
+                                                            }
+                                                            else if (itemDetails.Status == "Cancelled")
+                                                            {
+                                                                <li class="progtrckr-done">Placed</li>
+                                                                <li class="progtrckr-done">Cancelled</li>
+                                                            }
+                                                            else if (itemDetails.Status == "Refund")
+                                                            {
+                                                                <li class="progtrckr-done">Placed</li>
+                                                                <li class="progtrckr-done">Cancelled</li>
+                                                                <li class="progtrckr-done">Refund</li>
+                                                            }
+                                                        </ol>
+                                                    }
+                                                    else if (itemDetails.Status == "Exchange Requested" || itemDetails.Status == "Exchange Approved")
+                                                    {
+                                                        <ol class="progtrckr" data-progtrckr-steps="4">
+                                                            @if (itemDetails.Status == "Exchange Approved")
+                                                            {
+                                                                <li class="progtrckr-done">Placed</li>
+                                                                <li class="progtrckr-done">Packed</li>
+                                                                <li class="progtrckr-done">Shipped</li>
+                                                                <li class="progtrckr-done">Delivered</li>
+                                                                <li class="progtrckr-done">Exchange Request</li>
+                                                                <li class="progtrckr-done">Exchange Approved</li>
+                                                            }
+                                                            else if (itemDetails.Status == "Exchange Requested")
+                                                            {
+                                                                <li class="progtrckr-done">Placed</li>
+                                                                <li class="progtrckr-done">Packed</li>
+                                                                <li class="progtrckr-done">Shipped</li>
+                                                                <li class="progtrckr-done">Delivered</li>
+                                                                <li class="progtrckr-done">Exchange Requested</li>
+                                                                <li class="progtrckr-todo">Exchange Approved</li>
+                                                            }
+                                                        </ol>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <br />
+                                            @if (itemDetails.Status == "Delivered")
+                                            {
+                                                <input type="button" value="Rate Product" onclick="return productratingopen('@itemDetails.ProductInfoCode','@itemDetails.ProductName','@itemDetails.PrimaryImage')" class="btn btn-primary btn-sm" />
+                                                <input type="button" value="Rate Vendor" onclick="return vendorratingopen('@itemDetails.VendorName','@itemDetails.Fk_vendorId')" class="btn btn-primary btn-sm" />
+                                            }
+                                        </div>
+
+                                    }
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mb-2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-5"></div>
+        <div id="productrating" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <img id="productimg" style="height:50px;width:50px;font-size: 32px;" />
+                        <br />
+                        <b> <span id="lblProductName" style="color:blue"></span></b>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12" id="fivestar">
+                                Rate this product
+                                <a style="color:black" onclick="starrating('1')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="starrating('2')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="starrating('3')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="starrating('4')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="starrating('5')"><i class="fa fa-star" aria-hidden="true"></i></a>
+
+                            </div>
+                            <div class="col-md-12" id="fourstar" style="display:none">
+                                Star Rating
+                                <a style="color:black" onclick="starrating('1')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="starrating('2')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="starrating('3')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="starrating('4')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="starrating('5')"><i class="fa fa-star" aria-hidden="true"></i></a>
+
+                            </div>
+                            <div class="col-md-12" id="thirdstar" style="display:none">
+                                Star Rating
+                                <a style="color:black" onclick="starrating('1')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="starrating('2')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="starrating('3')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="starrating('4')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="starrating('5')"><i class="fa fa-star" aria-hidden="true"></i></a>
+
+                            </div>
+                            <div class="col-md-12" id="secoundstar" style="display:none">
+                                Star Rating
+                                <a style="color:black" onclick="starrating('1')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="starrating('2')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="starrating('3')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="starrating('4')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="starrating('5')"><i class="fa fa-star" aria-hidden="true"></i></a>
+
+                            </div>
+                            <div class="col-md-12" id="firststar" style="display:none">
+                                Star Rating
+                                <a style="color:black" onclick="starrating('1')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="starrating('2')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="starrating('3')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="starrating('4')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="starrating('5')"><i class="fa fa-star" aria-hidden="true"></i></a>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                Review this product
+                                <textarea id="txtcomment" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+                        <span id="productinfocode" style="display:none"></span>
+                        <span id="starrating" style="display:none"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="return productrating()">Rate Product</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="vendorrating" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        @* <img id="productimg" style="height:50px;width:50px;font-size: 32px;" />*@
+                        <br />
+                        <b> <span id="lblVendorName" style="color:blue"></span></b>
+                        <span id="lblVendorId" style="color:blue;display:none"></span>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12" id="vendorfivestar">
+                                Rate this vendor
+                                <a style="color:black" onclick="vendorstarrating('1')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="vendorstarrating('2')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="vendorstarrating('3')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="vendorstarrating('4')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="vendorstarrating('5')"><i class="fa fa-star" aria-hidden="true"></i></a>
+
+                            </div>
+                            <div class="col-md-12" id="vendorfourstar" style="display:none">
+                                Rate this vendor
+                                <a style="color:black" onclick="vendorstarrating('1')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="vendorstarrating('2')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="vendorstarrating('3')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="vendorstarrating('4')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="vendorstarrating('5')"><i class="fa fa-star" aria-hidden="true"></i></a>
+
+                            </div>
+                            <div class="col-md-12" id="vendorthirdstar" style="display:none">
+                                Rate this vendor
+                                <a style="color:black" onclick="vendorstarrating('1')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="vendorstarrating('2')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="vendorstarrating('3')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="vendorstarrating('4')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="vendorstarrating('5')"><i class="fa fa-star" aria-hidden="true"></i></a>
+
+                            </div>
+                            <div class="col-md-12" id="vendorsecoundstar" style="display:none">
+                                Rate this vendor
+                                <a style="color:black" onclick="vendorstarrating('1')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a style="color:black" onclick="vendorstarrating('2')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="vendorstarrating('3')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="vendorstarrating('4')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="vendorstarrating('5')"><i class="fa fa-star" aria-hidden="true"></i></a>
+
+                            </div>
+                            <div class="col-md-12" id="vendorfirststar" style="display:none">
+                                Rate this vendor
+                                <a style="color:black" onclick="vendorstarrating('1')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="vendorstarrating('2')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="vendorstarrating('3')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="vendorstarrating('4')"><i class="fa fa-star" aria-hidden="true"></i></a>
+                                <a onclick="vendorstarrating('5')"><i class="fa fa-star" aria-hidden="true"></i></a>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                Review this Vendor
+                                <textarea id="txtcommentvendor" class="form-control"></textarea>
+                            </div>
+                        </div>
+
+
+                        <span id="starratingvendor" style="display:none"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="return vendorating()">Rate Vendor</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <style>
+        .errortext {
+            border: 1px solid red !important;
+            background-color: #fff0f0 !important;
+        }
+    </style>
+    <style>
+        ol.progtrckr {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+            ol.progtrckr li {
+                display: inline-block;
+                text-align: center;
+                line-height: 3.5em;
+            }
+
+            ol.progtrckr[data-progtrckr-steps="2"] li {
+                width: 49%;
+            }
+
+            ol.progtrckr[data-progtrckr-steps="3"] li {
+                width: 33%;
+            }
+
+            ol.progtrckr[data-progtrckr-steps="4"] li {
+                width: 24%;
+            }
+
+            ol.progtrckr[data-progtrckr-steps="5"] li {
+                width: 19%;
+            }
+
+            ol.progtrckr[data-progtrckr-steps="6"] li {
+                width: 16%;
+            }
+
+            ol.progtrckr[data-progtrckr-steps="7"] li {
+                width: 14%;
+            }
+
+            ol.progtrckr[data-progtrckr-steps="8"] li {
+                width: 12%;
+            }
+
+            ol.progtrckr[data-progtrckr-steps="9"] li {
+                width: 11%;
+            }
+
+            ol.progtrckr li.progtrckr-done {
+                color: black;
+                border-bottom: 4px solid yellowgreen;
+            }
+
+            ol.progtrckr li.progtrckr-todo {
+                color: silver;
+                border-bottom: 4px solid silver;
+            }
+
+            ol.progtrckr li:after {
+                content: "\00a0\00a0";
+            }
+
+            ol.progtrckr li:before {
+                position: relative;
+                bottom: -2.5em;
+                float: left;
+                left: 50%;
+                line-height: 1em;
+            }
+
+            ol.progtrckr li.progtrckr-done:before {
+                content: "\2713";
+                color: white;
+                background-color: yellowgreen;
+                height: 2.2em;
+                width: 2.2em;
+                line-height: 2.2em;
+                border: none;
+                border-radius: 2.2em;
+            }
+
+            ol.progtrckr li.progtrckr-todo:before {
+                content: "\039F";
+                color: silver;
+                background-color: white;
+                font-size: 2.2em;
+                bottom: -1.2em;
+            }
+    </style>
+    <script src="../../AdminCSS/js/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#divload").css({ 'display': 'none' });
+        });
+    </script>
+    <script>
+
+        function responseMessage(msg) {
+            $('.success-box').fadeIn(200);
+            $('.success-box div.text-message').html("<span>" + msg + "</span>");
+        }
+        function productratingopen(productinfocode, ProductName, primaryimage) {
+            $('#productinfocode').html(productinfocode);
+            $('#lblProductName').html(ProductName);
+            $("#productimg").attr("src", primaryimage);
+            $('#productrating').modal('show');
+        }
+        function vendorratingopen(Vendorname, Fk_vendorId) {
+            $('#lblVendorName').html(Vendorname);
+            $('#lblVendorId').html(Fk_vendorId);
+
+            $('#vendorrating').modal('show');
+        }
+
+        function productrating() {
+            $(".errortext").removeClass("errortext");
+            if ($('#txtcomment').val() == '') {
+                $("#txtcomment").addClass('errortext');
+
+                return false;
+            }
+            if ($('#starrating').html() == "") {
+                $('#starrating').html('5');
+            }
+            $.ajax({
+                url: "/Customer/RateProduct",
+                Type: "Get",
+                DataType: "JSON",
+                data: { Comment: $("#txtcomment").val(), StarRating: $('#starrating').html(), productinfocode: $('#productinfocode').html() },
+                success: function (data) {
+                    alert('Product Rating Completed.');
+                    $('#productrating').modal('hide');
+                }
+
+            });
+        }
+        function vendorating() {
+            $(".errortext").removeClass("errortext");
+            if ($('#txtcommentvendor').val() == '') {
+                $("#txtcommentvendor").addClass('errortext');
+
+                return false;
+            }
+            if ($('#starratingvendor').html() == "") {
+                $('#starratingvendor').html('5');
+            }
+            $.ajax({
+                url: "/Customer/RateVendor",
+                Type: "Get",
+                DataType: "JSON",
+                data: { Comment: $("#txtcommentvendor").val(), StarRating: $('#starratingvendor').html(), Fk_vendorId: $('#lblVendorId').html() },
+                success: function (data) {
+                    alert('Vendor Rating Completed.');
+                    $('#vendorrating').modal('hide');
+                }
+
+            });
+        }
+        function starrating(value) {
+            $('#starrating').html(value);
+            if (value == 4) {
+                $('#firststar').hide();
+                $('#secoundstar').hide();
+                $('#thirdstar').hide();
+                $('#fourstar').show();
+                $('#fivestar').hide();
+            }
+            if (value == 1) {
+                $('#firststar').show();
+                $('#secoundstar').hide();
+                $('#thirdstar').hide();
+                $('#fourstar').hide();
+                $('#fivestar').hide();
+            }
+            if (value == 2) {
+                $('#firststar').hide();
+                $('#secoundstar').show();
+                $('#thirdstar').hide();
+                $('#fourstar').hide();
+                $('#fivestar').hide();
+            }
+            if (value == 3) {
+                $('#firststar').hide();
+                $('#secoundstar').hide();
+                $('#thirdstar').show();
+                $('#fourstar').hide();
+                $('#fivestar').hide();
+            }
+            if (value == 5) {
+                $('#firststar').hide();
+                $('#secoundstar').hide();
+                $('#thirdstar').hide();
+                $('#fourstar').hide();
+                $('#fivestar').show();
+            }
+        }
+
+        function vendorstarrating(value) {
+            $('#vendorstarrating').html(value);
+            if (value == 4) {
+                $('#vendorfirststar').hide();
+                $('#vendorsecoundstar').hide();
+                $('#vendorthirdstar').hide();
+                $('#vendorfourstar').show();
+                $('#vendorfivestar').hide();
+            }
+            if (value == 1) {
+                $('#vendorfirststar').show();
+                $('#vendorsecoundstar').hide();
+                $('#vendorthirdstar').hide();
+                $('#vendorfourstar').hide();
+                $('#vendorfivestar').hide();
+            }
+            if (value == 2) {
+                $('#vendorfirststar').hide();
+                $('#vendorsecoundstar').show();
+                $('#vendorthirdstar').hide();
+                $('#vendorfourstar').hide();
+                $('#vendorfivestar').hide();
+            }
+            if (value == 3) {
+                $('#vendorfirststar').hide();
+                $('#vendorsecoundstar').hide();
+                $('#vendorthirdstar').show();
+                $('#vendorfourstar').hide();
+                $('#vendorfivestar').hide();
+            }
+            if (value == 5) {
+                $('#vendorfirststar').hide();
+                $('#vendorsecoundstar').hide();
+                $('#vendorthirdstar').hide();
+                $('#vendorfourstar').hide();
+                $('#vendorfivestar').show();
+            }
+        }
+    </script>

@@ -1,0 +1,278 @@
+﻿@model MSCLShopping.Models.Master
+@{
+    ViewBag.Title = "OfferProduct";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("OfferProduct", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.ProductID)
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Offer Product</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Master</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Offer Product</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Offer <span style="color:red;">*</span></label>
+                            @Html.DropDownListFor(m => m.OfferID, new SelectList(ViewBag.ddlOffer, "Value", "Text"), new { @class = "form-control form-select" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Main Category</label>
+                            @Html.DropDownListFor(m => m.MainCategoryID, new SelectList(ViewBag.ddlMainCategory, "Value", "Text"), new { @class = "form-control form-select", @onchange = "return onMainCategoryChange();" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            @Html.DropDownListFor(m => m.CategoryID, new SelectList(ViewBag.ddlCategory, "Value", "Text"), new { @class = "form-control form-select", @onchange = "return onCategoryChange();" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Sub Category</label>
+                            @Html.DropDownListFor(m => m.SubCategoryID, new SelectList(ViewBag.ddlSubCategory, "Value", "Text"), new { @class = "form-control form-select" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Brand</label>
+                            @Html.DropDownListFor(m => m.BrandID, new SelectList(ViewBag.ddlBrand, "Value", "Text"), new { @class = "form-control form-select", @onchange = "return onSubCategoryChange();" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label class="form-label d-lg-block d-none">&nbsp;</label>
+                            <input class="btn btn-success" type="submit" onclick="return validateform();" value="Get" id="btnGet" name="Get" />
+                            <a href="/Master/OfferProductList" class="btn btn-primary">Back To List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@using (Html.BeginForm("OfferProduct", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.hdOfferID)
+    <div class="row" id="prod">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">Product List</h3>
+                <p style="color:red">
+                    @TempData["Product"]
+                </p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive mt-3">
+                    <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                        <thead class="border-top">
+                            <tr>
+                                <th hidden>ID</th>
+                                <th>S No.</th>
+                                <th>Main Category</th>
+                                <th>Category</th>
+                                <th>Sub Category </th>
+                                <th>Product Name</th>
+                                <th>Unit</th>
+                                <th>Size</th>
+                                <th>Color</th>
+                                <th>Material</th>
+                                <th>Flavor</th>
+                                <th>RAM</th>
+                                <th>Storage</th>
+                                <th><input type="checkbox" id="select-all" /></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lstProduct != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lstProduct)
+                                    {
+                                        <tr class="text-left">
+                                            <td hidden>@Item.ProductID</td>
+                                            <td>@i</td>
+                                            <td>@Item.MainCategoryName</td>
+                                            <td>@Item.CategoryName</td>
+                                            <td>@Item.SubCategoryName</td>
+                                            <td>@Item.ProductName</td>
+                                            <td>@Item.UnitName</td>
+                                            <td>@Item.SizeName</td>
+                                            <td>@Item.ColorName</td>
+                                            <td>@Item.MaterialName</td>
+                                            <td>@Item.FlavorName</td>
+                                            <td>@Item.RAM</td>
+                                            <td>@Item.Storage</td>
+                                            <td>
+                                                <input type="checkbox" id="Chk_ @i" name="Chk_ @i" />
+                                                <input type='hidden' value='@Item.ProductID' id='productid_ @i' name='productid_ @i'>
+                                                <input type='hidden' value='@Item.SizeID' id='sizeid_ @i' name='sizeid_ @i'>
+                                                <input type='hidden' value='@Item.UnitID' id='unitid_ @i' name='unitid_ @i'>
+                                                <input type='hidden' value='@Item.MainCategoryID' id='mcatid_ @i' name='mcatid_ @i'>
+                                                <input type='hidden' value='@Item.CategoryID' id='catid_ @i' name='catid_ @i'>
+                                                <input type='hidden' value='@Item.SubCategoryID' id='subcatid_ @i' name='subcatid_ @i'>
+
+                                                <input type='hidden' value='@Item.RamID' id='RamID @i' name='RamID @i'>
+                                                <input type='hidden' value='@Item.StorageID' id='StorageID @i' name='StorageID @i'>
+                                                <input type='hidden' value='@Item.StarRatingID' id='StarRatingID @i' name='StarRatingID @i'>
+                                                <input type='hidden' value='@Item.FlavorID' id='FlavorID @i' name='FlavorID @i'>
+                                                <input type='hidden' value='@Item.ColorID' id='ColorID @i' name='ColorID @i'>
+                                                <input type='hidden' value='@Item.MaterialID' id='MaterialID @i' name='MaterialID @i'>
+                                                <input type='hidden' value='@Item.ProductInfoCode' id='ProductInfoCode @i' name='ProductInfoCode @i'>
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                    <input type='hidden' value='@i' id='hdrows' name='hdrows' />
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input class="btn btn-success" type="submit" value="Save" id="btnSave" name="Save" onclick="return validateSave();" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+    });
+    $('#select-all').click(function (event) {
+        if (this.checked) {
+            // Iterate each checkbox
+            $(':checkbox').each(function () {
+                this.checked = true;
+            });
+        } else {
+            $(':checkbox').each(function () {
+                this.checked = false;
+            });
+        }
+    });
+
+    function onMainCategoryChange() {
+        
+        var value = $('#MainCategoryID').val();
+        var values = $('#CategoryID').val();
+
+        $.ajax({
+            url: "/Master/GetCategoryByMainCategory",
+            Type: "Get",
+            DataType: "JSON",
+            data: { MainCategoryID: value },
+            success: function (data) {
+
+                $("#CategoryID").html(""); // clear before appending new list
+                $("#CategoryID").empty();
+                $("#CategoryID").append(
+                      $('<option></option>').val(0).html('Select Category'));
+                $.each(data.ddlCategory, function (index, count) {
+                    $("#CategoryID").append(
+                          $('<option></option>').val(count.Value).html(count.Text));
+
+                });
+
+            }
+        });
+
+    }
+
+    function onCategoryChange() {
+        
+        var MainCategoryId = $('#MainCategoryID').val();
+        var CategoryId = $('#CategoryID').val();
+        $.ajax({
+            url: '/Master/GetSubCategory', type: 'post', dataType: 'json',
+            data: { 'MainCategoryID': MainCategoryId, 'CategoryID': CategoryId },
+            success: function (data) {
+
+                $("#SubCategoryID").html(""); // clear before appending new list
+                $("#SubCategoryID").empty();
+                $("#SubCategoryID").append(
+                      $('<option></option>').val(0).html('Select SubCategory'));
+                $.each(data.ddlSubCategory, function (index, BlockCount) {
+                    $("#SubCategoryID").append(
+                          $('<option></option>').val(BlockCount.Value).html(BlockCount.Text));
+                });
+
+            }
+
+        });
+
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#OfferID').val() == '0') {
+            $("#OfferID").addClass('errortext');
+            $('#OfferID').focus();
+            return false;
+        }
+        //if ($('#MainCategoryID').val() == '0') {
+        //    $("#MainCategoryID").addClass('errortext');
+        //    $('#MainCategoryID').focus();
+        //    return false;
+        //}
+        //if ($('#CategoryID').val() == '0') {
+        //    $("#CategoryID").addClass('errortext');
+        //    $('#CategoryID').focus();
+        //    return false;
+        //}
+        //if ($('#SubCategoryID').val() == '0') {
+        //    $("#SubCategoryID").addClass('errortext');
+        //    $('#SubCategoryID').focus();
+        //    return false;
+        //}
+        $('#hdOfferID').val($('#OfferID').val());
+        //  alert($('#hdOfferID').val());
+        return true;
+    }
+    function validateSave() {
+        $("#divload").css({ 'display': '' });
+        $(".errortext").removeClass("errortext");
+         
+        if (($("input[name*='Chk_']:checked").length) <= 0) {
+            alert("You must check at least 1 box");
+            $("#divload").css({ 'display': 'none' });
+            return false;
+           
+        }
+        $("#divload").css({ 'display': '' });
+        return true;
+    }
+</script>
+
+
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+

@@ -1,0 +1,169 @@
+﻿@model MSCLShopping.Models.Master
+
+@{
+    ViewBag.Title = "OrderByCourrierList";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("OrderByCourrierList", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Order By Courrier List</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Courrier Name
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @Placeholder = "Search by Courrier Name" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Courrier Date
+                        @Html.TextBoxFor(m => m.CourrierDate, new { @class = "form-control", @Placeholder = "Search by Courrier Date" ,@readonly="read" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Customer Name
+                        @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control", @Placeholder = "Search by Customer Name" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Order Number
+                        @Html.TextBoxFor(m => m.OrderNumber, new { @class = "form-control", @Placeholder = "Search by Order Number" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Order Date
+                        @Html.TextBoxFor(m => m.OrderDate, new { @class = "form-control", @Placeholder = "Search by Order Date", @readonly = "read" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Tracking Id
+                        @Html.TextBoxFor(m => m.TrackingNo, new { @class = "form-control", @Placeholder = "Search by   Tracking Id" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <br />
+                        <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="Search" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body"> 
+            <br />     
+            <table id="example23" class="display nowrap table table-hover table-striped table-bordered dataTable no-footer">
+                <thead>
+                    <tr>
+                        <th>S No.</th>
+                        <th>Order Date</th>
+                        <th>Order Number</th>
+                        <th>Product</th>
+                        <th>Customer Name</th>
+                        <th>Number</th>
+                        <th>Amount</th>
+                        <th>Payment Mode</th>
+                        <th>Courrier</th>
+                        <th>Courrier Date</th>
+                        <th>Tracking ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        if (Model.lstProduct != null)
+                        {
+                            int i = 1;
+                            foreach (var Item in Model.lstProduct)
+                            {
+                                <tr class="text-left">
+
+                                    <td>@i</td>
+                                    <td>@Item.OrderDate</td>
+                                    <td>@Item.OrderNumber</td>
+                                    <td>@Item.ProductName</td>
+                                    <td>@Item.Name</td>
+                                    <td>@Item.Contact</td>
+                                    <td>@Item.Amount</td>
+                                    <td>@Item.PayMode</td>
+                                    <td>@Item.CourrierID</td>
+                                    <td>@Item.CourrierDate</td>
+                                    <td>@Item.TrackingNo</td>
+                                </tr>
+                                i++;
+
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+         
+        </div>
+    </div>
+
+
+}
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+
+   
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#ContentPlaceHolder1_imgProductImage')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
+<script>
+
+    $('#CourrierDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#OrderDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+
+    });
+
+</script>
+
+
+

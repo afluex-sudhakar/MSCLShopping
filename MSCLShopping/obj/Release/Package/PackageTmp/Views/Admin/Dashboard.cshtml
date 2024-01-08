@@ -1,0 +1,212 @@
+﻿@model AfluexShopping.Models.Admin
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("Dashboard", "Admin", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+
+
+    <!-- PAGE-HEADER -->
+						<div class="page-header">
+							<div>
+								<h1 class="page-title">Dashboard</h1>
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="#">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+								</ol>
+							</div>
+							@*<div class="ms-auto pageheader-btn">
+								<a href="#" class="btn btn-primary btn-icon text-white me-2">
+									<span>
+										<i class="fe fe-plus"></i>
+									</span> Add Account
+								</a>
+								<a href="#" class="btn btn-success btn-icon text-white">
+									<span>
+										<i class="fe fe-log-in"></i>
+									</span> Export
+								</a>
+							</div>*@
+						</div>
+						<!-- PAGE-HEADER END -->
+
+
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-6 col-md-12 col-xl-3">
+            <div class="card">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="circle-icon bg-primary text-center align-self-center box-primary-shadow">
+                            <img src="~/AssetsAdmin/images/svgs/circle.svg" alt="img" class="card-img-absolute">
+                            <i class="lnr lnr-users fs-30  text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-2 fw-normal mt-2">@ViewBag.Customers</h2>
+                            <h5 class="fw-normal mb-0">Total Customers</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-6 col-md-12 col-xl-3">
+            <div class="card">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="circle-icon circle-icon bg-secondary align-items-center text-center box-secondary-shadow">
+                            <img src="~/AssetsAdmin/images/svgs/circle.svg" alt="img" class="card-img-absolute">
+                            <i class="fa fa-suitcase fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-2 fw-normal mt-2">@ViewBag.Products</h2>
+                            <h5 class="fw-normal mb-0">Total Products</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-6 col-md-12 col-xl-3">
+            <div class="card">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="circle-icon  circle-icon bg-success align-items-center text-center box-success-shadow">
+                            <img src="~/AssetsAdmin/images/svgs/circle.svg" alt="img" class="card-img-absolute">
+                            <i class="lnr lnr-gift fs-30 text-white mt-4"></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-2 fw-normal mt-2">@ViewBag.Offers</h2>
+                            <h5 class="fw-normal mb-0">Total Offers</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-6 col-md-12 col-xl-3">
+            <div class="card">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="circle-icon circle-icon bg-danger align-items-center text-center box-danger-shadow">
+                            <img src="~/AssetsAdmin/images/svgs/circle.svg" alt="img" class="card-img-absolute">
+                            <i class="lnr lnr-file-add fs-30 text-white mt-4 "></i>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body p-4">
+                            <h2 class="mb-2 fw-normal mt-2">@ViewBag.Invoices</h2>
+                            <h5 class="fw-normal mb-0">Total Invoices</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+                        <div class="row row-sm">
+                            <div class="col-lg-12">
+                                <div class="card custom-card">
+                                    <div class="card-body">
+                                        <div>
+                                            <h3 class="mb-3">Offers</h3>
+                                            @*<p class="text-muted card-sub-title">Add borders on all sides of the table and cells.</p>*@
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table border text-nowrap text-md-nowrap table-bordered mg-b-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr No.</th>
+                                                        <th>Offer Name</th>
+                                                        <th> Date</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (Model != null)
+                                                    {
+                                                        if (Model.List != null)
+                                                        {
+                                                            int i = 1;
+                                                            foreach (var Item in Model.List)
+                                                            {
+                                                                <tr>
+                                                                    <td>@i</td>
+
+                                                                    <td>@Item.OfferName</td>
+                                                                    <td>@Item.FromDate-@Item.ToDate</td>
+                                                                    <td>@Item.OfferStatus</td>
+
+                                                                </tr>
+                                                                i++;
+                                                            }
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                   
+
+
+    @*<div class="row">
+        <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+            <div class="card bg-gradient-primary text-white text-center card-shadow-primary">
+                <div class="card-body" style="color:black">
+                    <h6 class="font-weight-normal">Total Products</h6>
+                    <h2 class="mb-0">@ViewBag.Products </h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+            <div class="card bg-gradient-danger text-white text-center card-shadow-danger">
+                <div class="card-body" style="color:black">
+                    <h6 class="font-weight-normal">Total Offers</h6>
+                    <h2 class="mb-0">@ViewBag.Offers</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+            <div class="card bg-gradient-warning text-white text-center card-shadow-warning">
+                <div class="card-body" style="color:black">
+                    <h6 class="font-weight-normal">Total Customers</h6>
+                    <h2 class="mb-0">@ViewBag.Customers</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3 grid-margin stretch-card">
+            <div class="card bg-gradient-info text-white text-center card-shadow-info">
+                <div class="card-body" style="color:black">
+                    <h6 class="font-weight-normal">Total Invoices</h6>
+                    <h2 class="mb-0">@ViewBag.Invoices</h2>
+                </div>
+            </div>
+        </div>
+       
+    </div>*@
+
+
+    
+
+    
+
+}
+
+
+
+
+

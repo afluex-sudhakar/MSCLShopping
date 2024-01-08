@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sell on MSCL Shopping</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="../../img/favicon.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <style>
+        .modal.fade .modal-dialog {
+    
+    transform: translate(0,0) !important;
+}
+    .modal-header {
+    padding: 15px !important;
+    border-bottom: 1px solid #e5e5e5 !important;
+}
+        .top-header {
+            background-color: #fff;
+        }
+
+        .hlogo img {
+            max-width: 179px;
+        }
+
+        .login-list ul li a {
+            color: #000;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .login-list {
+            padding: 15px 0px;
+        }
+
+        .section-inner {
+            padding: 70px 0px;
+        }
+
+        .contant1 p {
+            font-size: 15px;
+        }
+
+        .contant1 {
+            padding: 30px 0px;
+        }
+
+        section#tabs {
+            padding: 0px 60px;
+        }
+
+        h1.text-center.contentbg {
+            background-color: #e93b7f;
+            width: 13%;
+            padding: 5px 0px;
+            margin: 0px auto;
+            border-radius: 50%;
+            color: #fff;
+        }
+        ShoppingPortal Demo Creditiol
+        .space1 {
+            padding: 10px 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="hlogo">
+                        <img src="~/newassets/img/logo/logo1.png" class="img-responsive s-logo" alt="logo" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="login-list">
+                        <ul class="list-inline pull-right">
+                            <li class="list-inline-item"><a href="/Seller/FeeStructure"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Fee Structure</a></li>
+                            <li class="list-inline-item"><a href="/Home/VendorRegistration"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Register Now</a></li>
+                            <li class="list-inline-item"><a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-user-circle-o"></i> Login for existing sellers</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @RenderBody();
+  
+    <!-- Main JS File -->
+   
+    <div id="myModal" class="modal fade" role="dialog" style="font-size: 13px;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width:70%">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login</h5>
+
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Mobile No</label>
+                            <input type="text" class="form-control" id="LoginId" placeholder="Login ID" />
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <label>Password</label>
+                            <input type="password" id="Password" class="form-control" placeholder="Password" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="button" value="Login" class="btn btn-sm btn-primary float-right" style="font-size: medium;" onclick="return login();" />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: medium;" >Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <script>
+        $(document).ready(function () {
+            $("#divload").css({ 'display': 'none' });
+        });
+        function login() {
+            $(".errortext").removeClass("errortext");
+            if ($('#LoginId').val() == '') {
+                $("#LoginId").addClass('errortext');
+                $('#LoginId').focus();
+                return false;
+            }
+            if ($('#Password').val() == '') {
+                $("#Password").addClass('errortext');
+                $('#Password').focus();
+                return false;
+            }
+            $("#divload").css({ 'display': '' });
+            $.ajax({
+                url: "/Home/LoginVendor",
+                Type: "Get",
+                DataType: "JSON",
+                data: { LoginID: $("#LoginId").val(), Password: $("#Password").val() },
+                success: function (data) {
+                    if (data.Response == "1") {
+                        window.location = "/Vendor/DashBoard";
+                    }
+                    else {
+                        alert(data.Response);
+                        $("#divload").css({ 'display': 'none' });
+                    }
+                }
+            });
+        }
+    </script>
+    <script src="../../assets/js/jquery-1.11.1.min.js"></script>
+    <script src="../../Autofill/jquery-2.1.3.js"></script>
+    <script src="../../Autofill/jquery-ui.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/bootstrap-hover-dropdown.min.js"></script>
+    <script src="../../assets/js/owl.carousel.min.js"></script>
+    <script src="../../assets/js/echo.min.js"></script>
+    <script src="../../assets/js/jquery.easing-1.3.min.js"></script>
+    <script src="../../assets/js/bootstrap-slider.min.js"></script>
+    <script src="../../assets/js/jquery.rateit.min.js"></script>
+    <script type="text/javascript" src="../../assets/js/lightbox.min.js"></script>
+    <script src="../../assets/js/bootstrap-select.min.js"></script>
+    <script src="../../assets/js/wow.min.js"></script>
+    <script src="../../assets/js/scripts.js"></script>
+</body>
+
+
+</html>

@@ -1,0 +1,326 @@
+﻿@model MSCLShopping.Models.Customer
+
+@{
+    ViewBag.Title = "MyAccount";
+    Layout = "~/Views/Shared/_CustomerLayout1.cshtml";
+}
+
+@using (Html.BeginForm("MyAccount", "Customer", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" ,@automcomplete="off"}))
+{
+
+      <!-- profile area start -->
+    <section class="profile__area pt-120 pb-120">
+        <div class="container">
+            <div class="profile__inner p-relative">
+                <div class="profile__shape">
+                    <img class="profile__shape-1" src="/newassets/img/login/laptop.png" alt="">
+                    <img class="profile__shape-2" src="/newassets/img/login/man.png" alt="">
+                    <img class="profile__shape-3" src="/newassets/img/login/shape-1.png" alt="">
+                    <img class="profile__shape-4" src="/newassets/img/login/shape-2.png" alt="">
+                    <img class="profile__shape-5" src="/newassets/img/login/shape-3.png" alt="">
+                    <img class="profile__shape-6" src="/newassets/img/login/shape-4.png" alt="">
+                </div>
+                <span style="color:red">@TempData["Login"]</span>
+                <div class="row">
+                    <div class="col-xxl-4 col-lg-4">
+                        <div class="profile__tab mr-40">
+                            <nav>
+                                <div class="nav nav-tabs tp-tab-menu flex-column" id="profile-tab" role="tablist">
+                                    <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><span><i class="fa-regular fa-user-pen"></i></span>Profile</button>
+                                    <button class="nav-link" id="nav-information-tab" data-bs-toggle="tab" data-bs-target="#nav-information" type="button" role="tab" aria-controls="nav-information" aria-selected="false"><span><i class="fa-regular fa-circle-info"></i></span> Information</button>
+                                    <a href="/Customer/AddressBook" class="nav-link"><span><i class="fa-light fa-location-dot"></i></span> Address </a>
+                                    <a href="/Customer/MyOrders" class="nav-link" ><span><i class="fa-light fa-clipboard-list-check"></i></span> My Orders </a>
+                                    <button class="nav-link" id="nav-password-tab" data-bs-toggle="tab" data-bs-target="#nav-password" type="button" role="tab" aria-controls="nav-password" aria-selected="false"><span><i class="fa-regular fa-lock"></i></span> Change Password</button>
+                                    <span id="marker-vertical" class="tp-tab-line d-none d-sm-inline-block"></span>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-xxl-8 col-lg-8">
+                        <div class="profile__tab-content">
+                            <div class="tab-content" id="profile-tabContent">
+                                <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div class="profile__main">
+                                        <div class="profile__main-top pb-80">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-8">
+                                                    <div class="profile__main-inner d-flex flex-wrap align-items-center">
+                                                        <div class="profile__main-thumb">
+                                                            @if (Session["ProfilePic"] != null && Session["ProfilePic"].ToString() != "")
+                                                            {
+                                                                <img src="@Session["ProfilePic"]" alt="" id="output">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="/newassets/img/users/user-10.jpg" alt="" id="output">
+                                                            }
+                                                            @*<img src="/newassets/img/users/user-10.jpg" alt="">*@
+
+                                                            <div class="profile__main-thumb-edit">
+                                                                <input id="profile-thumb-input" class="profile-img-popup" type="file" onchange="loadFile(event)"  href="javascript:void(0);" onclick="getFile1()">
+                                                                <label for="profile-thumb-input"><i class="fa-light fa-camera"></i></label>
+                                                                @*<a href="javascript:void(0);" onclick="getFile1()"><i class="fa fa-cog" aria-hidden="true"></i><input id="files1" onchange="loadFile(event)" type="file" value="upload" style="display: none"></a>*@
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile__main-content">
+                                                            <h4 class="profile__main-title">Welcome @Session["CustomerName"]</h4>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="profile__main-logout text-sm-end">
+                                                        <a href="#" onclick="return logout();" class="tp-logout-btn">Logout</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-information" role="tabpanel" aria-labelledby="nav-information-tab">
+                                    <div class="profile__info">
+                                        <h3 class="profile__info-title">Personal Details</h3>
+                                        <div class="profile__info-content">
+                                                <div class="row">
+                                                    <div class="col-xxl-6 col-md-6">
+                                                        <div class="profile__input-box">
+                                                            <div class="profile__input">
+                                                                @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control" })
+                                                                @Html.HiddenFor(m => m.CustomerID)
+                                                                <span>
+                                                                    <svg width="17" height="19" viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path d="M9 9C11.2091 9 13 7.20914 13 5C13 2.79086 11.2091 1 9 1C6.79086 1 5 2.79086 5 5C5 7.20914 6.79086 9 9 9Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                        <path d="M15.5 17.6C15.5 14.504 12.3626 12 8.5 12C4.63737 12 1.5 14.504 1.5 17.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    </svg>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xxl-6 col-md-6">
+                                                        <div class="profile__input-box">
+                                                            <div class="profile__input">
+                                                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                                                <span>
+                                                                    <svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path d="M13 14.6H5C2.6 14.6 1 13.4 1 10.6V5C1 2.2 2.6 1 5 1H13C15.4 1 17 2.2 17 5V10.6C17 13.4 15.4 14.6 13 14.6Z" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                                                        <path d="M13 5.3999L10.496 7.3999C9.672 8.0559 8.32 8.0559 7.496 7.3999L5 5.3999" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    </svg>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-6 col-md-6">
+                                                        <div class="profile__input-box">
+                                                            <div class="profile__input">
+                                                                @Html.TextBoxFor(m => m.Contact, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "10" })
+                                                                <span>
+                                                                    <i class="fa fa-mobile"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xxl-12">
+                                                        <div class="profile__btn">
+                                                            <input type="submit" name="Update" id="Update" class="tp-btn" value="Update Profile" onclick="return UpdateProfile();">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-password" role="tabpanel" aria-labelledby="nav-password-tab">
+                                    <div class="profile__password">
+                                            <div class="row">
+                                                <div class="col-xxl-12">
+                                                    <span style="color:red">@TempData["Login"]</span>
+                                                    <div class="tp-profile-input-box">
+                                                        <div class="tp-contact-input">
+                                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @Placeholder = "Password", @required = "required" })
+                                                        </div>
+                                                        <div class="tp-profile-input-title">
+                                                            <label for="old_pass">Old Password</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-md-6">
+                                                    <div class="tp-profile-input-box">
+                                                        <div class="tp-profile-input">
+                                                            @Html.PasswordFor(m => m.NewPassword, new { @class = "form-control", @Placeholder = "New Password", @required = "required" })
+                                                        </div>
+                                                        <div class="tp-profile-input-title">
+                                                            <label for="new_pass">New Password</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-md-6">
+                                                    <div class="tp-profile-input-box">
+                                                        <div class="tp-profile-input">
+                                                            @Html.PasswordFor(m => m.ConfirmNewPassword, new { @class = "form-control", @Placeholder = "Confirm Password", @required = "required", @onchange = "return Check();" })
+                                                        </div>
+                                                        <div class="tp-profile-input-title">
+                                                            <label for="con_new_pass">Confirm Password</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xxl-6 col-md-6">
+                                                    <div class="profile__btn">
+                                                        <input type="submit" id="Change" name="Change" class="tp-btn" value="Update" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+     <!-- profile area end -->
+
+    
+   
+}
+
+
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script>
+    function Check() {
+        debugger
+        if ($('#ConfirmNewPassword').val() != $('#NewPassword').val()) {
+
+            alert("Confirm Password and new password should be same .")
+            $('#ConfirmNewPassword').val('')
+        }
+        var Password = $('#Password').val();
+        var NewPassword = $('#NewPassword').val();
+        var ConfirmNewPassword = $('#ConfirmNewPassword').val();
+        $.ajax({
+            url: "/Customer/UpdatePassword",
+            Type: "Get",
+            DataType: "JSON",
+            data: { 'Password': Password, 'NewPassword': NewPassword ,'ConfirmNewPassword': ConfirmNewPassword },
+            success: function (data) {
+                if (data.Result == "1") {
+                    alert("Password has been updated.");
+                    window.location.reload();
+                }
+                else {
+                    alert("Error : " + data.Result);
+                }
+            }
+        });
+    }
+    function UpdateProfile() {
+        debugger
+        
+        var CustomerName = $('#CustomerName').val();
+        var CustomerID = $('#CustomerID').val();
+        var Contact = $('#Contact').val();
+        var Email = $('#Email').val();
+        $.ajax({
+            url: "/Customer/SaveInfo",
+            Type: "Get",
+            DataType: "JSON",
+            data: { 'CustomerName': CustomerName, 'CustomerID': CustomerID, 'Contact': Contact, 'Email': Email },
+            success: function (data) {
+                if (data.Result == "1") {
+                    alert("Your profile has been updated.");
+                    window.location.reload();
+                }
+                else {
+                    alert("Error : " + data.Result);
+                }
+            }
+        });
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+    });
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#CustomerName').val() == '') {
+            $("#CustomerName").addClass('errortext');
+            $('#CustomerName').focus();
+            return false;
+        }
+        if ($('#Contact').val() == '') {
+            $("#Contact").addClass('errortext');
+            $('#Contact').focus();
+            return false;
+        }
+        if ($('#Email').val() == '') {
+            $("#Email").addClass('errortext');
+            $('#Email').focus();
+            return false;
+        }
+
+        $("#divload").css({ 'display': '' });
+        return true;
+    }
+
+
+
+
+
+        function getFile1() {
+            document.getElementById("profile-thumb-input").click();
+        }
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+
+        $("#profile-thumb-input").change(function () {
+            debugger;
+            var fileUpload = $("#profile-thumb-input").get(0);
+            var files = fileUpload.files;
+            var formData = new FormData();
+            formData.append(files[0].name, files[0]);
+            var CustomerID = @Session["CustomerID"];
+            formData.append("CustomerID", CustomerID)
+            $.ajax({
+                url: "/Customer/UpdateProfilePic",
+                type: 'post',
+                datatype: 'json',
+                contentType: false,
+                processData: false,
+                async: false,
+                data: formData,
+                success: function (data) {
+
+                    if (data == true) {
+                        alert("Picture Uploaded succesfully !");
+                        //window.location.href= "/Customer/MyAccount";
+                    }
+                    else {
+                        alert("Not Uploaded. Kindly try after some times. !! ")
+                    }
+                }
+            })
+        });
+
+
+
+
+
+
+</script>

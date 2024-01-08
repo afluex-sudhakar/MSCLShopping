@@ -1,0 +1,234 @@
+﻿@model AfluexShopping.Models.Master
+@{
+    ViewBag.Title = "ManualStockEntry";
+    Layout = "~/Views/Shared/VendorLayout.cshtml";
+}
+
+
+
+
+@using (Html.BeginForm("ManualStockEntry", "Vendor", FormMethod.Post, new { @id = "form1" }))
+{
+    <p style="color: red">
+        @TempData["Product"]
+    </p>
+    <div class="content content-fixed">
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-30">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item"><a href="#">Product</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Manual Stock Entry</li>
+                        </ol>
+                    </nav>
+
+                </div>
+                <div class="d-none d-md-block">
+
+                </div>
+            </div>
+            <div class="row row-xs">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-footer pd-y-15 pd-x-20">
+                            <div class="row row-xs">
+                                <div class="col-md-3">
+
+                                    Main Category
+                                    @Html.DropDownListFor(m => m.MainCategoryID, new SelectList(ViewBag.ddlMainCategory, "Value", "Text"), new { @class = "form-control", @onchange = "return onMainCategoryChange();" })
+
+                                </div>
+                                <div class="col-md-3">
+
+                                    Category
+                                    @Html.DropDownListFor(m => m.CategoryID, new SelectList(ViewBag.ddlCategory, "Value", "Text"), new { @class = "form-control", @onchange = "return onCategoryChange();" })
+
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    Sub Category
+                                    @Html.DropDownListFor(m => m.SubCategoryID, new SelectList(ViewBag.ddlSubCategory, "Value", "Text"), new { @class = "form-control" })
+
+                                </div>
+                                <div class="col-md-3">
+
+                                    Product Name
+                                    @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control" })
+
+                                </div>
+                            </div>
+                            <div class="row row-xs">
+                                <div class="col-md-3">
+
+                                    <br />
+                                    <input class="btn btn-info btn-sm" type="submit" value="Search" id="btnSearch" name="Search" />
+
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row row-xs">
+                                <table class="display nowrap table table-hover table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            @*<th hidden>PK_BookingDetailsId</th>*@
+                                            <th>S No.</th>
+                                            <th>Main Category</th>
+                                            <th>Category</th>
+                                            <th>Sub Category</th>
+                                            <th>Product</th>
+                                            <th>Size</th>
+                                            <th>Unit</th>
+                                            <th>Color</th>
+                                            <th>Flavor</th>
+                                            <th>Ram</th>
+                                            <th>Storage</th>
+                                            <th>Quantity</th>
+                                            <th>Add</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model != null)
+                                        {
+                                            if (Model.lstProduct != null)
+                                            {
+                                                int i = 1;
+                                                foreach (var Item in Model.lstProduct)
+                                                {
+                                                    <tr class="text-left">
+                                                        @*  <td hidden>@Item.UserID</td>*@
+                                                        <td>@i</td>
+                                                        <td>@Item.MainCategoryName</td>
+                                                        <td>@Item.CategoryName</td>
+                                                        <td>@Item.SubCategoryName</td>
+                                                        <td>@Item.ProductName</td>
+                                                        <td>@Item.SizeName</td>
+                                                        <td>@Item.UnitName</td>
+                                                        <td>@Item.ColorName</td>
+                                                        <td>@Item.FlavorName</td>
+                                                        <td>@Item.RAM</td>
+                                                        <td>@Item.Storage</td>
+                                                        <td>
+                                                            @Item.Quantity
+                                                            <input type='hidden' value='@Item.ProductInfoCode' id='infocodeid_ @i' name='infocodeid_ @i'>
+                                                            <input type='hidden' value='@Item.ProductOtherInfoID' id='prodotferinfoid_ @i' name='prodotferinfoid_ @i'>
+
+                                                            <input type='hidden' value='@Item.ProductID' id='productid_ @i' name='productid_ @i'>
+                                                            <input type='hidden' value='@Item.SizeID' id='sizeid_ @i' name='sizeid_ @i'>
+                                                            <input type='hidden' value='@Item.UnitID' id='unitid_ @i' name='unitid_ @i'>
+                                                            <input type='hidden' value='@Item.ColorID' id='colorid_ @i' name='colorid_ @i'>
+                                                            <input type='hidden' value='@Item.FlavorID' id='flavorid_ @i' name='flavorid_ @i'>
+                                                            <input type='hidden' value='@Item.MaterialID' id='materialid_ @i' name='materialid_ @i'>
+                                                        </td>
+                                                        <td>
+                                                            @*@Html.TextBoxFor(m => m.ProductQuantity, new { @class = "form-control" })*@
+                                                            <input type="text" id="txtQty_ @i" name="txtQty_ @i" onkeypress="return isNumberOrDecimal(event);" maxlength="20" onchange="return Check(this,'@Item.Quantity');" />
+                                                        </td>
+
+
+                                                    </tr>
+                                                    i++;
+                                                }
+                                                <input type='hidden' value='@i' id='hdrows' name='hdrows' />
+                                            }
+                                        }
+                                    </tbody>
+
+
+                                </table>
+                            </div>
+                            <br />
+                            <div class="row row-xs">
+                                <div class="col-md-12">
+                                    <input type="hidden" id="txtdecription" />
+                                    <input type="hidden" id="txtAppDt" />
+                                    <input class="btn btn-success btn-sm" type="submit" value="Add" id="btnAdd" name="Add" />
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+
+
+<script>
+   
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function onMainCategoryChange() {
+        debugger
+        var value = $('#MainCategoryID').val();
+        var values = $('#CategoryID').val();
+
+        $.ajax({
+            url: "/Vendor/GetCategoryByMainCategory",
+            Type: "Get",
+            DataType: "JSON",
+            data: { MainCategoryID: value },
+            success: function (data) {
+
+                // alert(data.Result);
+
+                $("#CategoryID").html(""); // clear before appending new list
+                $("#CategoryID").empty();
+
+                $("#CategoryID").append(
+                      $('<option></option>').val(0).html('Select Category'));
+                $.each(data.ddlCategory, function (index, count) {
+                    $("#CategoryID").append(
+                          $('<option></option>').val(count.Value).html(count.Text));
+
+                });
+
+
+            }
+
+        });
+
+    }
+
+    function onCategoryChange() {
+        debugger
+        var MainCategoryId = $('#MainCategoryID').val();
+        var CategoryId = $('#CategoryID').val();
+        $.ajax({
+            url: '/Vendor/GetSubCategory', type: 'post', dataType: 'json',
+            data: { 'MainCategoryID': MainCategoryId, 'CategoryID': CategoryId },
+            success: function (data) {
+
+                $("#SubCategoryID").html(""); // clear before appending new list
+                $("#SubCategoryID").empty();
+                $("#SubCategoryID").append(
+                      $('<option></option>').val(0).html('Select SubCategory'));
+                $.each(data.ddlSubCategory, function (index, BlockCount) {
+                    $("#SubCategoryID").append(
+                          $('<option></option>').val(BlockCount.Value).html(BlockCount.Text));
+                });
+
+            }
+
+        });
+
+    }
+
+
+</script>
+

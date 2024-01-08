@@ -1,0 +1,36 @@
+﻿@model AfluexShopping.Models.Customer
+<nav class="tp-category-menu-content">
+    <ul>
+        @if (Model != null)
+        {
+            if (Model.lstMainCategory != null)
+            {
+                foreach (var item1 in Model.lstMainCategory)
+                {
+                    
+                        <li class="has-dropdown">
+                            <a href="#">
+                                <span class="fa fa-shopping-bag">
+                                </span>
+                                @item1.MainCategoryName
+                            </a>
+                            <ul class="tp-submenu">
+                                @foreach (var item2 in Model.lstCategory)
+                                {
+                                    if (item2.MainCategoryID == item1.MainCategoryID)
+                                    {
+                                        <li>
+
+                                            <a href="/Customer/ProductList?id=@item2.CategoryID&Status=Category&f=menu"><img src="assets/img/header/menu/menu-1.jpg" alt="">@item2.CategoryName</a>
+
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                       
+                }
+            }
+        }
+    </ul>
+</nav>

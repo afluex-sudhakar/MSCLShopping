@@ -1,0 +1,138 @@
+﻿@model MSCLShopping.Models.Vendor
+@{
+    ViewBag.Title = "VendorList";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("VendorList", "Vendor", FormMethod.Post, new { @id = "form1" }))
+{
+
+    <p style="color: red">
+        @TempData["Vendor"]
+    </p>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Vendor List</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Name 
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @Placeholder = " Name" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Mobile 
+                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", @Placeholder = "Mobile" })
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        City 
+                        @Html.TextBoxFor(m => m.City, new { @class = "form-control", @Placeholder = "City" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <br />
+                        <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="Search" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table">
+
+                            <thead>
+                                <tr>
+                                    <th>SNo.</th>
+                                    <th>Name</th>
+                                    <th>Login Id</th>
+                                    <th>Password</th>
+                                    <th>Mobile</th>
+                                    <th>Email</th>
+                                    <th>Address</th>
+                                    <th>Pin Code</th>
+                                    <th>State</th>
+                                    <th>City</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    if (Model.List != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.List)
+                                        {
+                                <tr class="text-left">
+                                    <td>@i</td>
+                                    <td>@Item.FirstName  @Item.LastName</td>
+                                    <td>@Item.LoginId</td>
+                                    <td>@Item.Password</td>
+                                    <td>@Item.Mobile</td>
+                                    <td>@Item.Email</td>
+                                    <td>@Item.Address</td>
+                                    <td>@Item.Pincode</td>
+                                    <td>@Item.State</td>
+                                    <td>@Item.City</td>
+                                    <td>
+                                        <a href="/Vendor/VendorRegistration?VendorID=@Item.EncryptKey" class="btn btn-info btn-sm">Edit</a>
+                                        <a href="/Vendor/DeleteVendor?id=@Item.VendorID" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wish to delete this?');">Delete</a>
+                                    </td>
+
+                                </tr>
+
+                                            i++;
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<script>
+
+   @* function editSite() {
+        $.ajax({
+            url: "/Master/editSite",
+            Type: "Get",
+            DataType: "JSON",
+            data: { PLCID: $("#PLCID").val(), PLCName: $("#PLCName").val() },
+            success: function (data) {
+                alert(data.Result);
+                window.location.href = '@Url.Action("PLCMaster", "Master")';
+            }
+
+        });
+    }*@
+
+            $(document).ready(function () {
+                $('#dataTables-example').DataTable({
+                    responsive: true,
+
+                });
+            });
+</script>
+

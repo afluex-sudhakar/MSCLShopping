@@ -1,0 +1,282 @@
+﻿@model MSCLShopping.Models.Customer
+
+@{
+    ViewBag.Title = "AddressBook";
+    Layout = "~/Views/Shared/_CustomerLayout1.cshtml";
+}
+
+@using (Html.BeginForm("SaveAddress", "Customer", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <!-- breadcrumb area start -->
+    <section class="breadcrumb__area include-bg text-center pt-95 pb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-12">
+                    <div class="breadcrumb__content p-relative z-index-1">
+                        <h3 class="breadcrumb__title">Your Shipping Address</h3>
+                        <div class="breadcrumb__list">
+                            <span><a href="#">Customer</a></span>
+                            <span>Address</span>
+                        </div>
+                        <span style="color:red">@TempData["SaveAddress"]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+         <!-- breadcrumb area end -->
+
+
+         <!-- contact area start -->
+        <section class="tp-contact-area pb-100">
+            <div class="container">
+                <div class="tp-contact-inner">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="tp-contact-wrapper">
+                                <h3 class="tp-contact-title">Address</h3>
+                                <div class="tp-contact-form">
+                                        <div class="row  tp-contact-input-wrapper">
+                                            <div class="col-md-4 tp-contact-input-box">
+                                                <div class="tp-contact-input">
+                                                    @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control", })
+                                                </div>
+                                                <div class="tp-contact-input-title">
+                                                    <label for="name">Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 tp-contact-input-box">
+                                                <div class="tp-contact-input">
+                                                    @Html.TextBoxFor(m => m.Contact, new { @class = "form-control", @maxlength = "10", @onkeypress = "return isNumberOrDecimal(event);" })
+                                                </div>
+                                                <div class="tp-contact-input-title">
+                                                    <label for="contact">Contact</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 tp-contact-input-box">
+                                                <div class="tp-contact-input">
+                                                   @Html.TextBoxFor(m => m.HouseNo, new { @class = "form-control" })
+                                                @Html.HiddenFor(m => m.FK_AddressID)
+                                                </div>
+                                                <div class="tp-contact-input-title">
+                                                    <label for="subject">House No</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 tp-contact-input-box">
+                                                <div class="tp-contact-input">
+                                                    @Html.TextBoxFor(m => m.Locality, new { @class = "form-control" })
+                                                </div>
+                                                <div class="tp-contact-input-title">
+                                                    <label for="Locality">Locality</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 tp-contact-input-box">
+                                                <div class="tp-contact-input">
+                                                    @Html.TextBoxFor(m => m.Landmark, new { @class = "form-control" })
+                                                </div>
+                                                <div class="tp-contact-input-title">
+                                                    <label for="Landmark">Landmark</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 tp-contact-input-box">
+                                                <div class="tp-contact-input">
+                                                    @Html.TextBoxFor(m => m.Pincode, new { @class = "form-control", @maxlength = "6", @onkeypress = "return isNumberOrDecimal(event);" })
+                                                </div>
+                                                <div class="tp-contact-input-title">
+                                                    <label for="Pincode">Pincode</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 tp-contact-input-box">
+                                                <div class="tp-contact-input">
+                                                   @Html.DropDownListFor(m => m.AddressType, new SelectList(ViewBag.TypeAddress, "Value", "Text"), new { @class = "form-control select", @onchange = "return GetCharges();" })
+                                                </div>
+                                                <div class="tp-contact-input-title">
+                                                    <label for="Address-Type">Address Type</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 tp-contact-input-box">
+                                                    <label for="Is-Default">Is Default</label>
+                                                    <input type="checkbox" id="IsDefault" name="IsDefault" />
+                                            </div>
+                                            <div class="col-md-4 tp-contact-input-box">
+                                                <input class="btn btn-success " onclick="return validateform()" type="submit" value="Save" id="btnSave" />
+                                                <a href="#" class="btn btn-info " onclick="return updateadd()" id="btnUpdate" style="display: none">Update</a>
+                                            </div>
+                                        </div>
+                                    <p class="ajax-response"></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+         <!-- contact area end -->
+    <section class="tp-contact-area pb-100">
+        <div class="container">
+            <div class="tp-contact-inner">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12">
+                        <div class="tp-contact-wrapper">
+                            <h3 class="tp-contact-title">Address List</h3>
+                            <div class="tp-contact-form">
+                                <div class="row  tp-contact-input-wrapper">
+                                    <div class="table table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>S No.</th>
+                                                    <th>Address Type</th>
+                                                    <th>HouseNo</th>
+                                                    <th>Locality</th>
+                                                    <th>Landmark</th>
+                                                    <th>Pincode</th>
+
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @if (Model != null)
+                                                {
+                                                    if (Model.lstOrders != null)
+                                                    {
+                                                        int i = 1;
+                                                        foreach (var Item in Model.lstOrders)
+                                                        {
+
+                                                            <tr class="text-left">
+                                                                <td>@i</td>
+                                                                <td>@Item.AddressType</td>
+                                                                <td>@Item.HouseNo</td>
+                                                                <td>@Item.Locality</td>
+                                                                <td>@Item.Landmark</td>
+                                                                <td>@Item.Pincode</td>
+                                                                <td>
+                                                                    <a href="#" class="btn btn-sm btn-success" onclick="editc('@Item.AddressType','@Item.FK_AddressID','@Item.HouseNo','@Item.Locality','@Item.Landmark','@Item.Pincode','@Item.IsDefault','@Item.DisplayName','@Item.Contact')">Edit                            </a>
+                                                                    <a href="/Customer/DeleteAddress/@Item.FK_AddressID" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you wish to delete this ?');">Delete</a>
+                                                                </td>
+                                                            </tr>
+                                                            i++;
+
+                                                        }
+                                                    }
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <p class="ajax-response"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#divload").css({ 'display': 'none' });
+    });
+
+    function editc(addtype, id, house, local, landmark, pin, IsDefault,DisplayName,Contact) {
+        $('#AddressType').val(addtype);
+        $('#FK_AddressID').val(id);
+        $('#HouseNo').val(house);  
+        $('#Locality').val(local);
+        $('#Landmark').val(landmark); 
+        $('#Pincode').val(pin);
+        $('#IsDefault').val(IsDefault);
+        if ($('#IsDefault').val() == "True")
+        {
+            //$('#IsDefault').is(":checked")
+            $('#IsDefault').prop('checked', true);
+        }
+ 
+        $('#DisplayName').val(DisplayName);
+        $('#Contact').val(Contact);
+        $('#btnSave').hide();
+        $('#btnUpdate').show();
+
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#HouseNo').val() == '') {
+            $("#HouseNo").addClass('errortext');
+            $('#HouseNo').focus();
+            return false;
+        }
+        if ($('#Locality').val() == '') {
+            $("#Locality").addClass('errortext');
+            $('#Locality').focus();
+            return false;
+        }
+        if ($('#Landmark').val() == '') {
+            $("#Landmark").addClass('errortext');
+            $('#Landmark').focus();
+            return false;
+        }
+        if ($('#HouseNo').val() == '') {
+            $("#HouseNo").addClass('errortext');
+            $('#HouseNo').focus();
+            return false;
+        }
+        $("#divload").css({ 'display': '' });
+        return true;
+    }
+    function updateadd() {
+        $(".errortext").removeClass("errortext");
+        if ($('#HouseNo').val() == '') {
+            $("#HouseNo").addClass('errortext');
+            $('#HouseNo').focus();
+            return false;
+        }
+        if ($('#Locality').val() == '') {
+            $("#Locality").addClass('errortext');
+            $('#Locality').focus();
+            return false;
+        }
+        if ($('#Landmark').val() == '') {
+            $("#Landmark").addClass('errortext');
+            $('#Landmark').focus();
+            return false;
+        }
+        if ($('#HouseNo').val() == '') {
+            $("#HouseNo").addClass('errortext');
+            $('#HouseNo').focus();
+            return false;
+        }
+        $("#divload").css({ 'display': '' });
+        $.ajax({
+            url: "/Customer/UpdateAddress",
+            Type: "Get",
+            DataType: "JSON",
+            data: {
+                AddressType: $("#AddressType").val(),
+                FK_AddressID: $("#FK_AddressID").val(), Landmark: $("#Landmark").val(), Locality: $("#Locality").val(),
+                Pincode: $("#Pincode").val(), HouseNo: $("#HouseNo").val(), IsDefault: $("#IsDefault").val(), DisplayName: $("#DisplayName").val(), Contact: $("#Contact").val()
+            },
+            success: function (data) {
+                //  alert(data.Result);
+                window.location.href = '@Url.Action("AddressBook", "Customer")';
+            }
+
+        });
+    }
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+</script>

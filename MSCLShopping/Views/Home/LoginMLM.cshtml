@@ -1,0 +1,121 @@
+﻿@model MSCLShopping.Models.Home
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../AdminCSS/vendors/iconfonts/mdi/font/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../AdminCSS/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../AdminCSS/vendors/css/vendor.bundle.addons.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../AdminCSS/css/horizontal-layout/style.css">
+    <!-- endinject -->
+    <link rel="icon" type="image/x-icon" href="../../img/favicon.png">
+</head>
+<style>
+    body {
+        background: url(../../images/d1.jpg);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+    }
+</style>
+<body>
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper">
+            <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
+                <div class="row flex-grow">
+
+                    <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                        <div class="auth-form-transparent text-left p-3" style="background-color: rgba(0, 0, 0, 0.38);">
+
+                            <div class="brand-logo">
+
+                                <img src="/Websitecss/img/logo.png" alt="logo">
+                            </div>
+                            <h4>Welcome back!</h4>
+                            <h6 class="font-weight-light">Happy to see you again!</h6>
+                            @using (Html.BeginForm("LoginActionMLM", "Home", FormMethod.Post, new { @id = "signupForm", @class = "pt-3" }))
+                            {
+                                <div class="form-group">
+                                    <label for="exampleInputEmail">Login Id</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend bg-transparent">
+                                            <span class="input-group-text bg-transparent border-right-0">
+                                                <i class="mdi mdi-account-outline text-primary"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control form-control-lg border-left-0" type="text" id="txtLoginID" name="LoginID" placeholder="Login ID" required="">
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword">Password</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend bg-transparent">
+                                            <span class="input-group-text bg-transparent border-right-0">
+                                                <i class="mdi mdi-lock-outline text-primary"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control form-control-lg border-left-0" type="password" id="txtPassword" name="password" placeholder="Password" required="">
+
+                                    </div>
+                                </div>
+                                    <div class="my-2 d-flex justify-content-between align-items-center">
+
+                                        <a href="#" class="auth-link text-black">Forgot password?</a>
+                                    </div>
+                                    <div class="my-3">
+                                        <input type="submit" value="Login" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" name="btnLogin" />
+                                        <br />
+                                        <p style="color:red">
+                                            @TempData["Login"]
+                                        </p>
+                                    </div>
+
+
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 login-half-bg d-flex flex-row">
+                        <p class="text-white font-weight-medium text-center flex-grow align-self-end">Copyright &copy; 2018  All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="../../AdminCSS/vendors/js/vendor.bundle.base.js"></script>
+    <script src="../../AdminCSS/vendors/js/vendor.bundle.addons.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="../../AdminCSS/js/off-canvas.js"></script>
+    <script src="../../AdminCSS/js/hoverable-collapse.js"></script>
+    <script src="../../AdminCSS/js/template.js"></script>
+    <script src="../../AdminCSS/js/settings.js"></script>
+    <script src="../../AdminCSS/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <!-- End custom js for this page-->
+</body>
+
+</html>

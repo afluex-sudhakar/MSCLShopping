@@ -1,0 +1,100 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+
+    <!-- META DATA -->
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+
+    <!-- TITLE -->
+    <title>Afluex Shopping</title>
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/AssetsAdmin/images/brand/favicon.png" />
+
+    <!-- BOOTSTRAP CSS -->
+    <link href="~/AssetsAdmin/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- STYLE CSS -->
+    <link href="~/AssetsAdmin/css/style.css" rel="stylesheet" />
+    <link href="~/AssetsAdmin/css/dark-style.css" rel="stylesheet" />
+    <link href="~/AssetsAdmin/css/skin-modes.css" rel="stylesheet" />
+
+    <!-- SIDE-MENU CSS -->
+    <link href="~/AssetsAdmin/css/sidemenu.css" rel="stylesheet" id="sidemenu-theme">
+
+    <!--C3 CHARTS CSS -->
+    <link href="~/AssetsAdmin/plugins/charts-c3/c3-chart.css" rel="stylesheet" />
+
+    <!-- P-scroll bar css-->
+    <link href="~/AssetsAdmin/plugins/p-scroll/perfect-scrollbar.css" rel="stylesheet" />
+
+    <!--- FONT-ICONS CSS -->
+    <link href="~/AssetsAdmin/plugins/icons/icons.css" rel="stylesheet" />
+
+    <!-- SIDEBAR CSS -->
+    <link href="~/AssetsAdmin/plugins/sidebar/sidebar.css" rel="stylesheet" />
+
+
+    <!-- SELECT2 CSS -->
+    <link href="~/AssetsAdmin/plugins/select2/select2.min.css" rel="stylesheet" />
+
+
+    <!-- COLOR SKIN CSS -->
+    <link id="theme" rel="stylesheet" type="text/css" media="all" href="~/AssetsAdmin/colors/color1.css" />
+
+    <!-- INTERNAL Switcher css -->
+    <link href="~/AssetsAdmin/switcher/css/switcher.css" rel="stylesheet" />
+    <link href="~/AssetsAdmin/switcher/demo.css" rel="stylesheet" />
+
+
+</head>
+<body class="app sidebar-mini">
+
+
+
+    <div class="page">
+        <div class="side-app">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 col-xl-6">
+                        <div class="card shadow-lg">
+                            <div class="card-header d-flex justify-content-between">
+                                <h3 class="card-title ">Print Slip</h3>
+                                <button type="button" class="btn btn-info mb-1" onclick="javascript:window.print();"><i class="si si-printer"></i> Print Invoice</button>
+                            </div>
+                            <div class="card-body text-center">
+                                <span class="avatar avatar-xxl brround cover-image mb-3 border border-dark" data-bs-image-src="/AssetsAdmin/images/brand/logo-1.png" style="background: url(/AssetsAdmin/images/brand/logo-1.png) center center;"></span>
+                                <div class="form-group m-0">
+                                    <label for="exampleInputEmail1"><b>Name</b></label>
+                                    <label>@ViewBag.CustomerName</label>
+                                </div>
+                                <div class="form-group m-0">
+                                    <label for="exampleInputPassword1"><b>Contact No</b></label>
+                                    <label>@ViewBag.CustomerContact</label>
+                                </div>
+                                <div class="form-group m-0">
+                                    <label for="exampleFormControlTextarea1"><b>Address</b></label>
+                                    <label>@ViewBag.CustomerName</label>
+                                </div>
+                                <ul class="location">
+                                    <li><strong>Address</strong> :  D54 Arjun Tower, Vibhuti Khand, Lucknow, Uttar Pradesh 226010</li>
+                                    <li>E-mail : info@afluex.com</li>
+
+                                    <li>Web :  </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>                      
+ </body>
+</html>

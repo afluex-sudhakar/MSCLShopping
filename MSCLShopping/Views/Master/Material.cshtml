@@ -1,0 +1,156 @@
+﻿@model MSCLShopping.Models.Master
+
+@{
+    ViewBag.Title = "Material";
+ Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+ 
+@using (Html.BeginForm("SaveMaterial", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Material</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Master</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Material</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <p style="color:red">
+                @TempData["Material"]
+            </p>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Material <span style="color: red">*</span></label>
+                            @Html.TextBoxFor(m => m.MaterialName, new { @class = "form-control", @Placeholder = "Material", maxlength = "50" })
+                            @Html.HiddenFor(m => m.MaterialID, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label d-lg-block d-none">&nbsp;</label>
+                            <input class="btn btn-success" onclick="return validateform()" type="submit" value="Save" id="btnSave" />
+                            <a href="#" class="btn btn-success" onclick="return updateMaterial()" id="btnUpdate" style="display: none">Update</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">Material List</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                        <thead class="border-top">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Material</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lstCategory != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lstCategory)
+                                    {
+                                        <tr class="text-left">
+                                            <td>@i</td>
+                                            <td>@Item.MaterialName</td>
+                                            <td>
+                                                <a href="#" class="btn btn-primary btn-sm" onclick="editMaterial('@Item.MaterialName','@Item.MaterialID')">Edit</a>
+                                                <a href="/Master/DeleteMaterial/@Item.MaterialID" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wish to delete this ?');">Delete</a>
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+}
+
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<script>
+
+    function editMaterial(materialName, materialID) {
+        $('#MaterialName').val(materialName);
+        $('#MaterialID').val(materialID);
+        $('#btnSave').hide();
+        $('#btnUpdate').show();
+    }
+
+    function updateMaterial() {
+        $(".errortext").removeClass("errortext");
+        if ($('#MaterialName').val() == '') {
+            $("#MaterialName").addClass('errortext');
+            $('#MaterialName').focus();
+            return false;
+        }
+
+        $.ajax({
+            url: "/Master/UpdateMaterial",
+            Type: "Get",
+            DataType: "JSON",
+            data: { MaterialID: $("#MaterialID").val(), MaterialName: $("#MaterialName").val() },
+            success: function (data) {
+                alert(data.Result);
+                window.location.href = '@Url.Action("Material", "Master")';
+            }
+
+        });
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#MaterialName').val() == '') {
+            $("#MaterialName").addClass('errortext');
+            $('#MaterialName').focus();
+            return false;
+        }
+
+        return true;
+    }
+
+</script>
+
+@*<script>
+    $(document).ready(function () {
+        $('#dataTables-example').DataTable({
+            responsive: true,
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ]
+        });
+    });
+</script>*@
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>
+
+
+
+ 

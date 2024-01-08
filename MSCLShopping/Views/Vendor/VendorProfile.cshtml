@@ -1,0 +1,197 @@
+﻿@model MSCLShopping.Models.Vendor
+
+@{
+    ViewBag.Title = "VendorProfile";
+    Layout = "~/Views/Shared/VendorLayout.cshtml";
+}
+
+@using (Html.BeginForm("VendorProfileUpdate", "Vendor", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+
+
+    <div class="content content-fixed">
+        <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-30">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                            <li class="breadcrumb-item"><a href="#">Upload Documents</a></li>
+
+                        </ol>
+                    </nav>
+
+                </div>
+                <div class="d-none d-md-block">
+                    @if (TempData["UpdateVendorProfile"] != null)
+                    {
+                        <div class="@TempData["Class"]">
+                            @TempData["UpdateVendorProfile"]
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row row-xs">
+                <div class="col-lg-12">
+                    <div class="card">
+
+                        <div class="card-footer pd-y-15 pd-x-20">
+
+                            <div class="row row-xs">
+                                <div class="col-md-4">
+
+                                    <label>Adhar Number <span style="color: red">*</span></label>
+
+                                    @if (ViewBag.isAdharVerified == "Verified")
+                                    {<span style="float:right;color:green">@ViewBag.isAdharVerified</span>
+                                    @Html.TextBoxFor(m => m.AdharNo, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "12", @readonly = "readonly" })
+                                    }
+                                    else
+                                    {<span style="float:right;color:red">@ViewBag.isAdharVerified</span>
+                                    @Html.TextBoxFor(m => m.AdharNo, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event);", @maxlength = "12" })
+                                    }
+                                    @Html.HiddenFor(m => m.VendorID)
+                                </div>
+                                <div class="col-md-4">
+
+                                    <label>PAN Number <span style="color: red">*</span></label>
+                                    @if (ViewBag.isPANVerified == "Verified")
+                                    {
+                                    <span style="float:right;color:green">@ViewBag.isPANVerified</span>
+                                    @Html.TextBoxFor(m => m.PAN, new { @class = "form-control", @maxlength = "10", @style = "text-transform:uppercase", @readonly = "readonly" })
+                                    }
+                                    else
+                                    {
+                                    <span style="float:right;color:red">@ViewBag.isPANVerified</span>
+                                    @Html.TextBoxFor(m => m.PAN, new { @class = "form-control", @maxlength = "10", @style = "text-transform:uppercase" })
+                                    }
+
+                                </div>
+                                <div class="col-md-4">
+
+                                    <label>GSTIN <span style="color: red">*</span></label>
+                                    @if (ViewBag.isGSTINVerified == "Verified")
+                                    {
+                                    <span style="float:right;color:green">@ViewBag.isGSTINVerified</span>
+                                    @Html.TextBoxFor(m => m.GSTNo, new { @class = "form-control", @readonly = "readonly" })
+                                    }
+                                    else
+                                    {
+                                    <span style="float:right;color:red">@ViewBag.isGSTINVerified</span>
+                                    @Html.TextBoxFor(m => m.GSTNo, new { @class = "form-control" })
+                                    }
+
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row row-xs">
+
+                                <div class="col-md-4">
+
+                                    <label>Account Number <span style="color: red">*</span></label>
+                                    @if (ViewBag.isAccountVerified == "Verified")
+                                    {
+                                        <span style="float:right;color:green">@ViewBag.isAccountVerified</span>
+                                        @Html.TextBoxFor(m => m.AccountNumber, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event);", @readonly = "readonly" })
+                                    }
+                                    else
+                                    {<span style="float:right;color:red">@ViewBag.isAccountVerified</span>
+                                    @Html.TextBoxFor(m => m.AccountNumber, new { @class = "form-control", @onkeypress = "return isNumberOrDecimal(event);" })
+                                    }
+                                </div>
+                                <div class="col-md-4">
+
+                                    <label>Account Holder Name <span style="color: red">*</span></label>
+                                    @if (ViewBag.isAccountVerified == "Verified")
+                                    {
+                                        <span style="float:right;color:green">@ViewBag.isAccountVerified</span>
+                                        @Html.TextBoxFor(m => m.AccountHolderName, new { @class = "form-control", @readonly = "readonly" })
+                                    }
+                                    else
+                                    {
+                                        <span style="float:right;color:red">@ViewBag.isAccountVerified</span>
+                                        @Html.TextBoxFor(m => m.AccountHolderName, new { @class = "form-control" })
+                                    }
+
+                                </div>
+
+                                <div class="col-md-4">
+
+                                    <label>Signature <span style="color: red">*</span></label>
+                                    @if (ViewBag.isSignatureVerified == "Verified")
+                                    {
+                                        <span style="float:right;color:green">@ViewBag.isSignatureVerified</span>
+                                        <img src="@Model.Signature" style="width:132px;height:89px" />
+
+                                    }
+                                    else
+                                    {
+                                        <span style="float:right;color:red">@ViewBag.isSignatureVerified</span>
+                                        <input type="file" name="postedFile" class="form-control" />
+
+                                    }
+
+
+
+
+
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row row-xs">
+                                <input class="btn btn-success btn-md pull-right" type="submit" value="Update" id="btnUpdate" name="btnUpdate" onclick="return validateForm();" />
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function validateForm() {
+        $(".errortext").removeClass("errortext");
+        if ($('#AdharNo').val() == '') {
+            $("#AdharNo").addClass('errortext');
+            $('#AdharNo').focus();
+            return false;
+        }
+        if ($('#PAN').val() == '') {
+            $("#PAN").addClass('errortext');
+            $('#PAN').focus();
+            return false;
+        }
+        if ($('#GSTNo').val() == '') {
+            $("#GSTNo").addClass('errortext');
+            $('#GSTNo').focus();
+            return false;
+        }
+        if ($('#AccountNumber').val() == '') {
+            $("#AccountNumber").addClass('errortext');
+            $('#AccountNumber').focus();
+            return false;
+        }
+        if ($('#AccountHolderName').val() == '') {
+            $("#AccountHolderName").addClass('errortext');
+            $('#AccountHolderName').focus();
+            return false;
+        }
+    }
+
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+</script>
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>

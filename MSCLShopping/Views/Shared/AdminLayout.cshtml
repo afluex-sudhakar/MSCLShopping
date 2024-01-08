@@ -1,0 +1,326 @@
+﻿
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+
+    <!-- META DATA -->
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+
+    <!-- TITLE -->
+    <title>@ViewBag.Title</title>
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/AssetsAdmin/images/brand/favicon.png" />
+
+    <!-- BOOTSTRAP CSS -->
+    <link href="~/AssetsAdmin/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/AssetsAdmin/plugins/summernote/summernote-bs4.css" rel="stylesheet" />
+    <!-- STYLE CSS -->
+    <link href="~/AssetsAdmin/css/style.css" rel="stylesheet" />
+    <link href="~/AssetsAdmin/css/dark-style.css" rel="stylesheet" />
+    <link href="~/AssetsAdmin/css/skin-modes.css" rel="stylesheet" />
+    <link href="~/AssetsAdmin/plugins/wysiwyag/richtext.css" rel="stylesheet" />
+
+    <!-- SIDE-MENU CSS -->
+    <link href="~/AssetsAdmin/css/sidemenu.css" rel="stylesheet" id="sidemenu-theme">
+
+    <!--C3 CHARTS CSS -->
+    <link href="~/AssetsAdmin/plugins/charts-c3/c3-chart.css" rel="stylesheet" />
+
+    <!-- P-scroll bar css-->
+    <link href="~/AssetsAdmin/plugins/p-scroll/perfect-scrollbar.css" rel="stylesheet" />
+
+    <!--- FONT-ICONS CSS -->
+    <link href="~/AssetsAdmin/plugins/icons/icons.css" rel="stylesheet" />
+
+    <!-- SIDEBAR CSS -->
+    <link href="~/AssetsAdmin/plugins/sidebar/sidebar.css" rel="stylesheet" />
+
+
+    <!-- SELECT2 CSS -->
+    <link href="~/AssetsAdmin/plugins/select2/select2.min.css" rel="stylesheet" />
+
+    <!-- INTERNAL Data table css -->
+    <link href="~/AssetsAdmin/plugins/datatable/css/dataTables.bootstrap5.css" rel="stylesheet" />
+    <link href="~/AssetsAdmin/plugins/datatable/responsive.bootstrap5.css" rel="stylesheet" />
+    <link href="~/AssetsAdmin/plugins/datatable/css/dataTables.bootstrap5.css" rel="stylesheet" />
+    <link href="~/AssetsAdmin/plugins/datatable/css/buttons.bootstrap5.min.css" rel="stylesheet">
+    <link href="~/AssetsAdmin/plugins/datatable/responsive.bootstrap5.css" rel="stylesheet" />
+
+
+    <!-- COLOR SKIN CSS -->
+    <link id="theme" rel="stylesheet" type="text/css" media="all" href="~/AssetsAdmin/colors/color1.css" />
+
+    <!-- INTERNAL Switcher css -->
+    <link href="~/AssetsAdmin/switcher/css/switcher.css" rel="stylesheet" />
+    <link href="~/AssetsAdmin/switcher/demo.css" rel="stylesheet" />
+
+  
+</head>
+
+<body class="app sidebar-mini">
+
+
+
+    <!-- GLOBAL-LOADER -->
+    <div id="global-loader">
+        <img src="~/AssetsAdmin/images/loader.svg" class="loader-img" alt="Loader">
+    </div>
+    <!-- /GLOBAL-LOADER -->
+    <!-- PAGE -->
+    <div class="page">
+        <div class="page-main">
+
+            <!--APP-SIDEBAR-->
+            <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
+            <aside class="app-sidebar">
+                <div class="side-header">
+                    <a class="header-brand1" href="#!">
+                        <img src="~/AssetsAdmin/images/brand/logo.png" class="header-brand-img desktop-logo" alt="logo">
+                        <img src="~/AssetsAdmin/images/brand/logo-1.png" class="header-brand-img toggle-logo" alt="logo">
+                        <img src="~/AssetsAdmin/images/brand/logo-2.png" class="header-brand-img light-logo" alt="logo">
+                        <img src="~/AssetsAdmin/images/brand/logo-3.png" class="header-brand-img light-logo1" alt="logo">
+                    </a><!-- LOGO -->
+                </div>
+                @{Html.RenderAction("MenuShopping", "Home", new { area = "" });}
+
+                @*<div class="side-menu">
+                    <div class="slide">
+                        <div class="side-menu__item" data-bs-toggle="slide">
+
+                            @{Html.RenderAction("MenuShopping", "Home", new { area = "" });}
+
+                        </div>
+                    </div>
+                </div>*@
+
+
+            </aside>
+            <!--/APP-SIDEBAR-->
+
+
+
+            <!-- Mobile Header -->
+            <div class="app-header header">
+                <div class="container-fluid">
+                    <div class="d-flex">
+                        <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
+                        <a class="header-brand1 d-flex d-md-none" href="index.html">
+                            <img src="~/AssetsAdmin/images/brand/logo.png" class="header-brand-img desktop-logo" alt="logo">
+                            <img src="~/AssetsAdmin/images/brand/logo-1.png" class="header-brand-img toggle-logo" alt="logo">
+                            <img src="~/AssetsAdmin/images/brand/logo-2.png" class="header-brand-img light-logo" alt="logo">
+                            <img src="~/AssetsAdmin/images/brand/logo-3.png" class="header-brand-img light-logo1" alt="logo">
+                        </a><!-- LOGO -->
+                        <div class="main-header-center ms-3 d-none d-md-block">
+                            <input class="form-control" placeholder="Search for anything..." type="search"> <button class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="d-flex order-lg-2 ms-auto header-right-icons">
+                            <div class="dropdown d-lg-none d-md-block d-none">
+                                <a href="#" class="nav-link icon" data-bs-toggle="dropdown">
+                                    <i class="fe fe-search"></i>
+                                </a>
+                                <div class="dropdown-menu header-search dropdown-menu-start">
+                                    <div class="input-group w-100 p-2">
+                                        <input type="text" class="form-control" placeholder="Search....">
+                                        <div class="input-group-text btn btn-primary">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- SEARCH -->
+                            <button class="navbar-toggler navresponsive-toggler d-md-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon fe fe-more-vertical text-dark"></span>
+                            </button>
+                            <div class="dropdown d-none d-md-flex profile-1">
+                                <a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex">
+                                    <span>
+                                        <img src="@Session["ProfilePic"]" alt="profile-user" class="avatar  profile-user brround cover-image">
+                                    </span>
+                                </a>
+                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <div class="drop-heading">
+                                    <div class="text-center">
+                                        <h5 class="text-dark mb-0"><b>@Session["Name"]</b></h5>
+                                        @if (@Session["UserType"].ToString() == "Admin")
+                                        {
+                                            <small class="text-muted">Administrator</small>
+                                        }
+                                        else
+                                        {
+                                            <small class="text-muted">Vendor</small>
+                                        }
+                                    </div>
+                                </div>
+                                @*<div class="dropdown-divider m-0"></div>
+                                <a class="dropdown-item" href="profile.html">
+                                    <i class="dropdown-icon fe fe-user"></i> Profile
+                                </a>
+                                <a class="dropdown-item" href="email.html">
+                                    <i class="dropdown-icon fe fe-mail"></i> Inbox
+                                    <span class="badge bg-primary float-end">3</span>
+                                </a>
+                                <a class="dropdown-item" href="emailservices.html">
+                                    <i class="dropdown-icon fe fe-settings"></i> Settings
+                                </a>
+                                <a class="dropdown-item" href="faq.html">
+                                    <i class="dropdown-icon fe fe-alert-triangle"></i> Need help?
+                                </a>*@
+                                <a class="dropdown-item" href="/Home/Login">
+                                    <i class="dropdown-icon fe fe-log-out"></i> Sign out
+                                </a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-1 navbar navbar-expand-lg  responsive-navbar navbar-dark d-md-none bg-white">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                    <div class="d-flex order-lg-2 ms-auto">
+                        <div class="dropdown d-md-flex profile-1">
+                            <a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex">
+                                <span>
+                                    <img src="@Session[" ProfilePic"]" alt="profile-user" class="avatar  profile-user brround cover-image">
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <div class="drop-heading">
+                                    <div class="text-center">
+                                        <h5 class="text-dark mb-0">@Session["Name"]</h5>
+                                        @if (@Session["UserType"].ToString() == "Admin")
+                                        {
+                                            <small class="text-muted">Administrator</small>
+                                        }
+                                        else
+                                        {
+                                            <small class="text-muted">Vendor</small>
+                                        }
+                                    </div>
+                                </div>
+                                @*<div class="dropdown-divider m-0"></div>
+                                <a class="dropdown-item" href="profile.html">
+                                    <i class="dropdown-icon fe fe-user"></i> Profile
+                                </a>
+                                <a class="dropdown-item" href="email.html">
+                                    <i class="dropdown-icon fe fe-mail"></i> Inbox
+                                    <span class="badge bg-primary float-end">3</span>
+                                </a>
+                                <a class="dropdown-item" href="emailservices.html">
+                                    <i class="dropdown-icon fe fe-settings"></i> Settings
+                                </a>
+                                <a class="dropdown-item" href="faq.html">
+                                    <i class="dropdown-icon fe fe-alert-triangle"></i> Need help?
+                                </a>*@
+                                <a class="dropdown-item" href="/Home/Login">
+                                    <i class="dropdown-icon fe fe-alert-circle"></i> Sign out
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Mobile Header -->
+            <!--app-content open-->
+            <div class="app-content">
+                <div class="side-app">
+
+                    @RenderBody()
+
+                </div>
+            </div>
+            <!-- CONTAINER END -->
+        </div>
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row align-items-center flex-row-reverse">
+                    <div class="col-md-12 col-sm-12 text-center">
+                        Copyright © 2023  All rights reserved
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- FOOTER CLOSED -->
+
+    </div>
+
+
+
+
+
+
+
+    <!-- BACK-TO-TOP -->
+    <a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+    <!-- JQUERY JS -->
+    <script src="~/AssetsAdmin/plugins/jquery/jquery.min.js"></script>
+
+    <!-- BOOTSTRAP JS -->
+    <script src="~/AssetsAdmin/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="~/AssetsAdmin/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- INPUT MASK JS-->
+    <script src="~/AssetsAdmin/plugins/input-mask/jquery.mask.min.js"></script>
+
+    <!-- SIDE-MENU JS -->
+    <script src="~/AssetsAdmin/plugins/sidemenu/sidemenu.js"></script>
+
+    <!-- SIDEBAR JS -->
+    <script src="~/AssetsAdmin/plugins/sidebar/sidebar.js"></script>
+
+    <!-- Perfect SCROLLBAR JS-->
+    <script src="~/AssetsAdmin/plugins/p-scroll/perfect-scrollbar.js"></script>
+    <script src="~/AssetsAdmin/plugins/p-scroll/pscroll.js"></script>
+    <script src="~/AssetsAdmin/plugins/p-scroll/pscroll-1.js"></script>
+
+
+    <!-- CHARTJS CHART JS-->
+    <script src="~/AssetsAdmin/plugins/chart/Chart.bundle.js"></script>
+    <script src="~/AssetsAdmin/plugins/chart/utils.js"></script>
+
+    <!-- PIETY CHART JS-->
+    <script src="~/AssetsAdmin/plugins/peitychart/jquery.peity.min.js"></script>
+    <script src="~/AssetsAdmin/plugins/peitychart/peitychart.init.js"></script>
+
+    <!-- INTERNAL SELECT2 JS -->
+    <script src="~/AssetsAdmin/plugins/select2/select2.full.min.js"></script>
+
+    <!-- INTERNAL Data tables js -->                     
+    <script src="~/AssetsAdmin/plugins/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="~/AssetsAdmin/plugins/datatable/js/dataTables.bootstrap5.js"></script>
+    <script src="~/AssetsAdmin/plugins/datatable/js/dataTables.buttons.min.js"></script>
+    <script src="~/AssetsAdmin/plugins/datatable/js/buttons.bootstrap5.min.js"></script>
+    <script src="~/AssetsAdmin/plugins/datatable/js/jszip.min.js"></script>
+    <script src="~/AssetsAdmin/plugins/datatable/pdfmake/pdfmake.min.js"></script>
+    <script src="~/AssetsAdmin/plugins/datatable/pdfmake/vfs_fonts.js"></script>
+    <script src="~/AssetsAdmin/plugins/datatable/js/buttons.html5.min.js"></script>
+    <script src="~/AssetsAdmin/plugins/datatable/js/buttons.print.min.js"></script>
+    <script src="~/AssetsAdmin/plugins/datatable/js/buttons.colVis.min.js"></script>
+    <script src="~/AssetsAdmin/plugins/datatable/dataTables.responsive.min.js"></script>
+    <script src="~/AssetsAdmin/plugins/datatable/responsive.bootstrap5.min.js"></script>
+
+    <script src="~/AssetsAdmin/plugins/wysiwyag/jquery.richtext.js"></script>
+    <script src="~/AssetsAdmin/plugins/wysiwyag/wysiwyag.js"></script>
+    <!-- ECHART JS-->
+    <script src="~/AssetsAdmin/plugins/echarts/echarts.js"></script>
+
+    <!-- APEXCHART JS -->
+    <script src="~/AssetsAdmin/js/apexcharts.js"></script>
+
+    <!-- INDEX JS -->
+    <script src="~/AssetsAdmin/js/index1.js"></script>
+    <script src="~/AssetsAdmin/js/table-data.js"></script>
+
+    <!-- CUSTOM JS-->
+    
+    <script src="~/AssetsAdmin/plugins/summernote/summernote-bs4.js"></script>
+    <script src="~/AssetsAdmin/js/custom.js"></script>
+
+
+   
+</body>
+</html>

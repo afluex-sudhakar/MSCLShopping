@@ -1,0 +1,156 @@
+﻿@model MSCLShopping.Models.Customer
+
+@{
+    ViewBag.Title = "ReturnRequests";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("ReturnRequests", "CustomerManagement", FormMethod.Post, new { @id = "form1" }))
+{
+    <p style="color: red">
+        @TempData["Offer"]
+    </p>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Return Request List</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Customer Name
+                        @Html.DropDownListFor(m => m.CustomerID, new SelectList(ViewBag.ddlCustomers, "Value", "Text"), new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Order Number
+                        @Html.TextBoxFor(m => m.OrderNo, new { @class = "form-control" })
+                        @Html.HiddenFor(m => m.PK_OrderID)
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <br />
+                        <input class="btn btn-success" type="submit" value="Search" id="btnSearch" name="btnGetList" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        @if (Model != null)
+                        {
+                            if (Model.lstOrders != null)
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input class="btn btn-success pull-right" type="submit" value="Refund" id="btnUpdate" name="Update" style="margin-bottom: 10px;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>S No.</th>
+                                    <th>Request Date</th>
+                                    <th>Order Date</th>
+                                    <th>Order No</th>
+                                    <th>Product Name</th>
+                                    <th>Customer Name</th>
+                                    <th>Mobile</th>
+                                    <th>Reason</th>
+                                    <th>Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    if (Model.lstOrders != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lstOrders)
+                                        {
+                                            <tr class="text-left">
+                                                <td>@i</td>
+                                                <td>@Item.ComplainDate</td>
+                                                <td>@Item.OrderDate</td>
+                                                <td>@Item.OrderNo </td>
+                                                <td>@Item.ProductName</td>
+                                                <td>@Item.CustomerName</td>
+                                                <td>@Item.Contact</td>
+                                                <td>@Item.Description</td>
+                                                <td>@Item.TotalAmount</td>
+                                                <td>
+                                                    @*<input type="checkbox" id="Chk_ @i" name="Chk_ @i" />*@
+                                                    <a class="btn btn-sm btn-success" onclick="return approveReturn('@Item.RequestID','@Item.PK_OrderID','@Item.OrderDetailsID','@Item.CustomerID','@Item.TotalAmount')">Approve</a>
+                                                    <input type='hidden' value='@Item.OrderDetailsID' id='orderdetailid_ @i' name='orderdetailid_ @i'>
+                                                    <input type='hidden' value='@Item.TotalAmount' id='amt_ @i' name='amt_ @i'>
+                                                    <input type='hidden' value='@Item.CustomerID' id='custid_ @i' name='custid_ @i'>
+                                                </td>
+                                            </tr>
+                                            i++;
+                                        }
+
+                                        <input type='hidden' value='@i' id='hdrows' name='hdrows' />
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="../../AdminCSS/js/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+
+<script>
+
+    $('#FromDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        maxDate: 0,
+        changeYear: true,
+        changeMonth: true
+    });
+    $('#ToDate').datepicker({
+        dateFormat: 'dd/mm/yy',
+        changeYear: true,
+        changeMonth: true,
+        minDate: new Date(new Date().setMonth(new Date().getMonth() - 2))
+    });
+
+    function approveReturn(rid, oid, did, cid, amt) {
+        var result = confirm("Are you sure you want to approve Return for this Order ?");
+        if (result == true) {
+            $.ajax({
+                url: "/CustomerManagement/Approverequest",
+                Type: "Get",
+                DataType: "JSON",
+                data: { rid: rid, oid: oid, did: did, cid: cid, amt: amt },
+                success: function (data) {
+                    if (data.Result == "1") {
+                        alert("Return Request has been approved.");
+                        window.location.reload();
+                    }
+                    else {
+                        alert("Error : " + data.Status);
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+

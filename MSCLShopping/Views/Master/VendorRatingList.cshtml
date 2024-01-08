@@ -1,0 +1,83 @@
+﻿@model MSCLShopping.Models.Master
+
+@{
+    ViewBag.Title = "VendorRatingList";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("VendorRatingList", "Master", FormMethod.Post, new { @id = "form1" }))
+{
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Vendor Rating List</h4>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <p style="color:red">
+                        @TempData["VendorRating"]
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table id="example23" class="display nowrap table table-hover table-striped table-bordered dataTable no-footer">
+
+                            <thead>
+                                <tr>
+                                    <th>S No.</th>
+                                    <th>Star Rating</th>
+                                    <th>Comment</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    if (Model.lstProduct != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lstProduct)
+                                        {
+                                            <tr class="text-left">
+                                                <td>@i</td>
+                                                <td>@Item.StarRating</td>
+                                                <td>@Item.Comment</td>
+
+                                                <td>
+                                                    <a href="/Master/DeleteVendorRating?id=@Item.RatingID" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you wish to delete this?');">Delete</a>
+                                                </td>
+
+                                            </tr>
+
+                                            i++;
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<script>
+
+
+
+
+            $(document).ready(function () {
+                $('#dataTables-example').DataTable({
+                    responsive: true,
+
+                });
+            });
+</script>
+

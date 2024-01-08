@@ -1,0 +1,55 @@
+﻿@model AfluexShopping.Models.Customer
+
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_CustomerLayout1.cshtml";
+}
+
+
+<style>
+    .razorpay-payment-button {
+        transition: all linear 0.2s;
+        background: #108bea;
+        color: #fff;
+        border: none;
+        font-size: 13px;
+        line-height: 22px;
+        /*border-radius: 0;*/
+        padding: 6px 14px;
+        font-family: 'Montserrat', sans-serif;
+        border-radius: 2px;
+    }
+</style>
+<section class="tp-product-gadget-area pt-80 pb-75">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <div class="tp-product-gadget-wrapper">
+                    <form action="/Customer/PaymentSuccess" method="POST">
+
+                        <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                data-key="rzp_live_IsKhZhtWWOAVUx"
+                                data-amount="@Model.TotalAmount"
+                                data-currency="INR"
+                                data-order_id="@Model.OrderNo"
+                                data-buttontext="Pay with Razorpay"
+                                data-name="Afluex"
+                                data-description="Add Money In Afluex Shopping Wallet"
+                                data-image="/newassets/Afluex-logo/favicon.png"
+                                data-prefill.name="@Model.Name"
+                                data-prefill.email="@Model.EmailId"
+                                data-prefill.contact="@Model.ContactNo"
+                                data-theme.color="#157ed2">
+                        </script>
+                        <input type="hidden" custom="Hidden Element" name="hidden">
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

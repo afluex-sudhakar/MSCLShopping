@@ -1,0 +1,162 @@
+﻿@model AfluexShopping.Models.Master
+
+@{
+    ViewBag.Title = "VendorProductQuantityRequests";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@using (Html.BeginForm("VendorProductQuantityRequests", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"> Product Quantity Requests</h4>
+            <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>
+                                Vendor Name <span style="color: red">*</span>
+                            </label>
+                            @Html.TextBoxFor(m => m.Name,  new { @class = "form-control" })
+                        </div>
+                    </div>
+                   
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <br />
+                            <input type="submit" id="Search" value="Get Details" name="Search" class="btn btn-primary" onclick="return validateformsearch();" />
+                        </div>
+                    </div>
+                    <p style="color:red;">
+                        @TempData["ApproveQty"]
+                    </p>
+
+                </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="card-title">List</h4>
+                    <table id="order-listing" class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>S No.</th>
+                                <th>Vendor Name</th>
+                                <th>Product Name </th>
+                                <th>Brand</th>
+                                <th>MRP </th>
+                                <th> Unit</th>
+                                <th>Size </th>
+                                <th> Flavor</th>
+                                <th> Material</th>
+                                <th> Color</th>
+                                <th> RAM</th>
+                                <th>Storage </th>
+                                <th>Balance</th>
+                                <th> Requested Qty</th>
+                                <th>Assign Qty</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                if (Model.lstProduct != null)
+                                {
+                                    int i = 1;
+                                    foreach (var Item in Model.lstProduct)
+                                    {
+                                        <tr class="text-left">
+                                            <td>@i</td>
+                                            <td>@Item.Name         </td>
+                                            <td>@Item.ProductName</td>
+                                            <td>@Item.BrandName  </td>
+                                            <td>@Item.MRP   </td>
+                                            <td>@Item.UnitName   </td>
+                                            <td>@Item.SizeName  </td>
+                                            <td>@Item.FlavorName     </td>
+                                            <td>@Item.MaterialName</td>
+                                            <td>@Item.ColorName  </td>
+                                            <td>@Item.RAM    </td>
+                                            <td>@Item.Storage    </td>
+                                            <td>@Item.BalanceQuantity</td>
+                                        <td>@Item.Quantity      </td>
+                                        <td>
+                                            <input type="text" id="txtqty @i" name="txtqty @i" onchange="return gettrackno(this,'@i',@Item.BalanceQuantity,@Item.Quantity)" onkeypress="return isNumberOrDecimal(event)" />
+                                            <input type='hidden' value='@Item.ProductInfoCode' id='ProductInfoCode @i' name='ProductInfoCode @i'>
+                                            <input type='hidden' value='@Item.RequestID' id='RequestID @i' name='RequestID @i'>
+                                            <input type='hidden' value='@Item.VendorID' id='VendorID @i' name='VendorID @i'>
+                                        </td>
+                                       
+                                    </tr>
+                                        i++;
+                                    }
+                                    <input type='hidden' value='@i' id='hdrows' name='hdrows' />
+                                    <input type="hidden" id="track" />
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <br/>
+                <input type="submit" id="Save" value="Assign" name="Save" class="btn btn-success" onclick="return validateform();" />
+            </div>
+        </div>
+    </div>
+
+
+}
+<script>
+    function gettrackno(track, i, BalanceQuantity,Quantity) {
+
+        var quant = track.value;
+        if ((Number)(quant) > (Number)(BalanceQuantity)  ) {
+            alert("Assign quantity should be less than or equal to Balance quantity")
+            track.value="";
+            return false;
+        }
+        else if ((Number)(quant) > (Number)(Quantity)) {
+            alert("Assign quantity should be less than or equal to requested quantity")
+            track.value="";
+            return false;
+        }
+    }
+    function isNumberOrDecimal(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+    function validateform() {
+
+        //$(".errortext").removeClass("errortext");
+        //if ($('#VendorID').val() == '0') {
+        //    $("#VendorID").addClass('errortext');
+        //    $('#VendorID').focus();
+        //    return false;
+        //}
+
+        //if ($('#ProductID').val() == '0') {
+        //    $("#ProductID").addClass('errortext');
+        //    $('#ProductID').focus();
+        //    return false;
+        //}
+
+        //if (($("input[name*='Chk_']:checked").length) <= 0) {
+        //    alert("You must check at least 1 box");
+        //    return false;
+        //}
+        //return true;
+    }
+ 
+
+</script>
+
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+        background-color: #fff0f0 !important;
+    }
+</style>

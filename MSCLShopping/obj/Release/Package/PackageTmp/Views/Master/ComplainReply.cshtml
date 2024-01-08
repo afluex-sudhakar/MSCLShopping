@@ -1,0 +1,191 @@
+﻿@model AfluexShopping.Models.Customer
+
+@{
+    ViewBag.Title = "ComplainReply";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("ComplainReply", "Master", FormMethod.Post, new { @id = "form1" }))
+{
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Complain Response</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Complain List</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Complain Response</li>
+            </ol>
+        </div>
+        @*<div class="ms-auto pageheader-btn">
+                <a href="#" class="btn btn-primary btn-icon text-white me-2">
+                    <span>
+                        <i class="fe fe-plus"></i>
+                    </span> Add Account
+                </a>
+                <a href="#" class="btn btn-success btn-icon text-white">
+                    <span>
+                        <i class="fe fe-log-in"></i>
+                    </span> Export
+                </a>
+            </div>*@
+    </div>
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col-md-3 form-group">
+                        <b>Ticket No :</b>
+                        <span>@Model.ComplainID</span>
+                        @Html.HiddenFor(m => m.PK_ComplainID)
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <b>Customer Name :</b>
+                        <span>@Model.DisplayName</span>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <b>Ticket Date :</b>
+                        <span>@Model.ComplainDate</span>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <b>Ticket Status :</b>
+                        <span>@Model.ComplainStatus1</span>
+                    </div>
+                
+                    <div class="col-md-12 form-group">
+                        <b>Issue :</b>
+                        <span>@Model.Issue</span>
+                    </div>
+               
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Admin Reply</label>
+                            @Html.TextBoxFor(m => m.Reply, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label d-lg-block d-none">&nbsp;</label>
+                            <input type="button" value="Send" name="btnSend" onclick="return saveReply();" class="btn btn-success d-block" />
+                        </div>
+                    </div>
+                </div>
+
+
+            @if (Model != null)
+                {
+                    if (Model.lstComplainResponse != null)
+                    {
+                    <div class="table-responsive mt-3">
+                        <table id="data-table" class="table table-bordered text-nowrap mb-0">
+                            <thead class="border-top">
+                                <tr>
+                                    <th>Sr No.</th>
+                                    <th>Reply</th>
+                                    <th>Date</th>
+                                    <th>Reply Person</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    if (Model.lstComplainResponse != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lstComplainResponse)
+                                        {
+                                            <tr class="text-left">
+                                                <td>@i</td>
+                                                <td>@Item.Reply</td>
+                                                <td>@Item.ReplyDate</td>
+                                                <td>@Item.ReplyPerson</td>
+                                            </tr>
+                                            i++;
+                                        }
+
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            }
+
+            </div>
+        </div>
+    </div>
+
+
+    
+}
+
+<style>
+    .replytxt {
+        display: block;
+        width: 100%;
+        height: calc(1.5385em + 1rem + 2px);
+        padding: .5rem 0;
+        font-size: .8125rem;
+        font-weight: 400;
+        line-height: 1.5385;
+        color: #333;
+        background-color: transparent;
+        background-clip: padding-box;
+        border: 1px solid #ddd;
+        border-radius: 0;
+        box-shadow: 0 0 0 0 transparent;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        background-clip: border-box;
+        border-width: 1px 0;
+        /*border-top-color: transparent !important;*/
+        /*border: 2px solid #ddd;*/
+        /*border-radius: 4px;*/
+    }
+</style>
+
+<script>
+
+    function saveReply() {
+        if ($("#Reply").val() == '')
+        {
+            $("#Reply").focus();
+            return false;
+        }
+
+        $.ajax({
+            url: '/Master/ComplainReplySave',
+            type: "GET",
+            dataType: "JSON",
+            data: { cid: $("#PK_ComplainID").val(), rp: $("#Reply").val() },
+            success: function (data) {
+                //alert(data.Result);
+                if (data.Result == "1") {
+                    window.location.reload();
+                    //window.location.href = "/Admin/PK_ComplainID";
+                    //$("#divload").css({ 'display': 'none' });
+                }
+                else {
+                    alert("Reply not saved..");
+                }
+            }
+        })
+
+    }
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
+    }
+
+</script>
+
+
+
+
+
+
+
+
